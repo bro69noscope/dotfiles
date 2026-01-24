@@ -9,6 +9,8 @@
   pager = delta
 [interactive]
   diffFilter = cat
+[diff]
+  context = 3
 [color "diff-highlight"]
 [color "diff"]
   plain = white

@@ -165,7 +165,7 @@ function edit-zshrc() {
 alias wzcfg='edit-wezterm-profile'
 alias lgcfg='edit-lazygit-config'
 alias tmcfg='edit-tmux-config'
-alias zscfg='edit-zshrc'
+alias zshcfg='edit-zshrc'
 alias gitcfg='git config --global -e'
 
 # === QUICK EDIT FUNCTIONS END ===
