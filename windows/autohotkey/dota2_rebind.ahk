@@ -7,7 +7,6 @@ TraySetIcon "icons\dota2.png"
 
 
 #HotIf WinActive("ahk_exe Dota 2.exe") or WinActive("ahk_exe deadlock.exe")
-`::=
 CapsLock::-
 LWin::0
 
@@ -16,6 +15,7 @@ LWin::0
 !k:: Send "{Up}"
 
 #HotIf WinActive("ahk_exe Dota 2.exe")
+`::=
 ; Cam pos
 !q::!Ins ; mid
 !d::!Home ; top
