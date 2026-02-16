@@ -77,6 +77,30 @@ function Import-StreamingModules {
   Write-Host "Streaming tools loaded!" -ForegroundColor Green
 }
 
+function Test-IsBinaryFile {
+  param(
+    [Parameter(Mandatory)]
+    [string]$Path,
+
+    [int]$SampleSize = 4096
+  )
+
+  try {
+    $fs = [System.IO.File]::OpenRead($Path)
+    try {
+      $buffer = New-Object byte[] $SampleSize
+      $read = $fs.Read($buffer, 0, $buffer.Length)
+      return ($buffer[0..($read-1)] -contains 0)
+    } finally {
+      $fs.Dispose()
+    }
+  } catch {
+    # If we can’t read it safely, assume binary
+    return $true
+  }
+}
+
+
 function Copy-FileContextRecursively {
   param(
     [Parameter(Position=0)]
@@ -138,7 +162,11 @@ function Copy-FileContextRecursively {
       $output += ""
       $output += "━━━ $file ━━━"
       $output += ""
-      $output += Get-Content $file -Raw
+      if (Test-IsBinaryFile $file) {
+        $output += "[binary file skipped]"
+      } else {
+        $output += Get-Content $file -Raw
+      }
       $output += ""
     }
 
