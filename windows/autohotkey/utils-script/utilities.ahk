@@ -49,7 +49,6 @@ global LeaderCommands := Map(
   ; Multi-character commands
   ".m", WriteMessageDontResendAllCode,
   ".w", WriteMessageWorstUserName,
-  ".x", WriteMessageExplainCode,
   "RR", Reload,
   "Spacep", ActivateAdminPowerShell,
   "Space]", ResetChromeWindowList
@@ -641,10 +640,6 @@ WriteMessageDontResendAllCode() {
 
 WriteMessageWorstUserName() {
   SendText "woertsposzibllen4me"
-}
-
-WriteMessageExplainCode() {
-  SendText "Can you explain every single line in depth ? No need to review code which has similar logic twice, but for every new uncovered piece of logic explain it very thoroughly please. There should be little room for further questioning if at all."
 }
 
 ReplaceSlashes(direction := "/") {
