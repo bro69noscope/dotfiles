@@ -355,7 +355,8 @@ for n in StrSplit("0123456789") {
 Hotkey "Space", MakeCallback("Space")
 Hotkey "^Space", MakeCallback("Space")
 
-specials := ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "/", "\", "]", "[", "."]
+specials := ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "/", "\", "]", "[", ".",
+  ","]
 for s in specials {
   Hotkey s, MakeCallback(s)
 }
@@ -634,6 +635,12 @@ ActivateDeadlock() {
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\Deadlock.url"
 }
 
+LaunchDeadLockMovementScript() {
+  scriptPath :=
+    "C:\Users\ville\myfiles\deadlock-movement-tracker\deadlock-movement-tracker.ahk"
+  Run scriptPath
+}
+
 WriteMessageDontResendAllCode() {
   SendText "No need to resend me all the code for this one"
 }
@@ -663,6 +670,10 @@ ReplaceSlashes(direction := "/") {
 #HotIf WinActive("ahk_exe wezterm-gui.exe")
 ^;::F13
 ^,::+F13
+#HotIf
+
+#HotIf WinActive("ahk_exe deadlock.exe")
+!+^F12:: LaunchDeadLockMovementScript()
 #HotIf
 
 Excludegames() {
