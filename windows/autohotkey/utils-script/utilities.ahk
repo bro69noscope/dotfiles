@@ -356,7 +356,7 @@ for n in StrSplit("0123456789") {
 Hotkey "Space", MakeCallback("Space")
 Hotkey "^Space", MakeCallback("Space")
 
-specials := ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "/", "\", "]", "["]
+specials := ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "/", "\", "]", "[", "."]
 for s in specials {
   Hotkey s, MakeCallback(s)
 }
