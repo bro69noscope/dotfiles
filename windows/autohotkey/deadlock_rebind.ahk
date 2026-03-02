@@ -12,19 +12,29 @@ LWin::0
 !j::Up
 !k::Down
 
-!+^F10:: {
-  MsgBox "Reloaded script"
-  Reload
-}
 
-jump := "{Space}"
-crouch := "{Shift}"
+; --- experimentals ---
 
-^Space:: {
-  Send crouch
-  Sleep 1
-  Send jump
-}
-
-#Include deadlock_parry_timings.ahk
+; !+^F10:: {
+;   MsgBox "Reloaded script"
+;   Reload
+; }
+;
+; jump := "{Space}"
+; crouch := "{Shift}"
+; dash := "v"
+;
+; ^Space:: {
+;   Send crouch
+;   Sleep 1
+;   Send jump
+; }
+;
+; *XButton2:: {
+;   Send jump
+;   Sleep 1
+;   Send dash
+; }
+;
+; #Include deadlock_parry_timings.ahk
 #HotIf

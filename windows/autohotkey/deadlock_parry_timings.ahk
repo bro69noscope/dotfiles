@@ -1,4 +1,5 @@
 #Requires AutoHotkey v2.0
+; AI SLOP
 
 class AttemptLog {
   static _buf := []
@@ -170,10 +171,14 @@ WheelHandler(direction) {
   AttemptLog.Add("Pressed Wheel" direction)
 }
 
-~f:: AttemptLog.Add("Pressed f")
+AttemptLog.EnableFile(A_ScriptDir "\logs\parry_attempt_log.txt")
 
-~RButton:: AttemptLog.Add("Pressed RButton")
-~XButton1:: AttemptLog.Add("Pressed XButton1")
-~WheelDown:: WheelHandler("Down")
+~*f:: AttemptLog.Add("Pressed f")
+~*q:: AttemptLog.Add("Pressed q")
 
-F12:: AttemptLog.Show()
+~*RButton:: AttemptLog.Add("Pressed RButton")
+~*XButton1:: AttemptLog.Add("Pressed XButton1")
+; ~*XButton2:: AttemptLog.Add("Pressed XButton2")
+~*WheelDown:: WheelHandler("Down")
+
++F12:: AttemptLog.Show()
