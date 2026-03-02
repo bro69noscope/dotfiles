@@ -26,45 +26,9 @@ crouch := "{Shift}"
   Send jump
 }
 
-global LOG_BUFFER := []
-global MAX_LOG := 100
-global LAST_EVENT_TICK := 0
-global GAP_THRESHOLD := 400  ; ms between attempts
-
-Log(msg) {
-  global LOG_BUFFER, MAX_LOG, LAST_EVENT_TICK, GAP_THRESHOLD
-
-  now := A_TickCount
-
-  ; If enough time passed → new attempt
-  if (LAST_EVENT_TICK && (now - LAST_EVENT_TICK > GAP_THRESHOLD))
-    LOG_BUFFER.Push("")  ; blank separator line
-
-  LAST_EVENT_TICK := now
-
-  timestamp := FormatTime(, "HH:mm:ss")
-  LOG_BUFFER.Push("[" timestamp "] " msg)
-
-  if (LOG_BUFFER.Length > MAX_LOG)
-    LOG_BUFFER.RemoveAt(1)
-}
-
-~1:: Log("Pressed 1")
-~XButton1:: Log("Pressed Mouse Back Button")
-
-F12:: {
-  global LOG_BUFFER
-
-  if (LOG_BUFFER.Length = 0) {
-    MsgBox "Log is empty"
-    return
-  }
-
-  text := ""
-  for line in LOG_BUFFER
-    text .= line "`n"
-
-  MsgBox text
-}
+#Include deadlock_parry_timings.ahk
+~q:: AttemptLog.Add("Pressed Q")
+~XButton1:: AttemptLog.Add("Pressed Mouse4")
+F12:: AttemptLog.Show()
 
 #HotIf
