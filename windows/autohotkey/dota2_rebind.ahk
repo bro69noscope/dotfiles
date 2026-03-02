@@ -6,16 +6,15 @@ SetWorkingDir A_ScriptDir
 TraySetIcon "icons\dota2.png"
 
 
-#HotIf WinActive("ahk_exe Dota 2.exe") or WinActive("ahk_exe deadlock.exe")
+#HotIf WinActive("ahk_exe Dota 2.exe")
 CapsLock::-
 LWin::0
+`::=
 
 ; Keep vim style up/down navigtion
 !j:: Send "{Down}"
 !k:: Send "{Up}"
 
-#HotIf WinActive("ahk_exe Dota 2.exe")
-`::=
 ; Cam pos
 !q::!Ins ; mid
 !d::!Home ; top
