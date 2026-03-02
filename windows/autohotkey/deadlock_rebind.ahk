@@ -27,8 +27,4 @@ crouch := "{Shift}"
 }
 
 #Include deadlock_parry_timings.ahk
-~q:: AttemptLog.Add("Pressed Q")
-~XButton1:: AttemptLog.Add("Pressed Mouse4")
-F12:: AttemptLog.Show()
-
 #HotIf
