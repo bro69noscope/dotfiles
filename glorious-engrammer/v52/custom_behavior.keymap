@@ -1,8 +1,8 @@
 // NOTE: Use the many #define settings below to customize this keymap!
-#define OPERATING_SYSTEM 'L' // choose 'L'inux, 'M'acOS, or 'W'indows
+#define OPERATING_SYSTEM 'W' // choose 'L'inux, 'M'acOS, or 'W'indows
 #define DIFFICULTY_LEVEL  0  // 0:custom, 1:easy -> 5:hard (see below)
 #define ENABLE_MOUSE_KEYS    // requires HID_POINTING override to "y"
-#define ENFORCE_BILATERAL    // cancels single-handed home row mod+tap
+// #define ENFORCE_BILATERAL    // cancels single-handed home row mod+tap
 //#define SPACE_FORGIVENESS  // allow lingering taps on the space bar
 //#define THUMB_FORGIVENESS  // allow lingering taps on the thumb keys
 //#define SHIFT_FORGIVENESS  // requires v24.08-beta or newer firmware
@@ -759,11 +759,11 @@ combos {
   };
   #endif
 
-  // C1R5+C2R6
+  // C2R1+C1R2
   #ifdef LAYER_Gaming
   combo_gaming_layer_toggle {
     timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_LH_C1R5 POS_LH_C2R6>;
+    key-positions = <POS_LH_C2R1 POS_LH_C1R2>;
     bindings = <&tog LAYER_Gaming>;
     layers = <0 LAYER_macOS LAYER_Gaming>;
   };
@@ -771,7 +771,7 @@ combos {
   #ifdef LAYER_Typing
   combo_typing_layer_toggle {
     timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_RH_C1R5 POS_RH_C2R6>;
+    key-positions = <POS_RH_C2R1 POS_RH_C1R2>;
     bindings = <&tog LAYER_Typing>;
     layers = <0 LAYER_macOS LAYER_Typing>;
   };
