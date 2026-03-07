@@ -173,8 +173,8 @@ WheelHandler(direction) {
 
 AttemptLog.EnableFile(A_ScriptDir "\logs\parry_attempt_log.txt")
 
-~*f:: AttemptLog.Add("Pressed f")
-~*q:: AttemptLog.Add("Pressed q")
+~*e:: AttemptLog.Add("Pressed e")
+~*c:: AttemptLog.Add("Pressed c")
 
 ~*RButton:: AttemptLog.Add("Pressed RButton")
 ~*XButton1:: AttemptLog.Add("Pressed XButton1")

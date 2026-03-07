@@ -58,5 +58,5 @@ LWin::[
 ;   Send dash
 ; }
 
-#Include deadlock_parry_timings.ahk
+; #Include deadlock_parry_timings.ahk
 #HotIf

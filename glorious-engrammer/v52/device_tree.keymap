@@ -453,10 +453,10 @@
         bindings = <
           COR ___ ___ COR RED                                             TEA TEA TEA BLU BLU
           ___ ___ ___ ___ ___ RED                                     BLU CYN CYN CYN TUR TUR
-          ___ ___ ORN MAJ ORN ___                                     ___ ___ ___ ___ ___ TUR
+          ___ ___ ORN ___ ORN ___                                     ___ ___ ___ ___ ___ TUR
           ___ ORN SPG AZU RED ORN                                     ___ ___ ___ ___ YLW YLW
           ___ YLW AZU AZU AZU MAJ     BLU GRN COR     COR AZU WHT     ___ ___ YLW YLW ___ ___
-          ___ SPG SPG ORN SPG         WHT MAJ ORN     AZU AZU AZU         YLW ___ ___ ___ ___
+          ___ SPG SPG ___ SPG         WHT MAJ ORN     AZU AZU AZU         YLW ___ ___ ___ ___
         >;
         layer-id = <LAYER_Gaming>;
       };
