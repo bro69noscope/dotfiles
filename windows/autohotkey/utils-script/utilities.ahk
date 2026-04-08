@@ -22,6 +22,7 @@ global LeaderCommands := Map(
   "a", ActivateAlacritty,
   "b", ActivateBraveBrowser,
   "d", ActivateDiscord,
+  "c", ActivateLosslessCut,
   "g", ActivateSteam,
   "k", ActivateKovaaks,
   "l", ActivateDeadlock,
@@ -485,6 +486,13 @@ ActivateDiscord() {
     WinActivate
   else
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
+}
+
+ActivateLosslessCut() {
+  if WinExist("ahk_exe LosslessCut.exe")
+    WinActivate
+  else
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\LosslessCut.lnk"
 }
 
 ActivateStreamDeck() {
