@@ -2,6 +2,8 @@
 #define OPERATING_SYSTEM 'W' // choose 'L'inux, 'M'acOS, or 'W'indows
 #define DIFFICULTY_LEVEL  0  // 0:custom, 1:easy -> 5:hard (see below)
 #define ENABLE_MOUSE_KEYS    // requires HID_POINTING override to "y"
+#define PINKY_HOLDING_TIME (TAPPING_RESOLUTION + 90)
+#define RIGHT_INDEX_STREAK_DECAY 100
 // #define ENFORCE_BILATERAL    // cancels single-handed home row mod+tap
 //#define SPACE_FORGIVENESS  // allow lingering taps on the space bar
 //#define THUMB_FORGIVENESS  // allow lingering taps on the thumb keys
