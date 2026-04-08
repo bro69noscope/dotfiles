@@ -451,14 +451,28 @@
       #ifdef LAYER_Gaming
       Gaming {
         bindings = <
-          COR ___ ___ COR RED                                             TEA TEA TEA BLU BLU
-          ___ ___ ___ ___ ___ RED                                     BLU CYN CYN CYN TUR TUR
-          ___ ___ ORN ___ ORN ___                                     ___ ___ ___ ___ ___ TUR
-          ___ ORN SPG AZU RED ORN                                     ___ ___ ___ ___ YLW YLW
-          ___ YLW AZU AZU AZU MAJ     BLU GRN COR     COR AZU WHT     ___ ___ YLW YLW ___ ___
-          ___ SPG SPG ___ SPG         WHT MAJ ORN     AZU AZU AZU         YLW ___ ___ ___ ___
+          RED GOL ___ ___ RED                                             ___ ___ ___ ___ ___
+          ___ RED RED RED RED RED                                     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ CHU ___                                     ___ ___ ___ ___ ___ ___
+          ___ ORN MAJ AZU ORN ORN                                     ___ ___ ___ ___ ___ ___
+          MAJ WHT AZU AZU AZU BLU     ORN ___ RED     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ BLU BLU MAJ BLU         WHT ___ BLU     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_Gaming>;
+      };
+      #endif
+
+      #ifdef LAYER_Deadlock
+      Deadlock {
+        bindings = <
+          RED SPG ___ YLW ___                                             ___ ___ ___ ___ ___
+          RED ___ YLW YLW YLW ___                                     ___ ___ ___ ___ ___ ___
+          RED MAJ ___ WHT ___ WHT                                     ___ ___ ___ ___ ___ ___
+          ___ ___ GRN AZU GRN GRN                                     ___ ___ ___ ___ ___ ___
+          MAJ WHT GRN AZU GRN BLU     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ BLU BLU ___ BLU         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+        >;
+        layer-id = <LAYER_Deadlock>;
       };
       #endif
 
