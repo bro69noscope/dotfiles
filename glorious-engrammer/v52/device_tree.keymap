@@ -448,31 +448,73 @@
       };
       #endif
 
-      #ifdef LAYER_Gaming
-      Gaming {
+      #ifdef LAYER_Gaming_DL
+      Gaming_DL {
         bindings = <
           RED GOL ___ ___ RED                                             ___ ___ ___ ___ ___
-          ___ RED RED RED RED RED                                     ___ ___ ___ ___ ___ ___
-          ___ ___ ___ ___ CHU ___                                     ___ ___ ___ ___ ___ ___
-          ___ ORN MAJ AZU ORN ORN                                     ___ ___ ___ ___ ___ ___
-          MAJ WHT AZU AZU AZU BLU     ORN ___ RED     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          ___ BLU BLU MAJ BLU         WHT ___ BLU     ___ ___ ___         ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ RED                                     ___ ___ ___ ___ ___ ___
+          ___ ___ ORN ___ ___ RED                                     ___ ___ ___ ___ ___ ___
+          ___ BLU MAJ ___ ORN ORN                                     ___ ___ ___ ___ ___ ___
+          ___ WHT ___ ___ ___ BLU     CHU ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ BLU BLU MAJ BLU         WHT ___ MAJ     ___ ___ ___         ___ ___ ___ ___ ___
         >;
-        layer-id = <LAYER_Gaming>;
+        layer-id = <LAYER_Gaming_DL>;
       };
       #endif
 
       #ifdef LAYER_Deadlock
       Deadlock {
         bindings = <
-          RED SPG ___ YLW ___                                             ___ ___ ___ ___ ___
+          RED CHU ___ YLW ___                                             ___ ___ ___ ___ ___
           RED ___ YLW YLW YLW ___                                     ___ ___ ___ ___ ___ ___
-          RED MAJ ___ WHT ___ WHT                                     ___ ___ ___ ___ ___ ___
-          ___ ___ GRN AZU GRN GRN                                     ___ ___ ___ ___ ___ ___
-          MAJ WHT GRN AZU GRN BLU     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          ___ BLU BLU ___ BLU         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+          RED WHT ___ ___ ___ WHT                                     ___ ___ ___ ___ ___ ___
+          ___ ___ CYN ___ CYN CYN                                     ___ ___ ___ ___ ___ ___
+          ___ WHT CYN ___ CYN ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_Deadlock>;
+      };
+      #endif
+
+      #ifdef LAYER_Gaming_WC3
+      Gaming_WC3 {
+        bindings = <
+          ___ RED ___ ___ ___                                             ___ ___ ___ ___ ___
+          RED ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ GRN ORN RED BLU MAJ                                     ___ ___ ___ ___ ___ ___
+          ___ WHT ___ ___ ___ ___     COR CYN RED     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___         ___ ___ LAC     ___ ___ ___         ___ ___ ___ ___ ___
+        >;
+        layer-id = <LAYER_Gaming_WC3>;
+      };
+      #endif
+
+      #ifdef LAYER_WC3_Heroes
+      Gaming_WC3_Heroes {
+        bindings = <
+          ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ ___ RED GRN ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ ___ AZU AZU ORN ___                                     ___ ___ ___ ___ ___ ___
+          ___ WHT AZU AZU ORN ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ ___ AZU AZU ORN         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+        >;
+        layer-id = <LAYER_WC3_Heroes>;
+      };
+      #endif
+
+      #ifdef LAYER_WC3_Prod
+      WC3_Prod {
+        bindings = <
+          ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ GOL COR COR COR PNK                                     ___ ___ ___ ___ ___ ___
+          ___ WHT ___ ___ ___ ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ CYN ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+        >;
+        layer-id = <LAYER_WC3_Prod>;
       };
       #endif
 

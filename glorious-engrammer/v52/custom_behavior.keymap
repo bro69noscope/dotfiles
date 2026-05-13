@@ -761,15 +761,25 @@ combos {
   };
   #endif
 
-  // C2R1+C1R2
-  #ifdef LAYER_Gaming
-  combo_gaming_layer_toggle {
+  // C2R1+C1R2, C5R1+C6R2
+  #ifdef LAYER_Gaming_DL
+  combo_gaming_dl_layer_toggle {
     timeout-ms = <COMBO_FIRING_DECAY>;
     key-positions = <POS_LH_C2R1 POS_LH_C1R2>;
-    bindings = <&tog LAYER_Gaming>;
-    layers = <0 LAYER_macOS LAYER_Gaming>;
+    bindings = <&tog LAYER_Gaming_DL>;
+    layers = <0 LAYER_macOS LAYER_Gaming_DL>;
   };
   #endif
+
+  #ifdef LAYER_Gaming_WC3
+  combo_gaming_wc3_layer_toggle {
+    timeout-ms = <COMBO_FIRING_DECAY>;
+    key-positions = <POS_LH_C5R1 POS_LH_C6R2>;
+    bindings = <&tog LAYER_Gaming_WC3>;
+    layers = <0 LAYER_macOS LAYER_Gaming_WC3>;
+  };
+  #endif
+
   #ifdef LAYER_Typing
   combo_typing_layer_toggle {
     timeout-ms = <COMBO_FIRING_DECAY>;
