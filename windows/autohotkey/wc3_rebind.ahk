@@ -11,14 +11,14 @@ global WheelEnabled := false
 
 +Space:: Send "p"
 
-WheelUp:: {
+*WheelUp:: {
   if WheelEnabled
     Send "="
   else
     return
 }
 
-WheelDown:: {
+*WheelDown:: {
   if WheelEnabled
     Send "-"
   else
@@ -39,70 +39,70 @@ RemoveToolTip() {
   ToolTip
 }
 
-; Disable some alt combos temporarily
-!q:: return
-!a:: return
-!s:: return
-!d:: return
-!f:: return
-!c:: return
-!v:: return
-^s:: return
-
-; Inactive peons/Town hall navigation
-`::F8
-CapsLock::BackSpace
-
-; Control groups
-XButton1 & a::5
-XButton1 & s::6
-XButton1 & d::7
-XButton1 & f::8
-XButton1 & c::9
-g::0
-XButton2::l
-
-
-; This whole mess is to fix an issue with keypress displayers when pressing and releasing the mouse button and the letter key in a weird unusual order
-MButton:: {
-  Send "{a up}{s up}{d up}{f up}{c up}"
-  Send "{MButton down}"
-}
-
-MButton up:: {
-  Send "{MButton up}"
-}
-
-a up:: {
-  Send "{5 up}"
-  Send "{a up}"
-}
-
-s up:: {
-  Send "{6 up}"
-  Send "{s up}"
-}
-
-d up:: {
-  Send "{7 up}"
-  Send "{d up}"
-}
-
-f up:: {
-  Send "{8 up}"
-  Send "{f up}"
-}
-
-c up:: {
-  Send "{9 up}"
-  Send "{c up}"
-}
-
-a::a
-s::s
-d::d
-f::f
-c::c
+; ; Disable some alt combos temporarily
+; !q:: return
+; !a:: return
+; !s:: return
+; !d:: return
+; !f:: return
+; !c:: return
+; !v:: return
+; ^s:: return
+;
+; ; Inactive peons/Town hall navigation
+; `::F8
+; CapsLock::BackSpace
+;
+; ; Control groups
+; XButton1 & a::5
+; XButton1 & s::6
+; XButton1 & d::7
+; XButton1 & f::8
+; XButton1 & c::9
+; g::0
+; XButton2::l
+;
+;
+; ; This whole mess is to fix an issue with keypress displayers when pressing and releasing the mouse button and the letter key in a weird unusual order
+; MButton:: {
+;   Send "{a up}{s up}{d up}{f up}{c up}"
+;   Send "{MButton down}"
+; }
+;
+; MButton up:: {
+;   Send "{MButton up}"
+; }
+;
+; a up:: {
+;   Send "{5 up}"
+;   Send "{a up}"
+; }
+;
+; s up:: {
+;   Send "{6 up}"
+;   Send "{s up}"
+; }
+;
+; d up:: {
+;   Send "{7 up}"
+;   Send "{d up}"
+; }
+;
+; f up:: {
+;   Send "{8 up}"
+;   Send "{f up}"
+; }
+;
+; c up:: {
+;   Send "{9 up}"
+;   Send "{c up}"
+; }
+;
+; a::a
+; s::s
+; d::d
+; f::f
+; c::c
 
 ; Custom game quick cheats setup
 Home:: {
