@@ -19,9 +19,12 @@ global LeaderKeyTimeout := 2000
 
 global LeaderCommands := Map(
   ; Single character commands
-  "a", ActivateAlacritty,
+  "a", activateAgeOfEmpires2,
+  "A", ActivateAlacritty,
   "b", ActivateBraveBrowser,
+  "B", ActivateBitwarden,
   "d", ActivateDiscord,
+  "D", ActivateAutoDuck,
   "c", ActivateLosslessCut,
   "g", ActivateSteam,
   "k", ActivateKovaaks,
@@ -488,6 +491,13 @@ ActivateDiscord() {
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
 }
 
+ActivateAutoDuck() {
+  if WinExist("ahk_exe Auto-Duck.exe")
+    WinActivate
+  else
+    Run "C:\Users\ville\OneDrive\Streaming\Software settings\AutoDuck\stream_duck.adrt"
+}
+
 ActivateLosslessCut() {
   if WinExist("ahk_exe LosslessCut.exe")
     WinActivate
@@ -523,6 +533,12 @@ ActivateSteam() {
     Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Steam\Steam.lnk"
 }
 
+ActivateAgeOfEmpires2() {
+  if WinExist("ahk_exe AoE2DE_s.exe")
+    WinActivate
+  else
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\Age of Empires II Definitive Edition.url"
+}
 
 ActivateAlacritty() {
   SetTitleMatchMode 2
@@ -537,6 +553,13 @@ ActivateBraveBrowser() {
     WinActivate
   else
     Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Brave.lnk"
+}
+
+ActivateBitwarden() {
+  if WinExist("ahk_exe Bitwarden.exe")
+    WinActivate
+  else
+    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Bitwarden.lnk"
 }
 
 ActivateSpotify() {
