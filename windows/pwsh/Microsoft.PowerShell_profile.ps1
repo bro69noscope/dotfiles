@@ -11,7 +11,7 @@ $env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm us
 $env:YAZI_FILE_ONE="C:\Program Files\Git\usr\bin\file.exe"
 $env:DOTFILES_PATH = "$HOME\myfiles\dotfiles"
 $env:STREAMING_DATA_PATH = "$HOME\myfiles\streaming-data"
-$env:STREAMING_REPO_PATH = "$HOME\myfiles\woertsposzibllen4me"
+$env:STREAMING_REPO_PATH = "$HOME\myfiles\git-repos\woertsposzibllen4me"
 
 ## These are forwarded to WSL when using "wsl" from pwsh
 $env:WSLENV = "AVANTE_ANTHROPIC_API_KEY"
