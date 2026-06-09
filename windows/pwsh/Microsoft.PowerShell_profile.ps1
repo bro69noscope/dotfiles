@@ -30,6 +30,8 @@ Set-Alias -Name dsize -Value Get-DirectorySize
 Set-Alias -Name lf -Value Invoke-Yazi
 Set-Alias -Name y -Value Invoke-Yazi
 Set-Alias -Name cpcode -Value Copy-FileContextRecursively
+Set-Alias -Name ctot -Value ConvertTo-ObsTemplate
+Set-Alias -Name cfot -Value ConvertFrom-ObsTemplate
 
 ## Path additions
 $pathsToAdd = @(
