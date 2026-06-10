@@ -30,8 +30,13 @@ Set-Alias -Name dsize -Value Get-DirectorySize
 Set-Alias -Name lf -Value Invoke-Yazi
 Set-Alias -Name y -Value Invoke-Yazi
 Set-Alias -Name cpcode -Value Copy-FileContextRecursively
+
+Set-Alias -Name istm -Value Import-StreamingTemplatesModules
 Set-Alias -Name ctot -Value ConvertTo-ObsTemplate
 Set-Alias -Name cfot -Value ConvertFrom-ObsTemplate
+Set-Alias -Name ctst -Value ConvertTo-StreamDeckTemplate
+Set-Alias -Name cfst -Value ConvertFrom-StreamDeckTemplate
+
 
 ## Path additions
 $pathsToAdd = @(

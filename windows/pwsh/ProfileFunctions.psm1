@@ -55,7 +55,7 @@ function Invoke-Yazi {
   Remove-Item -Path $tmp
 }
 
-function Import-StreamingModules {
+function Import-StreamingTemplatesModules {
   if (-not $env:STREAMING_REPO_PATH) {
     throw "STREAMING_REPO_PATH environment variable is not set"
   }
