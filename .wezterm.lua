@@ -372,6 +372,9 @@ config.keys = {
   -- Full screen
   { key = "F11", action = wezterm.action.ToggleFullScreen },
 
+  -- Pick tab
+  { key = "T", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
+
   -- Navigate between panes
   -- {
   --   key = "h",
@@ -603,11 +606,12 @@ config.keys = {
     mods = "LEADER",
     action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
   },
-  {
-    key = "T",
-    mods = "LEADER",
-    action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
-  },
+
+  -- {
+  --   key = "T",
+  --   mods = "LEADER",
+  --   action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
+  -- },
 
   -- Switch tabs
   { key = "phys:1", mods = "LEADER", action = wezterm.action.ActivateTab(0) },
