@@ -771,12 +771,12 @@ combos {
   };
   #endif
 
-  #ifdef LAYER_Gaming_AOE2
-  combo_gaming_AOE2_layer_toggle {
+  #ifdef LAYER_Gaming_AoE2
+  combo_gaming_aoe2_layer_toggle {
     timeout-ms = <COMBO_FIRING_DECAY>;
     key-positions = <POS_LH_C5R1 POS_LH_C6R2>;
-    bindings = <&tog LAYER_Gaming_AOE2>;
-    layers = <0 LAYER_macOS LAYER_Gaming_AOE2>;
+    bindings = <&tog LAYER_Gaming_AoE2>;
+    layers = <0 LAYER_macOS LAYER_Gaming_AoE2>;
   };
   #endif
 
