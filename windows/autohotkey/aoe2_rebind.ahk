@@ -7,65 +7,65 @@ SendMode "Event"
 #HotIf WinActive("ahk_exe AoE2DE_s.exe")
 
 Home:: {
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "rowshep"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "my cpu can handle it"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "aegis"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "marco"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "polo"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 }
 
 +Home:: {
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "aegis"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 }
 
 ^Home:: {
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "N\A"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 }
 
 !Home:: {
-  sleep 100
+  sleep 60
   Send "{Enter}"
-  sleep 100
+  sleep 60
   Send "N\A"
-  sleep 100
+  sleep 60
   Send "{Enter}"
 }
