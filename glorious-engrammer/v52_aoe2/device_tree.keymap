@@ -148,7 +148,7 @@
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ MAJ CYN GRN YLW ___                                     ___ YLW GRN CYN MAJ ___
-          YLW ___ ___ ___ ___ ___     LAC COR ___     ___ COR LAC     ___ ___ ___ ___ ___ YLW
+          YLW ___ ___ ___ ___ ___     LAC ___ ___     ___ ORN LAC     ___ ___ ___ ___ ___ YLW
           ___ ___ ___ ___ LAC         BSL BNL BCL     ___ LAC LAC         LAC ___ ___ ___ ___
         >;
         layer-id = <0>;
@@ -161,7 +161,7 @@
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ GRN CYN MAJ YLW ___                                     ___ YLW MAJ CYN GRN ___
-          YLW ___ ___ ___ ___ ___     LAC COR ___     ___ COR LAC     ___ ___ ___ ___ ___ YLW
+          YLW ___ ___ ___ ___ ___     LAC ___ ___     ___ ORN LAC     ___ ___ ___ ___ ___ YLW
           RED RED ___ ___ LAC         BSL BNL BCL     ___ LAC LAC         LAC ___ ___ RED RED
         >;
         layer-id = <LAYER_macOS>;
@@ -284,7 +284,7 @@
       Cursor {
         bindings = <
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
-          ___ COR COR COR COR ___                                     ___ ___ ___ ___ ___ ___
+          ___ COR COR COR ORN ___                                     ___ ___ ___ ___ ___ ___
           ___ COR COR COR COR GDN                                     GDN COR PUR PUR COR ___
           YLW MAJ CYN GRN YLW GDN                                     GDN AZU AZU AZU AZU YLW
           PNK SPG SPG SPG PUR GDN     COR COR ___     SPG SPG SPG     GDN AZU AZU AZU AZU PNK
@@ -413,8 +413,8 @@
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ PNK AZU SPG GDN COR                                     ___ ___ ___ ___ ___ ___
           ___ PNK AZU SPG GDN COR                                     ___ YLW GRN CYN MAJ ___
-          ___ ___ BLU BLU BLU COR     PUR PUR PUR     ___ ORN RED     ___ SSL SNL SCL PUR PUR
-          ___ ___ ___ ___ ORN         SSL SNL SCL     BLU BLU BLU         ___ ___ ___ ___ PUR
+          ___ ___ BLU BLU BLU COR     PUR PUR PUR     ___ ___ RED     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ORN         SSL SNL SCL     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_System>;
       };
@@ -479,12 +479,12 @@
       #ifdef LAYER_Gaming_AoE2
       Gaming_AoE2 {
         bindings = <
-          ___ RED ___ ___ YLW                                             ___ ___ ___ ___ ___
+          ___ RED ___ ___ ORN                                             ___ ___ ___ ___ ___
           RED ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ PNK COR COR COR COR                                     ___ ___ ___ ___ ___ ___
-          ___ MAJ RED ORN BLU GRN                                     ___ ___ ___ ___ ___ ___
-          YLW WHT ___ ___ ___ ___     LAC ___ LAC     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          YLW ___ ___ ___ ___         ___ ___ LAC     ___ ___ ___         ___ ___ ___ ___ ___
+          ___ COR COR COR COR COR                                     ___ ___ ___ ___ ___ ___
+          ___ LAC LAC LAC LAC LAC                                     ___ ___ ___ ___ ___ ___
+          LAC WHT ___ ___ ___ ___     TEA ___ TEA     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          LAC ___ ___ ___ ___         ___ ___ TEA     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_Gaming_AoE2>;
       };
@@ -494,11 +494,11 @@
       AoE2_extra {
         bindings = <
           ___ ___ SPG SPG SPG                                             ___ ___ ___ ___ ___
-          ___ ___ LAC LAC LAC LAC                                     ___ ___ ___ ___ ___ ___
-          ___ ___ ORN BLU GOL ___                                     ___ ___ ___ ___ ___ ___
-          ___ COR COR COR COR COR                                     ___ ___ ___ ___ ___ ___
+          ___ ___ PNK PNK PNK PNK                                     ___ ___ ___ ___ ___ ___
+          ___ ___ ORN AZU ORN ___                                     ___ ___ ___ ___ ___ ___
+          ___ AZU AZU AZU AZU AZU                                     ___ ___ ___ ___ ___ ___
           AZU WHT ___ ___ ___ ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          AZU AZU ___ ___ ___         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+          AZU AZU ___ ___ ___         RED ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_AoE2_extra>;
       };
