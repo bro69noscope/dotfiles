@@ -21,17 +21,19 @@ global LeaderCommands := Map(
   ; Single character commands
   "a", activateAgeOfEmpires2,
   "A", ActivateAlacritty,
-  "b", ActivateBraveBrowser,
   "B", ActivateBitwarden,
-  "d", ActivateDiscord,
-  "D", ActivateAutoDuck,
+  "b", ActivateBraveBrowser,
   "c", ActivateLosslessCut,
+  "D", ActivateAutoDuck,
+  "d", ActivateDiscord,
   "g", ActivateSteam,
+  "G", ActivateTobiiGhost,
   "k", ActivateKovaaks,
   "l", ActivateDeadlock,
   "m", ActivateMailClient,
   "n", ActivateNeo4j,
   "o", ActivateOBS,
+  "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
   "s", ActivateSpotify,
@@ -40,21 +42,19 @@ global LeaderCommands := Map(
   "w", ActivateWezTerm,
   "x", ActivateExplorer,
   "y", ActivatePyCharm,
-  ; Number commands
+  ; Number/specials commands
   "1", ActivateBrowser1Window,
   "2", ActivateBrowser2Window,
   "3", ActivateBrowser3Window,
-  ; Symbol commands
-  "!", (*) => CaptureCurrentChromeWindow(1),
-  "@", (*) => CaptureCurrentChromeWindow(2),
-  "#", (*) => CaptureCurrentChromeWindow(3),
   "/", (*) => ReplaceSlashes("/"),
   "\", (*) => ReplaceSlashes("\"),
   ; Multi-character commands
+  "space1", (*) => CaptureCurrentChromeWindow(1),
+  "space2", (*) => CaptureCurrentChromeWindow(2),
+  "space3", (*) => CaptureCurrentChromeWindow(3),
   ".m", WriteMessageDontResendAllCode,
   ".w", WriteMessageWorstUserName,
   "RR", Reload,
-  "Spacep", ActivateAdminPowerShell,
   "Space]", ResetChromeWindowList
 )
 
@@ -517,6 +517,13 @@ ActivateStreamerBot() {
     WinActivate
   else
     Run "C:\Users\ville\myfiles\programs\Streamer.bot\Streamer.bot.exe"
+}
+
+ActivateTobiiGhost() {
+  if WinExist("ahk_exe TobiiGhost.exe")
+    WinActivate
+  else
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Tobii\Tobii Ghost.lnk"
 }
 
 ActivateMailClient() {
