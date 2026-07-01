@@ -49,13 +49,14 @@ global LeaderCommands := Map(
   "/", (*) => ReplaceSlashes("/"),
   "\", (*) => ReplaceSlashes("\"),
   ; Multi-character commands
-  "space1", (*) => CaptureCurrentChromeWindow(1),
-  "space2", (*) => CaptureCurrentChromeWindow(2),
-  "space3", (*) => CaptureCurrentChromeWindow(3),
+  "Space1", (*) => CaptureCurrentChromeWindow(1),
+  "Space2", (*) => CaptureCurrentChromeWindow(2),
+  "Space3", (*) => CaptureCurrentChromeWindow(3),
   ".m", WriteMessageDontResendAllCode,
   ".w", WriteMessageWorstUserName,
   "RR", Reload,
-  "Space]", ResetChromeWindowList
+  "Space]", ResetChromeWindowList,
+  "SpaceSpace", QuickSetup
 )
 
 
@@ -671,6 +672,15 @@ ActivateDeadlock() {
     WinActivate
   else
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\Deadlock.url"
+}
+
+QuickSetup() {
+  ActivateTobiiGhost()
+  ActivateOBS()
+  ActivateAutoDuck()
+  ActivateBraveBrowser()
+  ActivateDiscord()
+  ActivateWezTerm()
 }
 
 LaunchDeadLockMovementScript() {
