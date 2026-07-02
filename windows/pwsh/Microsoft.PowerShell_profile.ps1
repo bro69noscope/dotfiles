@@ -40,10 +40,10 @@ Set-Alias -Name cfst -Value ConvertFrom-StreamDeckTemplate
 
 Set-Alias -Name rel -Value Update-Profile
 Set-Alias -Name cfg -Value Edit-Profile
-Set-Alias -Name wzcfg -Value Edit-Wezterm-Profile
-Set-Alias -Name lgcfg -Value Edit-Lazygit-Config
-Set-Alias -Name gitcfg -Value Edit-Git-Config
-Set-Alias -Name kacfg -Value Edit-Kanata-Config
+Set-Alias -Name wzcfg -Value Edit-WeztermProfile
+Set-Alias -Name lgcfg -Value Edit-LazygitConfig
+Set-Alias -Name gitcfg -Value Edit-GitConfig
+Set-Alias -Name kacfg -Value Edit-KanataConfig
 Set-Alias -Name zz -Value Set-LastDirectory
 
 Set-Alias -Name lst -Value Show-TreeList

@@ -230,16 +230,18 @@ function Test-IsBinaryFile {
   )
 
   try {
-    $fs = [System.IO.File]::OpenRead($Path)
-    try {
-      $buffer = New-Object byte[] $SampleSize
-      $read = $fs.Read($buffer, 0, $buffer.Length)
-      return ($buffer[0..($read-1)] -contains 0)
-    } finally {
-      $fs.Dispose()
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+
+    $read = [Math]::Min($bytes.Length, $SampleSize)
+
+    for ($i = 0; $i -lt $read; $i++) {
+      if ($bytes[$i] -eq 0) {
+        return $true
+      }
     }
+
+    return $false
   } catch {
-    # If we can’t read it safely, assume binary
     return $true
   }
 }
@@ -306,10 +308,15 @@ function Copy-FileContextRecursively {
       $output += ""
       $output += "━━━ $file ━━━"
       $output += ""
+
       if (Test-IsBinaryFile $file) {
         $output += "[binary file skipped]"
       } else {
-        $output += Get-Content $file -Raw
+        try {
+          $output += Get-Content $file -Raw -ErrorAction Stop
+        } catch {
+          $output += "[unreadable file]"
+        }
       }
       $output += ""
     }
