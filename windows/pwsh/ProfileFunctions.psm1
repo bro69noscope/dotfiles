@@ -1,3 +1,113 @@
+## Location functions
+function ahk {
+  Set-Location "$env:DOTFILES_PATH\windows\autohotkey"
+}
+
+function vidata {
+  Set-Location "$HOME\AppData\Local\nvim-data"
+}
+
+function vid {
+  Set-Location "$env:DOTFILES_PATH\nvim-config3.0" # better than if in $HOME for lazydev nvim plugin usage
+}
+
+function vir {
+  nvim -u "$env:DOTFILES_PATH\nvim-config3.0\repro.lua"
+}
+
+function roam {
+  Set-Location "$HOME\AppData\Roaming"
+}
+
+function loc {
+  Set-Location "$HOME\AppData\Local"
+}
+
+function dot {
+  Set-Location "$env:DOTFILES_PATH"
+}
+
+function my {
+  Set-Location "$HOME\myfiles"
+}
+
+# List all dot-sourced scripts in the current session
+function listdotsourced{
+  (Get-History | Where-Object { $_.CommandLine -match '^\.\s+' }).CommandLine
+}
+
+# follow a symlink to its target directory
+function follow {
+  param($path)
+  $target = (Get-Item $path).Target
+  Set-Location (Split-Path $target)
+}
+
+# allow to cd to a file path which will cd to the parent directory instead
+function cd {
+  param([string]$Path = ".")
+
+  if (Test-Path $Path -PathType Leaf) {
+    Set-Location (Split-Path $Path -Parent)
+  } else {
+    Set-Location $Path
+  }
+}
+
+function Update-Profile {
+  Add-Type -AssemblyName System.Windows.Forms
+  [System.Windows.Forms.SendKeys]::SendWait(". $")
+  [System.Windows.Forms.SendKeys]::SendWait("PROFILE")
+  [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
+}
+
+function wslbackup {
+  wsl --terminate Arch; wsl --export Arch "$env:USERPROFILE\OneDrive\Backups\wsl\Arch-$(Get-Date -Format yyyyMMdd-HHmmss).tar"
+}
+
+function Edit-Profile {
+  nvim $PROFILE
+}
+
+function Edit-WeztermProfile {
+  nvim "$env:DOTFILES_PATH\.wezterm.lua"
+}
+
+function Edit-LazygitConfig {
+  nvim "$env:DOTFILES_PATH\lazygit-config.yml"
+}
+
+function Edit-GitConfig {
+  git config --global -e
+}
+
+function Edit-KanataConfig {
+  nvim "$env:DOTFILES_PATH\kanata.kbd"
+}
+
+function Show-TreeList {
+  eza --icons -lT $args
+}
+
+function Clear-AndPutPromptAtBottom {
+  $host.UI.RawUI.CursorPosition = New-Object System.Management.Automation.Host.Coordinates 0, 0
+  Clear-Host
+  $consoleHeight = $host.UI.RawUI.WindowSize.Height
+  Write-Host "$([char]27)[${consoleHeight}B" -NoNewline
+}
+
+function Hide-WindowsTaskbar {
+  Start-Process -FilePath "nircmd.exe" -ArgumentList "win trans class Shell_TrayWnd 256" -NoNewWindow
+}
+
+function Show-WindowsTaskbar {
+  Start-Process -FilePath "nircmd.exe" -ArgumentList "win trans class Shell_TrayWnd 255" -NoNewWindow
+}
+
+function Set-LastDirectory {
+  z "-"
+}
+
 # copy/paste functions for files and directories
 $global:fileClipboard = $null
 $global:fileClipboardMode = $null
