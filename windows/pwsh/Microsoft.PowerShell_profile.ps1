@@ -113,6 +113,17 @@ function fpaste {
   Move-Item $global:cutFile .
 }
 
+# better cd for lazy path copy pastes
+function cd {
+  param([string]$Path = ".")
+
+  if (Test-Path $Path -PathType Leaf) {
+    Set-Location (Split-Path $Path -Parent)
+  } else {
+    Set-Location $Path
+  }
+}
+
 function Update-Profile {
   Add-Type -AssemblyName System.Windows.Forms
   [System.Windows.Forms.SendKeys]::SendWait(". $")
