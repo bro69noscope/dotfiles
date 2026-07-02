@@ -1,3 +1,36 @@
+# copy/paste functions for files and directories
+$global:fileClipboard = $null
+$global:fileClipboardMode = $null
+
+function fcut {
+  $global:fileClipboard = Get-Item $args[0]
+  $global:fileClipboardMode = "cut"
+}
+
+function fcopy {
+  $global:fileClipboard = Get-Item $args[0]
+  $global:fileClipboardMode = "copy"
+}
+
+function fpaste {
+  if (-not $global:fileClipboard) {
+    Write-Error "Clipboard is empty."
+    return
+  }
+
+  switch ($global:fileClipboardMode) {
+    "cut" {
+      Move-Item $global:fileClipboard.FullName -Destination .
+    }
+    "copy" {
+      Copy-Item $global:fileClipboard.FullName -Destination . -Recurse
+    }
+    default {
+      Write-Error "Unknown clipboard mode."
+    }
+  }
+}
+
 function Set-PythonPath {
   $env:PYTHONPATH = (Get-Location).Path
   Write-Output "PYTHONPATH set to: $env:PYTHONPATH"

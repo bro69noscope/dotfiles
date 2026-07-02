@@ -105,14 +105,6 @@ function follow {
   Set-Location (Split-Path $target)
 }
 
-function fcut {
-  $global:cutFile = Get-Item $args[0]
-}
-
-function fpaste {
-  Move-Item $global:cutFile .
-}
-
 # better cd for lazy path copy pastes
 function cd {
   param([string]$Path = ".")
