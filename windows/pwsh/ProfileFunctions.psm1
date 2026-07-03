@@ -335,3 +335,34 @@ function Copy-FileContextRecursively {
   Write-Host $message
 }
 
+$script:LinkSource = $null
+function Set-SymlinkSource {
+  param(
+    [string]$Path = "."
+  )
+
+  $script:LinkSource = (Resolve-Path $Path).Path
+  Write-Host "Stored: $script:LinkSource"
+}
+
+function Set-SymlinkTarget {
+  param(
+    [string]$Target = "."
+  )
+
+  if (-not $script:LinkSource) {
+    throw "No source stored. Run startlink first."
+  }
+
+  $source = $script:LinkSource
+  $target = (Resolve-Path $Target).Path
+  $script:LinkSource = $null
+
+  if (Test-Path $source) {
+    Remove-Item $source -Recurse -Force
+  }
+
+  New-Item -ItemType SymbolicLink -Path $source -Target $target | Out-Null
+
+  Write-Host "$source -> $target"
+}
