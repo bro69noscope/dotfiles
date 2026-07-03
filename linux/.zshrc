@@ -144,7 +144,7 @@ alias d='la'
 alias lt='eza --icons -T'
 alias lat='eza --icons -laT'
 
-alias zf="__zoxide_zi"
+alias zi="__zoxide_zi"
 alias zz="z -"
 
 # === CUSTOM FUNCTIONS START ===
@@ -233,17 +233,29 @@ function copy-path-to-clipboard() {
   echo "Copied to clipboard: $fullPath"
 }
 
-# Yazi file navigation
-function lf() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+# Yazi wrapper with cwd sync + zoxide integration
+function y() {
+  local tmp cwd
+
+  tmp="$(mktemp -t yazi-cwd.XXXXXX)" || return 1
+
   yazi "$@" --cwd-file="$tmp"
-  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    builtin cd -- "$cwd"
+
+  if cwd="$(command cat -- "$tmp" 2>/dev/null)" \
+    && [ -n "$cwd" ] \
+    && [ "$cwd" != "$PWD" ]; then
+
+    # normalize path (optional but nice if yazi returns relative paths)
+    cwd="$(realpath "$cwd" 2>/dev/null || echo "$cwd")"
+
+    builtin cd -- "$cwd" || return 1
+
+    # zoxide equivalent of "add current dir"
+    command -v zoxide >/dev/null && zoxide add "$cwd"
   fi
+
   rm -f -- "$tmp"
 }
-
-alias y='lf'
 
 # Utility functions aliases
 alias virepro='start-nvim-bug-repro'
