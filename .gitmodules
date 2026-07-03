@@ -4,3 +4,9 @@
 [submodule "modules/fzf-tab-completion"]
 	path = modules/fzf-tab-completion
 	url = https://github.com/lincheney/fzf-tab-completion
+[submodule "games/aoe2/aoe2-best-ui"]
+	path = games/aoe2/aoe2-best-ui
+	url = git@github.com:bro69noscope/aoe2-best-ui.git
+[submodule "games/aoe2/aoe2-better-minimap-colors"]
+	path = games/aoe2/aoe2-better-minimap-colors
+	url = git@github.com:bro69noscope/aoe2-better-minimap-colors.git
