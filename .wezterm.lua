@@ -349,14 +349,14 @@ config.keys = {
 
   -- Scrolling
   {
+    key = "l",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action.ScrollByPage(-1 / 2),
+  },
+  {
     key = "d",
     mods = "CTRL|SHIFT",
     action = wezterm.action.ScrollByPage(1 / 2),
-  },
-  {
-    key = "u",
-    mods = "CTRL|SHIFT",
-    action = wezterm.action.ScrollByPage(-1 / 2),
   },
   {
     key = "k",
