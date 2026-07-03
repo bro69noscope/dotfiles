@@ -140,6 +140,7 @@ alias wh='which'
 
 alias l='eza --icons -l'
 alias la='eza --icons -la'
+alias d='la'
 alias lt='eza --icons -T'
 alias lat='eza --icons -laT'
 
