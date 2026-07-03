@@ -1,4 +1,8 @@
 ## Location functions
+function dl {
+  Set-location "$env:USERPROFILE\Downloads"
+}
+
 function ahk {
   Set-Location "$env:DOTFILES_PATH\windows\autohotkey"
 }
