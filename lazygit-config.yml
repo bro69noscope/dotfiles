@@ -33,7 +33,7 @@ gui:
 git:
   pagers:
     - colorArg: always
-      # pager: delta --dark --paging=never
+      pager: delta --paging=never --true-color=always
 # useConfig: true
 
 # os: # will figure it out eventually but rn it's commented out

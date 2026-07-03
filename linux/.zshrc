@@ -135,7 +135,7 @@ alias vidata='cd ~/.local/share/nvim/'
 alias clip='xclip -selection clipboard'
 alias vi='nvim'
 alias vir='nvim -u repro.lua'
-alias lg='lazygit'
+alias lg='TERM=screen-256color lazygit' #HACK:solve washed out delta colors in wsl
 alias wh='which'
 
 alias l='eza --icons -l'
