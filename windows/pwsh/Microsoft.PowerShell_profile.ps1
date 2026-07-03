@@ -46,7 +46,7 @@ Set-Alias -Name gitcfg -Value Edit-GitConfig
 Set-Alias -Name kacfg -Value Edit-KanataConfig
 Set-Alias -Name zz -Value Set-LastDirectory
 
-Set-Alias -Name lst -Value Show-TreeList
+Set-Alias -Name l -Value Show-TreeList
 Set-Alias -Name clear -Value Clear-AndPutPromptAtBottom
 
 ## Exec aliases
@@ -96,6 +96,9 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+w' -Function BackwardKillWord -ViMode Inse
 Set-PSReadLineKeyHandler -Key 'RightArrow' -Function AcceptNextSuggestionWord
 Set-PSReadLineKeyHandler -Chord 'Ctrl+f' -Function AcceptSuggestion
 Set-PSReadLineKeyHandler -Chord 'Alt-;' -Function AcceptSuggestion
+Remove-PSReadLineKeyHandler Ctrl+d
+Remove-PSReadLineKeyHandler Ctrl+u
+Remove-PSReadLineKeyHandler Ctrl+y
 
 ## Fzf options
 Import-Module PSFzf
