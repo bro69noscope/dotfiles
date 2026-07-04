@@ -612,18 +612,38 @@ ActivateVSCode() {
 }
 
 ActivateWezTerm() {
-  primaryPath :=
-    "C:\\Users\\ville\\scoop\\apps\\wezterm-nightly\\current\\wezterm-gui.exe"
-  fallbackPath := "C:\\Users\\ville\\scoop\\shims\\wezterm-gui.exe"
+  paths := [
+    "test",
+    "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
+    "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
+    "C:\Users\ville\scoop\shims\wezterm-gui.exe"
+  ]
 
   if WinExist("ahk_exe wezterm-gui.exe")
-    WinActivate
-  else if FileExist(primaryPath)
-    Run primaryPath
-  else if FileExist(fallbackPath)
-    Run fallbackPath
-  else
-    MsgBox "Could not find WezTerm executable at either path:`n" primaryPath "`n" fallbackPath
+    return WinActivate()
+
+  for _, path in paths {
+    if FileExist(path) {
+      Run path
+      hwnd := ""
+      Loop 50 {
+        if hwnd := WinExist("ahk_exe wezterm-gui.exe")
+          break
+        Sleep 50
+      }
+
+      if hwnd
+        return WinActivate(hwnd)
+      else
+        MsgBox "Could not activate WezTerm window after launching from: " path
+    }
+  }
+
+  pretty := ""
+  for line in paths
+    pretty .= "∙ " line "`n"
+
+  MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty
 }
 
 ActivatePowerShell() {
