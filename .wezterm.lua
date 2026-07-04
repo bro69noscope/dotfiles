@@ -311,6 +311,17 @@ config.keys = {
     end),
   },
 
+  {
+    key = "g",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action_callback(function(win, pane)
+      win:perform_action(wezterm.action.ToggleFullScreen, pane)
+      for _ = 1, 3 do
+        win:perform_action(wezterm.action.IncreaseFontSize, pane)
+      end
+    end),
+  },
+
   -- Debug info
   {
     key = "i",
