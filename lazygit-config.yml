@@ -47,6 +47,12 @@ customCommands:
     description: "Delta diff of selected item"
     loadingText: "Opening diff in Delta..."
     output: terminal
+  - key: "O"
+    command: "git -c delta.features=side-by-side diff --cached -- {{.SelectedPath}}"
+    context: "files"
+    description: "Delta diff of staged changes"
+    loadingText: "Opening staged diff..."
+    output: terminal
   - key: "E"
     command: 'git commit --allow-empty -m "{{index .PromptResponses 0}}"'
     context: "files"
