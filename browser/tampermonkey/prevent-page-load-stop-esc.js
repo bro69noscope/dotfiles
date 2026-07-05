@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Prevents ESC key from stopping page loads but allows Ctrl+Q to send ESC
-// @author       You
+// @author       Loïc Villet
 // @match        *://*/*
 // @run-at       document-start
 // @grant        none
