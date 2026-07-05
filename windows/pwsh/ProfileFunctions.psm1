@@ -16,7 +16,7 @@ function vid {
 }
 
 function vir {
-  nvim -u "$env:DOTFILES_PATH\nvim-config3.0\repro.lua"
+  nvim -u "$env:DOTFILES_PATH\nvim-config3.0\repro.lua" @args
 }
 
 function roam {
