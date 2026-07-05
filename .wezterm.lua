@@ -22,10 +22,10 @@ config.enable_kitty_keyboard = false -- Breaks ahk remapping
 config.enable_kitty_graphics = true
 if font_size ~= 12 then
   config.window_padding = { -- Adjust inevitable padding with font != 12
-    left = 11,
-    right = 9,
-    top = 8,
-    bottom = 0,
+    left = 7,
+    right = 0,
+    top = 0,
+    bottom = -20,
   }
 else
   config.window_padding = {
@@ -312,10 +312,10 @@ config.keys = {
   },
 
   {
-    key = "g",
-    mods = "CTRL|SHIFT",
+    key = "/",
+    mods = "CTRL",
     action = wezterm.action_callback(function(win, pane)
-      win:perform_action(wezterm.action.ToggleFullScreen, pane)
+      win:perform_action(wezterm.action.ResetFontSize, pane)
       for _ = 1, 3 do
         win:perform_action(wezterm.action.IncreaseFontSize, pane)
       end
