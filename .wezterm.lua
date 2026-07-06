@@ -316,7 +316,7 @@ config.keys = {
     mods = "CTRL",
     action = wezterm.action_callback(function(win, pane)
       win:perform_action(wezterm.action.ResetFontSize, pane)
-      for _ = 1, 3 do
+      for _ = 1, 4 do
         win:perform_action(wezterm.action.IncreaseFontSize, pane)
       end
     end),
