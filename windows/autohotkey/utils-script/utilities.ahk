@@ -31,7 +31,8 @@ global LeaderCommands := Map(
   "k", ActivateKovaaks,
   "l", ActivateDeadlock,
   "m", ActivateMailClient,
-  "n", ActivateNeo4j,
+  "N", ActivateNeo4j,
+  "n", ActivateNeovide,
   "o", ActivateOBS,
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
@@ -679,6 +680,13 @@ ActivateNeo4j() {
     WinActivate
   else
     Run "C:\\Users\\ville\\AppData\\Local\\Programs\\Neo4j Desktop\\Neo4j Desktop.exe"
+}
+
+ActivateNeovide() {
+  if WinExist("ahk_exe neovide.exe")
+    WinActivate
+  else
+    Run "C:\Users\ville\scoop\shims\neovide.exe"
 }
 
 ActivateKovaaks() {

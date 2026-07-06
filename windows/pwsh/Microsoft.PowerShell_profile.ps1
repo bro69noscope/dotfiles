@@ -60,6 +60,7 @@ Set-Alias -Name wh -Value where.exe
 Set-Alias -Name kan -Value kanata
 Set-Alias -Name zf -Value zi
 Set-Alias wezdev "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm.exe"
+Set-Alias ne neovide
 
 ## Path additions
 $pathsToAdd = @(
