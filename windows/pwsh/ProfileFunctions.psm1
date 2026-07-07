@@ -89,8 +89,12 @@ function Edit-KanataConfig {
   nvim "$env:DOTFILES_PATH\kanata.kbd"
 }
 
-function Show-TreeList {
+function lt {
   eza --icons -lT $args
+}
+
+function l {
+  eza --icons -l $args
 }
 
 function Clear-AndPutPromptAtBottom {

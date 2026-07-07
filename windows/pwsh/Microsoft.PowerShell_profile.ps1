@@ -47,8 +47,6 @@ Set-Alias -Name kacfg -Value Edit-KanataConfig
 Set-Alias -Name zz -Value Set-LastDirectory
 Set-Alias -Name linkstart -Value Set-SymlinkSource
 Set-Alias -Name linkend -Value Set-SymlinkTarget
-
-Set-Alias -Name l -Value Show-TreeList
 Set-Alias -Name clear -Value Clear-AndPutPromptAtBottom
 
 ## Exec aliases
