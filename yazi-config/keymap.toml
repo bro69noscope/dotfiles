@@ -1,0 +1,4 @@
+[[mgr.prepend_keymap]]
+on = ["e"]
+run = 'shell -- neovide %h'
+desc = "Edit with Neovide"
