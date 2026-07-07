@@ -103,6 +103,11 @@ Set-PSReadLineKeyHandler -Chord 'Alt-;' -Function AcceptSuggestion
 Remove-PSReadLineKeyHandler Ctrl+d
 Remove-PSReadLineKeyHandler Ctrl+u
 Remove-PSReadLineKeyHandler Ctrl+y
+Set-PSReadLineKeyHandler -Chord Ctrl+x -ScriptBlock {
+  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert('clear')
+  [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
 
 ## Fzf options
 Import-Module PSFzf
