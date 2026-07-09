@@ -365,7 +365,7 @@ config.keys = {
     action = wezterm.action.ScrollByPage(-1 / 2),
   },
   {
-    key = "d",
+    key = "h",
     mods = "CTRL|SHIFT",
     action = wezterm.action.ScrollByPage(1 / 2),
   },
