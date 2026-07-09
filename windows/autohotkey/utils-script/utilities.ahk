@@ -409,6 +409,14 @@ CancelLeaderKey() {
   ToolTip()
 }
 
+; Display a ToolTip message after the clear from having a cmd match happens
+DelayedToolTipMsg(text, duration := 2000) {
+  SetTimer(() => (
+    ToolTip(text),
+    SetTimer(() => ToolTip(), -duration)
+  ), -10)
+}
+
 ; =======================================
 ; WINDOW HELPERS
 ; =======================================
@@ -686,7 +694,7 @@ ActivateNeovide() {
   if WinExist("ahk_exe neovide.exe")
     WinActivate
   else
-    Run "C:\Users\ville\scoop\shims\neovide.exe"
+    DelayedToolTipMsg("launch neovide from terminal u faggot")
 }
 
 ActivateKovaaks() {
