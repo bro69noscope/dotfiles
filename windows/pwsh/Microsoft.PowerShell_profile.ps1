@@ -106,6 +106,11 @@ Set-PSReadLineKeyHandler -Chord Ctrl+x -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::Insert('clear')
   [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
+Set-PSReadLineKeyHandler -Key Ctrl+d -ScriptBlock {
+  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert('exit')
+  [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
 
 ## Fzf options
 Import-Module PSFzf
