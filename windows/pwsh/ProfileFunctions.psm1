@@ -8,7 +8,7 @@ function ahk {
 }
 
 function vidata {
-  Set-Location "$HOME\AppData\Local\nvim-data"
+  Set-Location "$env:LOCALAPPDATA\nvim-data"
 }
 
 function vid {
@@ -20,11 +20,11 @@ function vir {
 }
 
 function roam {
-  Set-Location "$HOME\AppData\Roaming"
+  Set-Location "$env:APPDATA"
 }
 
 function loc {
-  Set-Location "$HOME\AppData\Local"
+  Set-Location "$env:LOCALAPPDATA"
 }
 
 function dot {
@@ -33,6 +33,14 @@ function dot {
 
 function my {
   Set-Location "$HOME\myfiles"
+}
+
+function sce {
+  Set-Location "$env:APPDATA\obs-studio\basic\scenes"
+}
+
+function aoe {
+  Set-Location "$env:STREAMING_REPO_PATH\external\obs\version-control\scenes\collection_aoe2"
 }
 
 # List all dot-sourced scripts in the current session
@@ -162,10 +170,9 @@ function Enter-MegaScriptEnvironment {
 
 function Copy-PathToClipboard {
   param(
-    [Parameter(Mandatory=$true, Position=0)]
-    [string]$Item
+    [string]$Path = "."
   )
-  $fullPath = (Get-Item $Item).FullName
+  $fullPath = (Get-Item $Path).FullName
   $fullPath | Set-Clipboard
   Write-Host "Copied to clipboard: $fullPath"
 }
