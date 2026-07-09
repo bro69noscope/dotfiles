@@ -117,7 +117,7 @@ $env:_PSFZF_FZF_DEFAULT_OPTS = '--layout=reverse --height=40% --preview-window=h
 #   -PSReadlineChordSetLocation 'Alt+c' `
 # Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 
-. "$env:DOTFILES_PATH\windows\pwsh\PSfzf-config.ps1"
+. "$env:DOTFILES_PATH\windows\pwsh\PSfzfConfig.ps1"
 Register-SmartPsFzfHandlers -EnableLogging $true
 
 ## Starship
