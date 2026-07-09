@@ -22,6 +22,7 @@ Import-Module posh-git
 
 ## Custom modules
 Import-Module "$env:DOTFILES_PATH\windows\pwsh\ProfileFunctions.psm1"
+Import-Module "$env:DOTFILES_PATH\windows\pwsh\LocationHistory.psm1"
 
 # Imported functions aliases
 Set-Alias -Name spp -Value Set-PythonPath
@@ -101,14 +102,28 @@ Set-PSReadLineKeyHandler -Chord 'Alt-;' -Function AcceptSuggestion
 Remove-PSReadLineKeyHandler Ctrl+d
 Remove-PSReadLineKeyHandler Ctrl+u
 Remove-PSReadLineKeyHandler Ctrl+y
+
 Set-PSReadLineKeyHandler -Chord Ctrl+x -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
   [Microsoft.PowerShell.PSConsoleReadLine]::Insert('clear')
   [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
+
 Set-PSReadLineKeyHandler -Key Ctrl+d -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
   [Microsoft.PowerShell.PSConsoleReadLine]::Insert('exit')
+  [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
+
+Set-PSReadLineKeyHandler -Key Ctrl+p -ScriptBlock {
+  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert('cdprev')
+  [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
+
+Set-PSReadLineKeyHandler -Key Ctrl+n -ScriptBlock {
+  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert('cdnext')
   [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
