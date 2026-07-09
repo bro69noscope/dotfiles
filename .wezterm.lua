@@ -299,6 +299,43 @@ local function write_zoom_info(zoomed)
   file:close()
 end
 
+wezterm.on("close_other_tabs", function(window, pane)
+  wezterm.log_info("=== close_other_tabs: start ===")
+  local mux_window = window:mux_window()
+
+  local function close_next()
+    local current_tab_id = pane:tab():tab_id()
+    local mux_tabs = mux_window:tabs()
+    wezterm.log_info(
+      tostring(#mux_tabs) .. " tab(s) open, current tab_id=" .. tostring(current_tab_id)
+    )
+
+    local target = nil
+    for _, tab in ipairs(mux_tabs) do
+      if tab:tab_id() ~= current_tab_id then
+        target = tab
+        break
+      end
+    end
+
+    if not target then
+      wezterm.log_info("=== close_other_tabs: done ===")
+      return
+    end
+
+    target:activate()
+    local pane_toclose = window:active_pane()
+    wezterm.log_info(
+      "closing pane " .. tostring(pane_toclose:pane_id()) .. " in tab " .. tostring(target:tab_id())
+    )
+    window:perform_action(act.CloseCurrentPane({ confirm = false }), pane_toclose)
+
+    close_next()
+  end
+
+  close_next()
+end)
+
 config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
 
@@ -577,7 +614,7 @@ config.keys = {
     action = wezterm.action.AdjustPaneSize({ "Down", 3 }),
   },
 
-  -- Close the current pane
+  -- Close panes
   {
     key = "x",
     mods = "LEADER",
@@ -586,7 +623,7 @@ config.keys = {
   {
     key = "X",
     mods = "LEADER",
-    action = wezterm.action.CloseCurrentTab({ confirm = true }),
+    action = wezterm.action({ EmitEvent = "close_other_tabs" }),
   },
 
   -- Zoom
