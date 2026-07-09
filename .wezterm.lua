@@ -311,6 +311,7 @@ config.keys = {
     end),
   },
 
+  -- presentation zoom preset
   {
     key = "/",
     mods = "CTRL",
