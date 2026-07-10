@@ -3,7 +3,8 @@ $consoleHeight = $host.UI.RawUI.WindowSize.Height
 Write-Host ("`n" * $consoleHeight)
 
 ## Constants
-$claudeApiKey = Get-Content -Path "$HOME\myfiles\documents\api-keys\anthropic\loïc-onboarding-api-key.txt" -Raw
+$claudeApiKey = Get-Content -Path `
+  "$HOME\myfiles\documents\api-keys\anthropic\loïc-onboarding-api-key.txt" -Raw
 
 ## Environment variables
 $env:PYTHONIOENCODING="utf-8"

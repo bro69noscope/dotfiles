@@ -5,7 +5,8 @@ $script:MaxHistorySize = 500
 function Set-Location {
   [CmdletBinding(DefaultParameterSetName = 'Path')]
   param(
-    [Parameter(Position = 0, ParameterSetName = 'Path', ValueFromPipeline, ValueFromPipelineByPropertyName)]
+    [Parameter(Position = 0, ParameterSetName = 'Path', ValueFromPipeline,
+      ValueFromPipelineByPropertyName)]
     [string]$Path,
 
     [Parameter(ParameterSetName = 'LiteralPath', ValueFromPipelineByPropertyName)]
@@ -86,14 +87,16 @@ function Set-Location {
 function cdprev {
   if ($script:LocationIndex -gt 0) {
     $script:LocationIndex--
-    Microsoft.PowerShell.Management\Set-Location -LiteralPath $script:LocationHistory[$script:LocationIndex]
+    Microsoft.PowerShell.Management\Set-Location -LiteralPath `
+      $script:LocationHistory[$script:LocationIndex] 
   }
 }
 
 function cdnext {
   if ($script:LocationIndex -lt ($script:LocationHistory.Count - 1)) {
     $script:LocationIndex++
-    Microsoft.PowerShell.Management\Set-Location -LiteralPath $script:LocationHistory[$script:LocationIndex]
+    Microsoft.PowerShell.Management\Set-Location -LiteralPath `
+      $script:LocationHistory[$script:LocationIndex]
   }
 }
 
