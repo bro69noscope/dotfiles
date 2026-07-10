@@ -39,6 +39,7 @@ global LeaderCommands := Map(
   "r", ActivateStreamDeck,
   "s", ActivateSpotify,
   "t", ActivateStreamerBot,
+  "u", ActivateOsu,
   "v", ActivateVSCode,
   "w", ActivateWezTerm,
   "x", ActivateExplorer,
@@ -527,6 +528,13 @@ ActivateStreamerBot() {
     WinActivate
   else
     Run "C:\Users\ville\myfiles\programs\Streamer.bot\Streamer.bot.exe"
+}
+
+ActivateOsu() {
+  if WinExist("ahk_exe osu!.exe")
+    WinActivate
+  else
+    Run "C:\Users\ville\AppData\Local\osu!\osu!.exe"
 }
 
 ActivateTobiiGhost() {
