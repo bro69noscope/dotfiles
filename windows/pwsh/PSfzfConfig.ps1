@@ -28,7 +28,8 @@ function Invoke-CursorRepositioning {
 
     if ($EnableLogging) {
       $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-      "[$timestamp] Repositioned cursor after $OperationName to Y=$($newPos.Y)" | Out-File -FilePath $LogPath -Append
+      "[$timestamp] Repositioned cursor after $OperationName to Y=$($newPos.Y)" |
+        Out-File -FilePath $LogPath -Append
     }
 
     # Clear remnants below new position
@@ -76,8 +77,10 @@ function Invoke-PatchedFzfWrapper {
   }
 
   if ($EnableLogging) {
-    "[$timestamp] Terminal size: $terminalWidth x $terminalHeight" | Out-File -FilePath $LogPath -Append
-    "[$timestamp] FZF height option parsed as: $fzfHeight lines" | Out-File -FilePath $LogPath -Append
+    "[$timestamp] Terminal size: $terminalWidth x $terminalHeight" |
+      Out-File -FilePath $LogPath -Append
+    "[$timestamp] FZF height option parsed as: $fzfHeight lines" |
+      Out-File -FilePath $LogPath -Append
   }
 
   # Get current cursor position to identify prompt line
@@ -96,7 +99,14 @@ function Invoke-PatchedFzfWrapper {
     $beforeContent = @()
     for ($i = $captureStart; $i -lt $captureEnd; $i++) {
       try {
-        $bufferCell = $rawUI.GetBufferContents([System.Management.Automation.Host.Rectangle]::new(0, $i, $terminalWidth - 1, $i))
+        $rectangle = [System.Management.Automation.Host.Rectangle]::new(
+          0,
+          $i,
+          $terminalWidth - 1,
+          $i
+        )
+        $bufferCell = $rawUI.GetBufferContents($rectangle)
+
         $lineContent = ""
         foreach ($cell in $bufferCell) {
           $lineContent += $cell.Character
@@ -108,9 +118,11 @@ function Invoke-PatchedFzfWrapper {
     }
 
     if ($EnableLogging) {
-      "[$timestamp] Before FZF - Content above prompt (lines $captureStart to $($captureEnd-1)):" | Out-File -FilePath $LogPath -Append
+      "[$timestamp] Before FZF - Content above prompt (lines $captureStart to $($captureEnd-1)):" |
+        Out-File -FilePath $LogPath -Append
       for ($i = 0; $i -lt $beforeContent.Count; $i++) {
-        "Line $($captureStart + $i): '$($beforeContent[$i])'" | Out-File -FilePath $LogPath -Append
+        "Line $($captureStart + $i): '$($beforeContent[$i])'" |
+          Out-File -FilePath $LogPath -Append
       }
     }
   }
@@ -118,12 +130,29 @@ function Invoke-PatchedFzfWrapper {
   # Execute the FZF function
   & $FzfFunction
 
+  # Shared parameters for cursor repositioning after FZF execution
+  $reposition_params = @{
+    FzfHeight = $fzfHeight
+    TerminalHeight = $terminalHeight
+    TerminalWidth = $terminalWidth
+    RawUI = $rawUI
+    LogPath = $LogPath
+    EnableLogging = $EnableLogging
+    OperationName = $OperationName
+  }
+
   if ($needsContentCapture) {
-    # Capture screen content after FZF
     $afterContent = @()
     for ($i = $captureStart; $i -lt $captureEnd; $i++) {
       try {
-        $bufferCell = $rawUI.GetBufferContents([System.Management.Automation.Host.Rectangle]::new(0, $i, $terminalWidth - 1, $i))
+        $rectangle = [System.Management.Automation.Host.Rectangle]::new(
+          0,
+          $i,
+          $terminalWidth - 1,
+          $i
+        )
+        $bufferCell = $rawUI.GetBufferContents($rectangle)
+
         $lineContent = ""
         foreach ($cell in $bufferCell) {
           $lineContent += $cell.Character
@@ -135,9 +164,11 @@ function Invoke-PatchedFzfWrapper {
     }
 
     if ($EnableLogging) {
-      "[$timestamp] After FZF - Content above prompt (lines $captureStart to $($captureEnd - 1)):" | Out-File -FilePath $LogPath -Append
+      "[$timestamp] After FZF - Content above prompt (lines $captureStart to $($captureEnd - 1)):" |
+        Out-File -FilePath $LogPath -Append
       for ($i = 0; $i -lt $afterContent.Count; $i++) {
-        "Line $($captureStart + $i): '$($afterContent[$i])'" | Out-File -FilePath $LogPath -Append
+        "Line $($captureStart + $i): '$($afterContent[$i])'" |
+          Out-File -FilePath $LogPath -Append
       }
     }
 
@@ -157,32 +188,36 @@ function Invoke-PatchedFzfWrapper {
     }
 
     if ($EnableLogging) {
-      "[$timestamp] Content changed: $contentChanged, New empty lines: $newEmptyLines" | Out-File -FilePath $LogPath -Append
+      "[$timestamp] Content changed: $contentChanged, New empty lines: $newEmptyLines" |
+        Out-File -FilePath $LogPath -Append
     }
 
     # Handle repositioning if FZF UI was displayed
     if ($contentChanged -or $newEmptyLines -gt 0) {
       if ($EnableLogging) {
-        "[$timestamp] FZF UI detected, checking for repositioning..." | Out-File -FilePath $LogPath -Append
+        "[$timestamp] FZF UI detected, checking for repositioning..." |
+          Out-File -FilePath $LogPath -Append
       }
 
-      $repositioned = Invoke-CursorRepositioning -FzfHeight $fzfHeight -TerminalHeight $terminalHeight -TerminalWidth $terminalWidth -RawUI $rawUI -LogPath $LogPath -EnableLogging $EnableLogging -OperationName $OperationName
+      $repositioned = Invoke-CursorRepositioning @reposition_params
 
       if (-not $repositioned) {
         if ($EnableLogging) {
-          "[$timestamp] No repositioning needed for $OperationName" | Out-File -FilePath $LogPath -Append
+          "[$timestamp] No repositioning needed for $OperationName" | 
+            Out-File -FilePath $LogPath -Append
         }
       }
     } else {
       if ($EnableLogging) {
-        "[$timestamp] No content changes detected, refreshing display" | Out-File -FilePath $LogPath -Append
+        "[$timestamp] No content changes detected, refreshing display" |
+          Out-File -FilePath $LogPath -Append
       }
       # Fix input update bug after accepting completion without UI
       [Microsoft.PowerShell.PSConsoleReadLine]::Insert("")
     }
   } else {
     # For non-tab completion operations, use the common repositioning logic
-    $repositioned = Invoke-CursorRepositioning -FzfHeight $fzfHeight -TerminalHeight $terminalHeight -TerminalWidth $terminalWidth -RawUI $rawUI -LogPath $LogPath -EnableLogging $EnableLogging -OperationName $OperationName
+    $repositioned = Invoke-CursorRepositioning @reposition_params
 
     if (-not $repositioned -and $EnableLogging) {
       $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
@@ -192,12 +227,27 @@ function Invoke-PatchedFzfWrapper {
 }
 
 # Convenience functions for specific FZF operations
+function Invoke-PatchedFzfOperation {
+  param(
+    [scriptblock]$FzfFunction,
+    [string]$OperationName,
+    [bool]$EnableLogging = $true
+  )
+
+  Invoke-PatchedFzfWrapper `
+    -FzfFunction $FzfFunction `
+    -EnableLogging $EnableLogging `
+    -OperationName $OperationName
+}
+
 function Invoke-PatchedFzfCompletion {
   param(
     [bool]$EnableLogging = $true
   )
 
-  Invoke-PatchedFzfWrapper -FzfFunction { Invoke-FzfTabCompletion } -EnableLogging $EnableLogging -OperationName "Tab Completion"
+  Invoke-PatchedFzfOperation {
+    Invoke-FzfTabCompletion
+  } "Tab Completion" $EnableLogging
 }
 
 function Invoke-PatchedFzfReverseHistorySearch {
@@ -205,7 +255,9 @@ function Invoke-PatchedFzfReverseHistorySearch {
     [bool]$EnableLogging = $true
   )
 
-  Invoke-PatchedFzfWrapper -FzfFunction { Invoke-FzfPSReadlineHandlerHistory } -EnableLogging $EnableLogging -OperationName "Reverse History Search"
+  Invoke-PatchedFzfOperation {
+    Invoke-FzfPSReadlineHandlerHistory
+  } "Reverse History Search" $EnableLogging
 }
 
 function Invoke-PatchedFzfProviderSearch {
@@ -213,7 +265,9 @@ function Invoke-PatchedFzfProviderSearch {
     [bool]$EnableLogging = $true
   )
 
-  Invoke-PatchedFzfWrapper -FzfFunction { Invoke-FzfPSReadlineHandlerProvider } -EnableLogging $EnableLogging -OperationName "Provider Search"
+  Invoke-PatchedFzfOperation {
+    Invoke-FzfPSReadlineHandlerProvider
+  } "Provider Search" $EnableLogging
 }
 
 function Invoke-PatchedFzfSetLocation {
@@ -221,7 +275,9 @@ function Invoke-PatchedFzfSetLocation {
     [bool]$EnableLogging = $true
   )
 
-  Invoke-PatchedFzfWrapper -FzfFunction { Invoke-FzfPSReadlineHandlerSetLocation } -EnableLogging $EnableLogging -OperationName "Set Location"
+  Invoke-PatchedFzfOperation {
+    Invoke-FzfPSReadlineHandlerSetLocation
+  } "Set Location" $EnableLogging
 }
 
 # Register all PSFzf key handlers with smart repositioning
