@@ -493,6 +493,11 @@ ActivateOBS() {
     WinActivate
   else
     Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OBS Studio\OBS Studio (64bit).lnk"
+
+  if WinExist("Chat ahk_exe Streamer.bot.exe") {
+    WinActivate
+    WinMove(3203, 90, 550, 850)
+  }
 }
 
 ActivateDiscord() {
