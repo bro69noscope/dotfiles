@@ -524,7 +524,7 @@ ActivateStreamDeck() {
 }
 
 ActivateStreamerBot() {
-  if WinExist("ahk_exe Streamer.bot.exe")
+  if WinExist("Streamer.bot ahk_exe Streamer.bot.exe")
     WinActivate
   else
     Run "C:\Users\ville\myfiles\programs\Streamer.bot\Streamer.bot.exe"
