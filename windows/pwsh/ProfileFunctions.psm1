@@ -240,23 +240,20 @@ function Test-IsBinaryFile {
   param(
     [Parameter(Mandatory)]
     [string]$Path,
-
     [int]$SampleSize = 4096
   )
-
   try {
-    $bytes = [System.IO.File]::ReadAllBytes($Path)
-
+    $resolvedPath = (Resolve-Path -LiteralPath $Path -ErrorAction Stop).ProviderPath
+    $bytes = [System.IO.File]::ReadAllBytes($resolvedPath)
     $read = [Math]::Min($bytes.Length, $SampleSize)
-
     for ($i = 0; $i -lt $read; $i++) {
       if ($bytes[$i] -eq 0) {
         return $true
       }
     }
-
     return $false
   } catch {
+    Write-Warning "Failed reading '$Path': $($_.Exception.Message)"
     return $true
   }
 }
@@ -362,7 +359,7 @@ function Set-SymlinkTarget {
   )
 
   if (-not $script:LinkSource) {
-    throw "No source stored. Run startlink first."
+    throw "No source stored. Run Set-SymlinkSource first."
   }
 
   $source = $script:LinkSource
