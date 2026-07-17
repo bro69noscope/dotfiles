@@ -58,7 +58,7 @@ function listdotsourced{
 
 # directory sorted by last access time
 function dr {
-  Get-ChildItem @args | Sort-Object LastAccessTime
+  Get-ChildItem @args | Sort-Object LastWriteTime
 }
 
 # follow a symlink to its target directory
