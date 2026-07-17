@@ -219,19 +219,25 @@ function Import-StreamingTemplatesModules {
     throw "STREAMING_REPO_PATH environment variable is not set"
   }
 
-  $obsModule = "$env:STREAMING_REPO_PATH\external\obs\version-control\obs-templater.psm1"
-  $streamDeckModule = "$env:STREAMING_REPO_PATH\external\streamdeck\version-control\streamdeck-templater.psm1"
+  $repo = $env:STREAMING_REPO_PATH
+  $modules = @{
+    OBS = Join-Path $repo `
+      "external\obs\version-control\obs-templater.psm1"
 
-  if (-not (Test-Path $obsModule)) {
-    throw "OBS module not found at: $obsModule"
+    StreamDeck = Join-Path $repo `
+      "external\streamdeck\version-control\streamdeck-templater.psm1"
+
+    StreamerBot = Join-Path $repo `
+      "external\streamerbot\version-control\streamerbot-templater.psm1"
   }
 
-  if (-not (Test-Path $streamDeckModule)) {
-    throw "StreamDeck module not found at: $streamDeckModule"
-  }
+  foreach ($module in $modules.GetEnumerator()) {
+    if (-not (Test-Path $module.Value)) {
+      throw "$($module.Key) module not found at: $($module.Value)"
+    }
 
-  Import-Module $obsModule -Force -Global -ErrorAction Stop
-  Import-Module $streamDeckModule -Force -Global -ErrorAction Stop
+    Import-Module $module.Value -Force -Global
+  }
 
   Write-Host "Streaming tools loaded!" -ForegroundColor Green
 }
