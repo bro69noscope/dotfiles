@@ -496,7 +496,7 @@ ActivateOBS() {
 
   if WinExist("Chat ahk_exe Streamer.bot.exe") {
     WinActivate
-    WinMove(3203, 90, 550, 850)
+    WinMove(3203, 90, 550, 840)
   }
 }
 
