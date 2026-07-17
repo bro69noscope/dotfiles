@@ -11,6 +11,7 @@ $env:PYTHONIOENCODING="utf-8"
 $env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm usage
 $env:YAZI_FILE_ONE="C:\Program Files\Git\usr\bin\file.exe"
 $env:DOTFILES_PATH = "$HOME\myfiles\dotfiles"
+$env:MYFILES_PATH = "$HOME\myfiles"
 $env:STREAMING_DATA_PATH = "$HOME\myfiles\streaming-data"
 $env:STREAMING_REPO_PATH = "$HOME\myfiles\git-repos\woertsposzibllen4me"
 

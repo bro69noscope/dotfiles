@@ -43,9 +43,18 @@ function aoe {
   Set-Location "$env:STREAMING_REPO_PATH\external\obs\version-control\scenes\collection_aoe2"
 }
 
+function temp {
+  Set-Location "$env:TEMP"
+}
+
 # List all dot-sourced scripts in the current session
 function listdotsourced{
   (Get-History | Where-Object { $_.CommandLine -match '^\.\s+' }).CommandLine
+}
+
+# directory sorted by last access time
+function dr {
+  Get-ChildItem @args | Sort-Object LastAccessTime
 }
 
 # follow a symlink to its target directory
