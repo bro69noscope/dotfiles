@@ -43,6 +43,10 @@ function aoe {
   Set-Location "$env:STREAMING_REPO_PATH\external\obs\version-control\scenes\collection_aoe2"
 }
 
+function str {
+  Set-Location "$env:MYFILES_PATH\programs\Streamer.bot\data"
+}
+
 function temp {
   Set-Location "$env:TEMP"
 }
