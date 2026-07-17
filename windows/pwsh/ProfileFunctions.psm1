@@ -56,6 +56,11 @@ function listdotsourced{
   (Get-History | Where-Object { $_.CommandLine -match '^\.\s+' }).CommandLine
 }
 
+# fd with dir style output
+function fdd {
+  fd @args | Get-ChildItem
+}
+
 # Run neovide, only 1 instance
 function ne {
   $procs = Get-Process neovide -ErrorAction SilentlyContinue
