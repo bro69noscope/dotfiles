@@ -38,8 +38,10 @@ Set-Alias -Name cpcode -Value Copy-FileContextRecursively
 Set-Alias -Name istm -Value Import-StreamingTemplatesModules
 Set-Alias -Name ctot -Value ConvertTo-ObsTemplate
 Set-Alias -Name cfot -Value ConvertFrom-ObsTemplate
-Set-Alias -Name ctst -Value ConvertTo-StreamDeckTemplate
-Set-Alias -Name cfst -Value ConvertFrom-StreamDeckTemplate
+Set-Alias -Name ctdt -Value ConvertTo-StreamDeckTemplate
+Set-Alias -Name cfdt -Value ConvertFrom-StreamDeckTemplate
+Set-Alias -Name ctbt -Value ConvertTo-StreamerBotTemplate
+Set-Alias -Name cfbt -Value ConvertFrom-StreamerBotTemplate
 
 Set-Alias -Name rel -Value Update-Profile
 Set-Alias -Name cfg -Value Edit-Profile
