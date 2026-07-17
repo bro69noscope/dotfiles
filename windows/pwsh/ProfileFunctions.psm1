@@ -56,6 +56,20 @@ function listdotsourced{
   (Get-History | Where-Object { $_.CommandLine -match '^\.\s+' }).CommandLine
 }
 
+# Run neovide, only 1 instance
+function ne {
+  $procs = Get-Process neovide -ErrorAction SilentlyContinue
+
+  if ($procs) {
+    $info = $procs | ForEach-Object {
+      "  PID: $($_.Id)`n  Path: $($_.Path)"
+    }
+    Write-Error "Neovide is already running:`n$($info -join "`n")"
+    return
+  }
+  neovide @args
+}
+
 # directory sorted by last access time
 function dr {
   Get-ChildItem @args | Sort-Object LastWriteTime
