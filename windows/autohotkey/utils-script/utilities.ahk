@@ -17,6 +17,9 @@ global LeaderKeyActive := false
 global LeaderKeyBuffer := ""
 global LeaderKeyTimeout := 2000
 
+; Function bound to hotkeys
++^!F13:: ActivateOBS()
+
 global LeaderCommands := Map(
   ; Single character commands
   "a", activateAgeOfEmpires2,
