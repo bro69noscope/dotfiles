@@ -27,6 +27,7 @@ Import-Module "$env:DOTFILES_PATH\windows\pwsh\ProfileFunctions.psm1"
 Import-Module "$env:DOTFILES_PATH\windows\pwsh\LocationHistory.psm1"
 
 # Imported functions aliases
+# general
 Set-Alias -Name spp -Value Set-PythonPath
 Set-Alias -Name eme -Value Enter-MegaScriptEnvironment
 Set-Alias -Name cpath -Value Copy-PathToClipboard
@@ -35,6 +36,7 @@ Set-Alias -Name lf -Value Invoke-Yazi
 Set-Alias -Name y -Value Invoke-Yazi
 Set-Alias -Name cpcode -Value Copy-FileContextRecursively
 
+# streaming vcs template
 Set-Alias -Name istm -Value Import-StreamingTemplatesModules
 Set-Alias -Name ctot -Value ConvertTo-ObsTemplate
 Set-Alias -Name cfot -Value ConvertFrom-ObsTemplate
@@ -43,16 +45,22 @@ Set-Alias -Name cfdt -Value ConvertFrom-StreamDeckTemplate
 Set-Alias -Name ctbt -Value ConvertTo-StreamerBotTemplate
 Set-Alias -Name cfbt -Value ConvertFrom-StreamerBotTemplate
 
+# configs
 Set-Alias -Name rel -Value Update-Profile
 Set-Alias -Name cfg -Value Edit-Profile
 Set-Alias -Name wzcfg -Value Edit-WeztermProfile
 Set-Alias -Name lgcfg -Value Edit-LazygitConfig
 Set-Alias -Name gitcfg -Value Edit-GitConfig
 Set-Alias -Name kacfg -Value Edit-KanataConfig
+
+# navigation and file management
 Set-Alias -Name zz -Value Set-LastDirectory
 Set-Alias -Name linkstart -Value Set-SymlinkSource
 Set-Alias -Name linkend -Value Set-SymlinkTarget
 Set-Alias -Name clear -Value Clear-AndPutPromptAtBottom
+Set-Alias -Name fx -Value fcut
+Set-Alias -Name fcp -Value fcopy
+set-Alias -Name fp -Value fpaste
 
 ## Exec aliases
 Set-Alias -Name lg -Value lazygit
