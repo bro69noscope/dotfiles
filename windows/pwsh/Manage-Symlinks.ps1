@@ -50,6 +50,7 @@ $dotfilesConfig = @{
     "target" = "$HOME\AppData\Roaming\kanata\kanata.kbd"
   }
 
+  # Yazi: cannot symlink the whole folder because of interactions with the package manager
   "Yazi general config" = @{
     "source"  = "$env:DOTFILES_PATH\yazi-config\yazi.toml"
     "target" = "$HOME\AppData\Roaming\yazi\config\yazi.toml"
@@ -68,6 +69,11 @@ $dotfilesConfig = @{
   "Yazi keymap" = @{
     "source"  = "$env:DOTFILES_PATH\yazi-config\keymap.toml"
     "target" = "$HOME\AppData\Roaming\yazi\config\keymap.toml"
+  }
+
+  "Yazi init.lua" = @{
+    "source"  = "$env:DOTFILES_PATH\yazi-config\init.lua"
+    "target" = "$HOME\AppData\Roaming\yazi\config\init.lua"
   }
 }
 

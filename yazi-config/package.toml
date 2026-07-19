@@ -1,7 +1,14 @@
-[plugin]
-deps = []
+[[plugin.deps]]
+use = "h-hg/yamb"
+rev = "5576bd7"
+hash = "2cf0dcda0e16e77342ae50c50134d238"
+
+[[plugin.deps]]
+use = "MasouShizuka/projects"
+rev = "22a4006"
+hash = "be696e23f797e9c426f6e62bd7b46928"
 
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
-rev = "b3950bf"
-hash = "319ce574cdb2865baf4323db90456504"
+rev = "8e6296f"
+hash = "49258e379077f4b0d2e62dfdb131c7d"
