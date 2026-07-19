@@ -710,7 +710,7 @@ ActivateNeovide() {
   if WinExist("ahk_exe neovide.exe")
     WinActivate
   else
-    DelayedToolTipMsg("launch neovide from terminal u faggot")
+    DelayedToolTipMsg("launch neovide from terminal")
 }
 
 ActivateKovaaks() {
