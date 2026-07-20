@@ -39,7 +39,8 @@ global LeaderCommands := Map(
   "n", ActivateNeovide,
   "o", ActivateOBS,
   "Spaceo", (*) => ActivateOBS(moveChat := true),
-  "O", ActivateOBSPortable,
+  "O", (*) => ActivateOBSPortable(profile := "film_the_process"),
+  "SpaceO", (*) => ActivateOBSPortable(profile := "virtual_camera"),
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
@@ -522,20 +523,24 @@ ActivateOBS(moveChat := false) {
   }
 }
 
-ActivateOBSPortable() {
+ActivateOBSPortable(profile := "") {
   hwnd := 0
 
   for win in WinGetList("ahk_exe obs64.exe") {
     title := WinGetTitle(win)
-    if InStr(title, "Portable Mode") {
+    if InStr(title, "Portable Mode" . (profile ? " - Profile: " profile : "")) {
       hwnd := win
       break
     }
   }
   if hwnd
     WinActivate(hwnd)
+  else if profile == "film_the_process"
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-ftp-portable.lnk"
+  else if profile == "virtual_camera"
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-vcam-portable.lnk"
   else
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs64_portable.lnk"
+    MsgBox "No OBS portable profile specified and no matching window found."
 }
 
 ActivateDiscord() {
