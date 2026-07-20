@@ -35,6 +35,7 @@ global LeaderCommands := Map(
   "l", ActivateDeadlock,
   "m", ActivateMailClient,
   "N", ActivateNeo4j,
+  "Spacen", ActivateNotepad,
   "n", ActivateNeovide,
   "o", ActivateOBS,
   "O", ActivateOBSPortable,
@@ -731,6 +732,13 @@ ActivateNeo4j() {
     WinActivate
   else
     Run "C:\\Users\\ville\\AppData\\Local\\Programs\\Neo4j Desktop\\Neo4j Desktop.exe"
+}
+
+ActivateNotepad() {
+  if WinExist("ahk_exe notepad.exe")
+    WinActivate
+  else
+    Run "notepad.exe"
 }
 
 ActivateNeovide() {
