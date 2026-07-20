@@ -37,6 +37,7 @@ global LeaderCommands := Map(
   "N", ActivateNeo4j,
   "n", ActivateNeovide,
   "o", ActivateOBS,
+  "O", ActivateOBSPortable,
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
@@ -492,8 +493,18 @@ ActivatePyCharm() {
 }
 
 ActivateOBS() {
-  if WinExist("ahk_exe obs64.exe")
-    WinActivate
+  hwnd := 0
+
+  for win in WinGetList("ahk_exe obs64.exe") {
+    title := WinGetTitle(win)
+    if !InStr(title, "Portable Mode") {
+      hwnd := win
+      break
+    }
+  }
+
+  if hwnd
+    WinActivate(hwnd)
   else
     Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OBS Studio\OBS Studio (64bit).lnk"
 
@@ -501,6 +512,22 @@ ActivateOBS() {
     WinActivate
     WinMove(3203, 90, 550, 840)
   }
+}
+
+ActivateOBSPortable() {
+  hwnd := 0
+
+  for win in WinGetList("ahk_exe obs64.exe") {
+    title := WinGetTitle(win)
+    if InStr(title, "Portable Mode") {
+      hwnd := win
+      break
+    }
+  }
+  if hwnd
+    WinActivate(hwnd)
+  else
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs64_portable.lnk"
 }
 
 ActivateDiscord() {
