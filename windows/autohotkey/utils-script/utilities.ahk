@@ -18,7 +18,7 @@ global LeaderKeyBuffer := ""
 global LeaderKeyTimeout := 2000
 
 ; Function bound to hotkeys
-+^!F13:: ActivateOBS()
++^!F13:: ActivateOBS(moveChat := true)
 
 global LeaderCommands := Map(
   ; Single character commands
@@ -38,6 +38,7 @@ global LeaderCommands := Map(
   "Spacen", ActivateNotepad,
   "n", ActivateNeovide,
   "o", ActivateOBS,
+  "Spaceo", (*) => ActivateOBS(moveChat := true),
   "O", ActivateOBSPortable,
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
@@ -493,7 +494,7 @@ ActivatePyCharm() {
   }
 }
 
-ActivateOBS() {
+ActivateOBS(moveChat := false) {
   hwnd := 0
 
   for win in WinGetList("ahk_exe obs64.exe") {
@@ -504,14 +505,20 @@ ActivateOBS() {
     }
   }
 
-  if hwnd
+  if hwnd {
     WinActivate(hwnd)
-  else
-    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OBS Studio\OBS Studio (64bit).lnk"
 
-  if WinExist("Chat ahk_exe Streamer.bot.exe") {
-    WinActivate
-    WinMove(3203, 90, 550, 840)
+    if not moveChat
+      return
+
+    if WinExist("Chat ahk_exe Streamer.bot.exe") {
+      WinGetPos(&x, &y, &w, &h, hwnd)
+      chat := WinExist("Chat ahk_exe Streamer.bot.exe")
+      WinActivate(chat)
+      WinMove(x + 20, y + 110, 800, 1250, chat)
+    }
+  } else {
+    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OBS Studio\OBS Studio (64bit).lnk"
   }
 }
 
