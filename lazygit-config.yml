@@ -39,6 +39,11 @@ git:
 # os: # will figure it out eventually but rn it's commented out
 
 #   editPreset: nvim-remote
+keybinding:
+  commits:
+    moveDownCommit: "<a-j>"
+    moveUpCommit: "<a-k>"
+
 customCommands:
   # For files panel
   - key: "I"
@@ -51,6 +56,12 @@ customCommands:
     command: "git -c delta.features=side-by-side diff --cached -- {{.SelectedPath}}"
     context: "files"
     description: "Delta diff of staged changes"
+    loadingText: "Opening staged diff..."
+    output: terminal
+  - key: "S"
+    command: "git -c delta.features=side-by-side diff --cached"
+    context: "files"
+    description: "Delta diff of all staged changes"
     loadingText: "Opening staged diff..."
     output: terminal
   - key: "E"
