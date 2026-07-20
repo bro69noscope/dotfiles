@@ -664,7 +664,7 @@ ActivateVSCode() {
     Run "C:\\Users\\" A_UserName "\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
 }
 
-ActivateWezTerm() {
+ActivateWezTerm(focusonly := false) {
   paths := [
     "test",
     "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
@@ -674,6 +674,9 @@ ActivateWezTerm() {
 
   if WinExist("ahk_exe wezterm-gui.exe")
     return WinActivate()
+
+  if focusonly
+    return
 
   for _, path in paths {
     if FileExist(path) {
@@ -744,8 +747,10 @@ ActivateNotepad() {
 ActivateNeovide() {
   if WinExist("ahk_exe neovide.exe")
     WinActivate
-  else
+  else {
+    ActivateWezTerm(focusonly := true)
     DelayedToolTipMsg("launch neovide from terminal")
+  }
 }
 
 ActivateKovaaks() {
