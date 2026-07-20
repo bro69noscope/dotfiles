@@ -47,6 +47,10 @@ function str {
   Set-Location "$env:MYFILES_PATH\programs\Streamer.bot\data"
 }
 
+function deck {
+  Set-Location "$env:APPDATA\Elgato\StreamDeck\ProfilesV3"
+}
+
 function temp {
   Set-Location "$env:TEMP"
 }
