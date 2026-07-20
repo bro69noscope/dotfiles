@@ -2,7 +2,8 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local act = wezterm.action
 local manually_set_titles = {}
-local font_size = 11.8 -- Allows for 97/98 char length lines in Nvim vs 87/88 with 12.0.
+-- local font_size = 11.8 -- Allows for 97/98 char length lines in Nvim vs 87/88 with 12.0.
+local font_size = 11.2 -- for OS scale to 175%
 -- local font_size = 12
 config.font = wezterm.font("BerkeleyMono Nerd Font", { weight = "Regular" })
 config.font_size = font_size
