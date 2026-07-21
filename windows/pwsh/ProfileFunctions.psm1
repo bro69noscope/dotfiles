@@ -91,7 +91,7 @@ function dr {
 }
 
 # follow a symlink to its target directory
-function follow {
+function followlink {
   param($path)
   $target = (Get-Item $path).Target
   Set-Location (Split-Path $target)
