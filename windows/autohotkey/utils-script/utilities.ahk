@@ -45,7 +45,8 @@ global LeaderCommands := Map(
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
   "s", ActivateSpotify,
-  "t", ActivateStreamerBot,
+  "t", (*) => ActivateStreamerBot(portableVersion := "production"),
+  "T", (*) => ActivateStreamerBot(portableVersion := "ftp"),
   "u", ActivateOsu,
   "v", ActivateVSCode,
   "w", ActivateWezTerm,
@@ -571,11 +572,29 @@ ActivateStreamDeck() {
     Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Elgato\Stream Deck\Stream Deck.lnk"
 }
 
-ActivateStreamerBot() {
-  if WinExist("Streamer.bot ahk_exe Streamer.bot.exe")
-    WinActivate
-  else
-    Run "C:\Users\ville\myfiles\programs\Streamer.bot\Streamer.bot.exe"
+ActivateStreamerBot(portableVersion := "") {
+  paths := Map(
+    "production",
+    "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-production\Streamer.bot\Streamer.bot.exe",
+    "ftp",
+    "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-ftp\Streamer.bot-x64-1.0.4\Streamer.bot.exe"
+  )
+
+  targetPath := paths[portableVersion]
+
+  for wmi in ComObjGet("winmgmts:")
+    .ExecQuery(
+      "SELECT ProcessId, ExecutablePath FROM Win32_Process "
+      "WHERE Name='Streamer.bot.exe'"
+    )
+  {
+    if StrLower(wmi.ExecutablePath) = StrLower(targetPath) {
+      WinActivate("ahk_pid " wmi.ProcessId)
+      return
+    }
+  }
+
+  Run('"' targetPath '"')
 }
 
 ActivateOsu() {
