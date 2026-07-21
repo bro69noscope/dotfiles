@@ -43,8 +43,14 @@ function aoe {
   Set-Location "$env:STREAMING_REPO_PATH\external\obs\version-control\scenes\collection_aoe2"
 }
 
-function str {
-  Set-Location "$env:MYFILES_PATH\programs\Streamer.bot\data"
+function strp {
+  Set-Location `
+    "$env:MYFILES_PATH\streaming-programs\streamerbot-portable-production\Streamer.bot\data"
+}
+
+function strf {
+  Set-Location `
+    "$env:MYFILES_PATH\streaming-programs\streamerbot-portable-ftp\Streamer.bot\data"
 }
 
 function deck {

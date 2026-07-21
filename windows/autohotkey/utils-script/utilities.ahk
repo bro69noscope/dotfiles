@@ -577,7 +577,7 @@ ActivateStreamerBot(portableVersion := "") {
     "production",
     "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-production\Streamer.bot\Streamer.bot.exe",
     "ftp",
-    "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-ftp\Streamer.bot-x64-1.0.4\Streamer.bot.exe"
+    "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-ftp\Streamer.bot\Streamer.bot.exe"
   )
 
   targetPath := paths[portableVersion]
