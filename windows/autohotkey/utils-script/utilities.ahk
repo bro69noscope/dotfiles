@@ -583,6 +583,8 @@ ActivateStreamerBot(portableVersion := "") {
   targetPath := paths[portableVersion]
 
   for wmi in ComObjGet("winmgmts:")
+    ; could be simplified to use window name now that we foud a way to change it in
+    ; Streamer settings, but this is more fun
     .ExecQuery(
       "SELECT ProcessId, ExecutablePath FROM Win32_Process "
       "WHERE Name='Streamer.bot.exe'"
