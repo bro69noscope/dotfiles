@@ -7,7 +7,7 @@
 A_MaxHotkeysPerInterval := 3000
 SendMode "Input"
 SetWorkingDir A_ScriptDir        ; Consistent starting directory
-TraySetIcon "..\\icons\\utils.png"
+TraySetIcon "..\icons\utils.png"
 
 ; =======================================
 ; GLOBALS
@@ -80,10 +80,10 @@ global SpotifyWindow_ID := 0
 
 ; Chrome‑tracking (persisted as a list)
 global ChromeWindowList := []
-global ChromeWindowsFile := A_ScriptDir "\\chrome_windows.ini"
+global ChromeWindowsFile := A_ScriptDir "\chrome_windows.ini"
 
 ; Config file for single‑value IDs
-global ConfigFile := A_ScriptDir "\\window_ids.ini"
+global ConfigFile := A_ScriptDir "\window_ids.ini"
 
 DetectSpecificKeyboard() {
   keyboards := GetKeyboardInfo()
@@ -392,7 +392,7 @@ ActivateLeaderKey() {
   SetTimer(CancelLeaderKey, 0) ; reset existing
   SetTimer(CancelLeaderKey, LeaderKeyTimeout)
   ToolTip("Leader mode active")
-  SoundPlay("C:\\Windows\\Media\\Windows Balloon.wav")
+  SoundPlay("C:\Windows\Media\Windows Balloon.wav")
 }
 
 
@@ -694,7 +694,7 @@ ActivateVSCode() {
   if WinExist("ahk_exe Code.exe")
     WinActivate
   else
-    Run "C:\\Users\\" A_UserName "\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+    Run "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 }
 
 ActivateWezTerm(focusonly := false) {
@@ -744,7 +744,7 @@ ActivatePowerShell() {
 }
 
 ActivateAdminPowerShell() {
-  adminTitle := "Administrator: C:\\Program Files\\PowerShell\\7\\pwsh.exe"
+  adminTitle := "Administrator: C:\Program Files\PowerShell\7\pwsh.exe"
   selectAdminTitle := "Select " adminTitle
 
   if WinExist(adminTitle)
@@ -767,7 +767,7 @@ ActivateNeo4j() {
   if WinExist("neo4j@bolt://localhost:7687")
     WinActivate
   else
-    Run "C:\\Users\\ville\\AppData\\Local\\Programs\\Neo4j Desktop\\Neo4j Desktop.exe"
+    Run "C:\Users\ville\AppData\Local\Programs\Neo4j Desktop\Neo4j Desktop.exe"
 }
 
 ActivateNotepad() {
