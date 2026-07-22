@@ -39,8 +39,8 @@ global LeaderCommands := Map(
   "n", ActivateNeovide,
   "o", ActivateOBS,
   "Spaceo", (*) => ActivateOBS(moveChat := true),
-  "O", (*) => ActivateOBSPortable(profile := "film_the_process"),
-  "SpaceO", (*) => ActivateOBSPortable(profile := "virtual_camera"),
+  "O", (*) => ActivateOBSPortable(profile := "ftp"),
+  "SpaceO", (*) => ActivateOBSPortable(profile := "vcam"),
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
@@ -536,10 +536,10 @@ ActivateOBSPortable(profile := "") {
   }
   if hwnd
     WinActivate(hwnd)
-  else if profile == "film_the_process"
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-ftp-portable.lnk"
-  else if profile == "virtual_camera"
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-vcam-portable.lnk"
+  else if profile == "ftp"
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-ftp.lnk"
+  else if profile == "vcam"
+    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-vcam.lnk"
   else
     MsgBox "No OBS portable profile specified and no matching window found."
 }
