@@ -356,8 +356,8 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ SPG AZU SPG ___                                     GDN GDN GDN GDN GDN ___
-          ___ SPG AZU AZU AZU SPG                                     SPG FST WRP SLO PUR SPG
-          ___ SPG SLO WRP FST SPG     GDN PUR GDN     BLU BLU BLU     SPG AZU AZU AZU AZU SPG
+          ___ SPG AZU AZU AZU SPG                                     MAJ FST WRP SLO PUR SPG
+          ___ SPG SLO WRP FST SPG     GDN PUR GDN     BLU BLU BLU     MAJ AZU AZU AZU AZU SPG
           ___ ___ BLU BLU BLU         GDN GDN GDN     ___ RED ___         YLW GRN CYN MAJ ___
         >;
         layer-id = <LAYER_Mouse>;
