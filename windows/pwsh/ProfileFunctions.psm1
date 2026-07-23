@@ -98,7 +98,7 @@ function followlink {
 }
 
 # allow to cd to a file path which will cd to the parent directory instead
-function cd {
+function cdf {
   param([string]$Path = ".")
 
   if (Test-Path $Path -PathType Leaf) {
