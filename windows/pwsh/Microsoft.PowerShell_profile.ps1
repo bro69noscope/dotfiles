@@ -6,6 +6,8 @@ Write-Host ("`n" * $consoleHeight)
 $claudeApiKey = Get-Content -Path `
   "$HOME\myfiles\documents\api-keys\anthropic\loïc-onboarding-api-key.txt" -Raw
 
+$env:CLAUDE_CODE_HIDE_ACCOUNT_INFO=1
+
 ## Environment variables
 $env:PYTHONIOENCODING="utf-8"
 $env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm usage
@@ -72,6 +74,7 @@ Set-Alias -Name wh -Value where.exe
 Set-Alias -Name kan -Value kanata
 Set-Alias -Name zf -Value zi
 Set-Alias wezdev "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm.exe"
+Set-Alias -Name cc -Value claude
 
 ## Path additions
 $pathsToAdd = @(

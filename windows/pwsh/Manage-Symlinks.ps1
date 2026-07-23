@@ -50,6 +50,16 @@ $dotfilesConfig = @{
     "target" = "$HOME\AppData\Roaming\kanata\kanata.kbd"
   }
 
+  "Claude keybinds" = @{
+    "source"  = "$env:DOTFILES_PATH\.claude\keybindings.json"
+    "target" = "$HOME\.claude\keybindings.json"
+  }
+
+  "Claude settings" = @{
+    "source"  = "$env:DOTFILES_PATH\.claude\settings.json"
+    "target" = "$HOME\.claude\settings.json"
+  }
+
   # Yazi: cannot symlink the whole folder because of interactions with the package manager
   "Yazi general config" = @{
     "source"  = "$env:DOTFILES_PATH\yazi-config\yazi.toml"

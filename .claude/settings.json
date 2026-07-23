@@ -1,0 +1,9 @@
+{
+  "env": {
+    "EDITOR": "nvim",
+    "IS_DEMO": "1"
+  },
+  "autoUpdatesChannel": "latest",
+  "theme": "dark",
+  "editorMode": "vim"
+}
