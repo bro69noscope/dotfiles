@@ -781,8 +781,13 @@ ActivateNeovide() {
   if WinExist("ahk_exe neovide.exe")
     WinActivate
   else {
-    ActivateWezTerm(focusonly := true)
-    DelayedToolTipMsg("launch neovide from terminal")
+    Run "C:\Users\ville\scoop\shims\neovide.exe"
+    hwnd := ""
+    Loop 50 {
+      if hwnd := WinExist("ahk_exe neovide.exe")
+        return WinActivate(hwnd)
+      Sleep 50
+    }
   }
 }
 
