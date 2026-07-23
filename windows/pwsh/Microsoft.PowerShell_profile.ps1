@@ -81,6 +81,7 @@ $pathsToAdd = @(
   "$env:DOTFILES_PATH\windows\batch"
   "$HOME\myfiles\programs\PROGRAMS_ON_PATH"
   "C:\Program Files\Git\bin"
+  "$env:LOCALAPPDATA\nvim-data\mason\bin"
 )
 
 foreach ($path in $pathsToAdd) {
