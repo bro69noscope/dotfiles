@@ -117,6 +117,7 @@ Set-PSReadLineKeyHandler -Chord 'Alt-;' -Function AcceptSuggestion
 Remove-PSReadLineKeyHandler Ctrl+d
 Remove-PSReadLineKeyHandler Ctrl+u
 Remove-PSReadLineKeyHandler Ctrl+y
+Remove-PSReadLineKeyHandler Ctrl+l
 
 Set-PSReadLineKeyHandler -Chord Ctrl+x -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
