@@ -617,21 +617,14 @@ config.keys = {
 
   -- Close panes
   {
-    key = "x",
-    mods = "LEADER",
+    key = "d",
+    mods = "CTRL|SHIFT",
     action = wezterm.action.CloseCurrentPane({ confirm = true }),
   },
   {
     key = "X",
     mods = "LEADER",
     action = wezterm.action({ EmitEvent = "close_other_tabs" }),
-  },
-
-  -- Zoom
-  {
-    key = "z",
-    mods = "LEADER",
-    action = wezterm.action.TogglePaneZoomState,
   },
 
   -- Rename tab
@@ -649,41 +642,6 @@ config.keys = {
       end),
     }),
   },
-
-  -- New tab
-  {
-    key = "t",
-    mods = "LEADER",
-    action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
-  },
-
-  -- {
-  --   key = "T",
-  --   mods = "LEADER",
-  --   action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
-  -- },
-
-  -- Switch tabs
-  { key = "phys:1", mods = "LEADER", action = wezterm.action.ActivateTab(0) },
-  { key = "phys:1", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(0) },
-  { key = "phys:2", mods = "LEADER", action = wezterm.action.ActivateTab(1) },
-  { key = "phys:2", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(1) },
-  { key = "phys:3", mods = "LEADER", action = wezterm.action.ActivateTab(2) },
-  { key = "phys:3", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(2) },
-  { key = "phys:4", mods = "LEADER", action = wezterm.action.ActivateTab(3) },
-  { key = "phys:4", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(3) },
-  { key = "phys:5", mods = "LEADER", action = wezterm.action.ActivateTab(4) },
-  { key = "phys:5", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(4) },
-  { key = "phys:6", mods = "LEADER", action = wezterm.action.ActivateTab(5) },
-  { key = "phys:6", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(5) },
-  { key = "phys:7", mods = "LEADER", action = wezterm.action.ActivateTab(6) },
-  { key = "phys:7", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(6) },
-  { key = "phys:8", mods = "LEADER", action = wezterm.action.ActivateTab(7) },
-  { key = "phys:8", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(7) },
-  { key = "phys:9", mods = "LEADER", action = wezterm.action.ActivateTab(8) },
-  { key = "phys:9", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(8) },
-  { key = "phys:0", mods = "LEADER", action = wezterm.action.ActivateTab(9) },
-  { key = "phys:0", mods = "LEADER|SHIFT", action = wezterm.action.ActivateTab(9) },
 
   -- Custom bind for nvim
   {
