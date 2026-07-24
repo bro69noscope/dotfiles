@@ -429,6 +429,16 @@ DelayedToolTipMsg(text, duration := 2000) {
 ; =======================================
 ; WINDOW HELPERS
 ; =======================================
+ActivateWhenReady(checkFn, timeout := 2000) {
+  end := A_TickCount + timeout
+  while (A_TickCount < end) {
+    if (hwnd := checkFn())
+      return WinActivate(hwnd)
+    Sleep 50
+  }
+  return false
+}
+
 ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "") {
   if (IsSet(windowID) && windowID) {
     VerifyWindowIDs()
@@ -525,21 +535,27 @@ ActivateOBS(moveChat := false) {
 }
 
 ActivateOBSPortable(profile := "") {
-  hwnd := 0
-
-  for win in WinGetList("ahk_exe obs64.exe") {
-    title := WinGetTitle(win)
-    if InStr(title, "Portable Mode" . (profile ? " - Profile: " profile : "")) {
-      hwnd := win
-      break
+  FindOBSPortableWindow(profile := "") {
+    for win in WinGetList("ahk_exe obs64.exe") {
+      title := WinGetTitle(win)
+      if InStr(title, "Portable Mode" . (profile ? " - Profile: " profile : ""))
+        return win
     }
+    return 0
   }
+  idMethod := () => FindOBSPortableWindow(profile)
+
+  hwnd := idMethod()
   if hwnd
     WinActivate(hwnd)
-  else if profile == "ftp"
+  else if profile == "ftp" {
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-ftp.lnk"
-  else if profile == "vcam"
+    ActivateWhenReady(idMethod, 3000)
+  }
+  else if profile == "vcam" {
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-vcam.lnk"
+    ActivateWhenReady(idMethod, 3000)
+  }
   else
     MsgBox "No OBS portable profile specified and no matching window found."
 }
@@ -699,13 +715,13 @@ ActivateVSCode() {
 
 ActivateWezTerm(focusonly := false) {
   paths := [
-    "test",
     "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
     "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
     "C:\Users\ville\scoop\shims\wezterm-gui.exe"
   ]
+  idMethod := () => WinExist("ahk_exe wezterm-gui.exe")
 
-  if WinExist("ahk_exe wezterm-gui.exe")
+  if idMethod()
     return WinActivate()
 
   if focusonly
@@ -714,15 +730,8 @@ ActivateWezTerm(focusonly := false) {
   for _, path in paths {
     if FileExist(path) {
       Run path
-      hwnd := ""
-      Loop 50 {
-        if hwnd := WinExist("ahk_exe wezterm-gui.exe")
-          break
-        Sleep 50
-      }
-
-      if hwnd
-        return WinActivate(hwnd)
+      if ActivateWhenReady(idMethod, 2000)
+        return
       else
         MsgBox "Could not activate WezTerm window after launching from: " path
     }
