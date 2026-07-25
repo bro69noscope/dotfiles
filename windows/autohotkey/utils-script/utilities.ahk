@@ -432,8 +432,10 @@ DelayedToolTipMsg(text, duration := 2000) {
 ActivateWhenReady(checkFn, timeout := 2000) {
   end := A_TickCount + timeout
   while (A_TickCount < end) {
-    if (hwnd := checkFn())
-      return WinActivate(hwnd)
+    if (hwnd := checkFn()) {
+      WinActivate(hwnd)
+      return true
+    }
     Sleep 50
   }
   return false
@@ -568,8 +570,12 @@ ActivateDiscord() {
 }
 
 ActivateAutoDuck() {
-  if WinExist("ahk_exe Auto-Duck.exe")
-    WinActivate
+  DetectHiddenWindows true
+  hwnd := WinExist("ahk_exe Auto-Duck.exe")
+  if hwnd {
+    WinShow(hwnd)
+    WinActivate(hwnd)
+  }
   else
     Run "C:\Users\ville\OneDrive\Streaming\Software settings\AutoDuck\stream_duck.adrt"
 }
@@ -720,9 +726,10 @@ ActivateWezTerm(focusonly := false) {
     "C:\Users\ville\scoop\shims\wezterm-gui.exe"
   ]
   idMethod := () => WinExist("ahk_exe wezterm-gui.exe")
+  hwnd := idMethod()
 
-  if idMethod()
-    return WinActivate()
+  if hwnd
+    return WinActivate(hwnd)
 
   if focusonly
     return
