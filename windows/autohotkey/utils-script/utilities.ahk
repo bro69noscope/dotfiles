@@ -19,6 +19,7 @@ global LeaderKeyTimeout := 2000
 
 ; Function bound to hotkeys
 +^!F13:: ActivateOBS(moveChat := true)
++^!F14:: ActivateOBSPortable(profile := "ftp", moveChat := true)
 
 global LeaderCommands := Map(
   ; Single character commands
