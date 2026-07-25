@@ -616,19 +616,16 @@ ActivateStreamerBot(portableVersion := "") {
 
   targetPath := paths[portableVersion]
 
-  for wmi in ComObjGet("winmgmts:")
-    ; could be simplified to use window name now that we foud a way to change it in
-    ; Streamer settings, but this is more fun
-    .ExecQuery(
-      "SELECT ProcessId, ExecutablePath FROM Win32_Process "
-      "WHERE Name='Streamer.bot.exe'"
-    )
-  {
-    if StrLower(wmi.ExecutablePath) = StrLower(targetPath) {
-      WinActivate("ahk_pid " wmi.ProcessId)
-      return
+  hwnd := ""
+  for win in WinGetList("ahk_exe Streamer.bot.exe") {
+    title := WinGetTitle(win)
+    if InStr(title, portableVersion) {
+      hwnd := win
+      break
     }
   }
+  if hwnd
+    return WinActivate(hwnd)
 
   Run('"' targetPath '"')
 }
