@@ -40,7 +40,7 @@ global LeaderCommands := Map(
   "o", ActivateOBS,
   "Spaceo", (*) => ActivateOBS(moveChat := true),
   "O", (*) => ActivateOBSPortable(profile := "ftp"),
-  "SpaceO", (*) => ActivateOBSPortable(profile := "vcam"),
+  "SpaceO", (*) => ActivateOBSPortable(profile := "ftp", moveChat := true),
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
@@ -49,6 +49,7 @@ global LeaderCommands := Map(
   "T", (*) => ActivateStreamerBot(portableVersion := "ftp"),
   "u", ActivateOsu,
   "v", ActivateVSCode,
+  "V", (*) => ActivateOBSPortable(profile := "vcam"),
   "w", ActivateWezTerm,
   "x", ActivateExplorer,
   "y", ActivatePyCharm,
@@ -529,14 +530,14 @@ ActivateOBS(moveChat := false) {
       WinGetPos(&x, &y, &w, &h, hwnd)
       chat := WinExist("Chat ahk_exe Streamer.bot.exe")
       WinActivate(chat)
-      WinMove(x + 20, y + 110, 800, 1250, chat)
+      WinMove(x + 20, y + 110, 800, 1230, chat)
     }
   } else {
     Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OBS Studio\OBS Studio (64bit).lnk"
   }
 }
 
-ActivateOBSPortable(profile := "") {
+ActivateOBSPortable(profile := "", moveChat := false) {
   FindOBSPortableWindow(profile := "") {
     for win in WinGetList("ahk_exe obs64.exe") {
       title := WinGetTitle(win)
@@ -548,8 +549,19 @@ ActivateOBSPortable(profile := "") {
   idMethod := () => FindOBSPortableWindow(profile)
 
   hwnd := idMethod()
-  if hwnd
+  if hwnd {
     WinActivate(hwnd)
+
+    if not moveChat
+      return
+
+    if WinExist("Chat ahk_exe Streamer.bot.exe") {
+      WinGetPos(&x, &y, &w, &h, hwnd)
+      chat := WinExist("Chat ahk_exe Streamer.bot.exe")
+      WinActivate(chat)
+      WinMove(x + 20, y + 110, 800, 1230, chat)
+    }
+  }
   else if profile == "ftp" {
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-ftp.lnk"
     ActivateWhenReady(idMethod, 3000)
@@ -871,7 +883,8 @@ ReplaceSlashes(direction := "/") {
 #HotIf
 
 Excludegames() {
-  return !WinActive("ahk_exe dota2.exe") && !WinActive("ahk_exe Warcraft III.exe") && !
+  return !WinActive("ahk_exe dota2.exe") && !WinActive("ahk_exe Warcraft III.exe") &&
+    !
     WinActive("ahk_exe deadlock.exe")
 }
 
