@@ -12,10 +12,26 @@ $env:CLAUDE_CODE_HIDE_ACCOUNT_INFO=1
 $env:PYTHONIOENCODING="utf-8"
 $env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm usage
 $env:YAZI_FILE_ONE="C:\Program Files\Git\usr\bin\file.exe"
-$env:DOTFILES_PATH = "$HOME\myfiles\dotfiles"
 $env:MYFILES_PATH = "$HOME\myfiles"
-$env:STREAMING_DATA_PATH = "$HOME\myfiles\streaming-data"
-$env:STREAMING_REPO_PATH = "$HOME\myfiles\git-repos\woertsposzibllen4me"
+$env:DOTFILES_PATH = "$env:MYFILES_PATH\dotfiles"
+$env:STREAMING_DATA_PATH = "$env:MYFILES_PATH\streaming-data"
+$env:STREAMING_REPO_PATH = "$env:MYFILES_PATH\git-repos\woertsposzibllen4me"
+
+$env:STREAMER_BOT_PRODUCTION_PATH= Join-Path $env:MYFILES_PATH `
+  "streaming-programs\streamerbot-portable-production\Streamer.bot"
+
+$env:STREAMER_BOT_FTP_PATH= Join-Path $env:MYFILES_PATH `
+  "streaming-programs\streamerbot-portable-ftp\Streamer.bot"
+
+$env:OBS_STUDIO_PRODUCTION_CFG_PATH= "$env:APPDATA\obs-studio"
+
+$env:OBS_STUDIO_FTP_CFG_PATH= Join-Path $env:MYFILES_PATH `
+  "streaming-programs\obs-studio-portable-ftp\obs-studio\config\obs-studio"
+
+$env:OBS_STUDIO_VCAM_CFG_PATH= Join-Path $env:MYFILES_PATH `
+  "streaming-programs\obs-studio-portable-vcam\obs-studio\config\obs-studio"
+
+$env:STREAMDECK_CFG_PATH= "$env:APPDATA\Elgato\StreamDeck\ProfilesV3"
 
 ## These are forwarded to WSL when using "wsl" from pwsh
 $env:WSLENV = "AVANTE_ANTHROPIC_API_KEY"
