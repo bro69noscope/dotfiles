@@ -43,6 +43,7 @@ Import-Module posh-git
 ## Custom modules
 Import-Module "$env:DOTFILES_PATH\windows\pwsh\ProfileFunctions.psm1" -Force
 Import-Module "$env:DOTFILES_PATH\windows\pwsh\LocationHistory.psm1" -Force
+Import-Module "$env:DOTFILES_PATH\windows\pwsh\vcs-locations.psm1" -Force
 Import-Module (
   Join-Path `
     $env:STREAMING_REPO_PATH `
