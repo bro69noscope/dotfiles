@@ -40,7 +40,7 @@ global LeaderCommands := Map(
   "N", ActivateNeo4j,
   "Spacen", ActivateNotepad,
   "n", ActivateNeovide,
-  "o", ActivateOBS(),
+  "o", (*) => ActivateOBS(),
   "Spaceo", (*) => ActivateOBS(moveChat := true),
   "O", (*) => ActivateOBSPortable(profile := "ftp", moveChat := true),
   "SpaceO", (*) => ActivateOBSPortable(profile := "ftp"),
