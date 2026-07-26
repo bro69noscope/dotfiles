@@ -446,7 +446,7 @@ ActivateWhenReady(checkFn, timeout := 2000) {
   return false
 }
 
-ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "") {
+ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "") {
   if (IsSet(windowID) && windowID) {
     VerifyWindowIDs()
     if WinExist("ahk_id " windowID) {
@@ -454,6 +454,10 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "") {
       return true
     }
   }
+
+  if (profile)
+    ; for chrome see chrome://version
+    runCommand .= ' --profile-directory="' profile '"'
 
   if (urls)
     runCommand := runCommand " --new-window " urls
@@ -717,28 +721,18 @@ ActivateSpotify() {
 
 ActivateBrowser1Window() {
   global Browser1_ID
-  return ActivateOrCreateWindow(&Browser1_ID,
-    "chrome.exe",
-    "chrome.exe",
-    ; "https://claude.ai https://chat.openai.com"
-  )
+  return ActivateOrCreateWindow(&Browser1_ID, "chrome.exe", "chrome.exe", , "Default")
 }
 
 ActivateBrowser2Window() {
   global Browser2_ID
-  return ActivateOrCreateWindow(&Browser2_ID,
-    "chrome.exe",
-    "chrome.exe",
-    ; "https://claude.ai https://chat.openai.com"
+  return ActivateOrCreateWindow(&Browser2_ID, "chrome.exe", "chrome.exe", , "Profile 4"
   )
 }
 
 ActivateBrowser3Window() {
   global Browser3_ID
-  return ActivateOrCreateWindow(&Browser3_ID,
-    "chrome.exe",
-    "chrome.exe",
-    ; "https://claude.ai https://chat.openai.com"
+  return ActivateOrCreateWindow(&Browser3_ID, "chrome.exe", "chrome.exe", , "Profile 5"
   )
 }
 
