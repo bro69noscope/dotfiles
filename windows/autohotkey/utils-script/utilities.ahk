@@ -57,6 +57,7 @@ global LeaderCommands := Map(
   "x", ActivateExplorer,
   "y", ActivatePyCharm,
   ; Number/specials commands
+  "0", ActivateUngroupedChromeWindow,
   "1", ActivateBrowser1Window,
   "2", ActivateBrowser2Window,
   "3", ActivateBrowser3Window,
@@ -739,6 +740,30 @@ ActivateBrowser3Window() {
     "chrome.exe",
     ; "https://claude.ai https://chat.openai.com"
   )
+}
+
+; Find and activate a Chrome window that isn't in the tracked ChromeWindowList
+ActivateUngroupedChromeWindow() {
+  global ChromeWindowList
+
+  allChromeWindows := WinGetList("ahk_exe chrome.exe")
+
+  for _, hwnd in allChromeWindows {
+    tracked := false
+    for _, trackedID in ChromeWindowList {
+      if (hwnd = trackedID) {
+        tracked := true
+        break
+      }
+    }
+    if !tracked {
+      WinActivate("ahk_id " hwnd)
+      return true
+    }
+  }
+
+  MsgBox("❌ No ungrouped Chrome windows found")
+  return false
 }
 
 ActivateVSCode() {
