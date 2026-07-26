@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         Prevent PageLoadStop with ESC (C-q instead)
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  Prevents ESC key from stopping page loads but allows Ctrl+Q to send ESC
+// @version      0.3
+// @license MIT
+// @description  intercepts the ESC key to prevent stopping page loads while allowing Ctrl+Q to send ESC instead.
 // @author       Loïc Villet
 // @match        *://*/*
 // @run-at       document-start
