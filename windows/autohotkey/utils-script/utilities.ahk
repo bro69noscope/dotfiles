@@ -20,6 +20,8 @@ global LeaderKeyTimeout := 2000
 ; Function bound to hotkeys
 +^!F13:: ActivateOBS(moveChat := true)
 +^!F14:: ActivateOBSPortable(profile := "ftp", moveChat := true)
++^!F7:: MoveProductionOBS(direction := "right")
++^!F8:: MoveProductionOBS(direction := "center")
 
 global LeaderCommands := Map(
   ; Single character commands
@@ -38,10 +40,10 @@ global LeaderCommands := Map(
   "N", ActivateNeo4j,
   "Spacen", ActivateNotepad,
   "n", ActivateNeovide,
-  "o", ActivateOBS,
+  "o", ActivateOBS(),
   "Spaceo", (*) => ActivateOBS(moveChat := true),
-  "O", (*) => ActivateOBSPortable(profile := "ftp"),
-  "SpaceO", (*) => ActivateOBSPortable(profile := "ftp", moveChat := true),
+  "O", (*) => ActivateOBSPortable(profile := "ftp", moveChat := true),
+  "SpaceO", (*) => ActivateOBSPortable(profile := "ftp"),
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
@@ -573,6 +575,23 @@ ActivateOBSPortable(profile := "", moveChat := false) {
   }
   else
     MsgBox "No OBS portable profile specified and no matching window found."
+}
+
+MoveProductionOBS(direction := "right") {
+  hwnd := 0
+  for win in WinGetList("ahk_exe obs64.exe") {
+    title := WinGetTitle(win)
+    if !InStr(title, "Portable Mode") {
+      hwnd := win
+      break
+    }
+  }
+
+  WinGetPos(&x, &y, &w, &h, hwnd)
+  if direction = "right"
+    WinMove(2560, y, w, h, hwnd)
+  else if direction = "center"
+    WinMove(0, y, w, h, hwnd)
 }
 
 ActivateDiscord() {
