@@ -338,8 +338,27 @@ wezterm.on("close_other_tabs", function(window, pane)
   close_next()
 end)
 
+local named_tabs_preset = {
+  { cwd = "C:\\Users\\ville\\myfiles\\git-repos\\woertsposzibllen4me", title = "repo" },
+  { cwd = "C:\\Users\\ville\\myfiles\\dotfiles\\nvim-config3.0", title = "nvimconfig" },
+  {
+    cwd = "C:\\Users\\ville\\myfiles\\streaming-programs\\streamerbot-portable-ftp\\Streamer.bot\\dlls",
+    title = "logs",
+  },
+}
+
+wezterm.on("spawn-named-tabs", function(window, pane)
+  local mux_window = window:mux_window()
+  for _, t in ipairs(named_tabs_preset) do
+    local tab, new_pane, new_window = mux_window:spawn_tab({ cwd = t.cwd })
+    tab:set_title(t.title)
+    manually_set_titles[tostring(tab:tab_id())] = true
+  end
+end)
+
 config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
+  { key = "o", mods = "LEADER", action = act.EmitEvent("spawn-named-tabs") },
   -- workspace switching
   {
     key = "g",
