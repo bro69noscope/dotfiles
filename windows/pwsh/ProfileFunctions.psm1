@@ -198,13 +198,18 @@ function fpaste {
     '.' 
   }
 
+  $destExists = Test-Path -LiteralPath $destination
+
   switch ($clip.Mode) {
     'cut' {
-      Move-Item -LiteralPath $clip.FullName -Destination $destination
-      Remove-Item -LiteralPath $script:FileClipboardPath -ErrorAction SilentlyContinue
+      Move-Item -LiteralPath $clip.FullName -Destination $destination -Confirm:$destExists
+      if (-not (Test-Path -LiteralPath $clip.FullName)) {
+        # source is gone, so the move actually happened
+        Remove-Item -LiteralPath $script:FileClipboardPath -ErrorAction SilentlyContinue
+      }
     }
     'copy' {
-      Copy-Item -LiteralPath $clip.FullName -Destination $destination -Recurse
+      Copy-Item -LiteralPath $clip.FullName -Destination $destination -Recurse -Confirm:$destExists
     }
     default {
       Write-Error "Unknown clipboard mode."
