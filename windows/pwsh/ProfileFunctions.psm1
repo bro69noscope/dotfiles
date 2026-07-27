@@ -133,6 +133,10 @@ function l {
   eza --icons -l $args
 }
 
+function lr {
+  eza --icons -l --sort=modified $args
+}
+
 function Clear-AndPutPromptAtBottom {
   $host.UI.RawUI.CursorPosition = New-Object System.Management.Automation.Host.Coordinates 0, 0
   Clear-Host
