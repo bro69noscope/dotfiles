@@ -46,6 +46,19 @@ keybinding:
 
 customCommands:
   # For files panel
+
+  - key: "<c-a>"
+    context: "files"
+    description: "AI commit message"
+    command: >
+      (git log --oneline -30 && echo "---DIFF---" && git diff --staged) |
+      claude -p "The lines above the ---DIFF--- marker are this repo's recent
+      commit history. Match that exact style (type(scope): description) for the
+      diff below the marker. Output ONLY the commit message, no preamble, no
+      markdown fences." | git commit --edit -F -
+    loadingText: "Asking Claude for a commit message..."
+    output: terminal
+
   - key: "I"
     command: "git -c delta.features=side-by-side diff {{.SelectedPath}}"
     context: "files"
@@ -70,13 +83,23 @@ customCommands:
     prompts:
       - type: "input"
         title: "Commit message"
+
   # For commits panel
+
   - key: "I"
     command: "git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -p"
     context: "commits"
     description: "Show commit with Delta side-by-side"
     loadingText: "Opening commit diff in Delta..."
     output: terminal
+
+  - key: "<c-y>"
+    command: "git show {{.SelectedCommit.Sha}} | clip"
+    context: "commits"
+    description: "Copy commit diff to clipboard"
+    loadingText: "Copying diff to clipboard..."
+    output: log
+
   # For files within a commit or stash
   - key: "I"
     command: "git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- {{.SelectedCommitFilePath}}"
