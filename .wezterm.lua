@@ -2,7 +2,8 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local act = wezterm.action
 local manually_set_titles = {}
--- local font_size = 11.8 -- Allows for 97/98 char length lines in Nvim vs 87/88 with 12.0.
+local workspace_switcher =
+  wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
 local font_size = 11.8 -- Allows for 97/98 char length lines in Nvim vs 87/88 with 12.0.
 -- local font_size = 12
 config.font = wezterm.font("BerkeleyMono Nerd Font", { weight = "Regular" })
@@ -339,6 +340,17 @@ end)
 
 config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
+  -- workspace switching
+  {
+    key = "g",
+    mods = "CTRL|SHIFT",
+    action = workspace_switcher.switch_workspace(),
+  },
+  {
+    key = "s",
+    mods = "LEADER",
+    action = workspace_switcher.switch_to_prev_workspace(),
+  },
 
   -- for testing
   {
