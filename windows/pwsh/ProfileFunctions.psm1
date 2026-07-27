@@ -156,32 +156,55 @@ function Set-LastDirectory {
   z "-"
 }
 
-# copy/paste functions for files and directories
-$global:fileClipboard = $null
-$global:fileClipboardMode = $null
+# copy/paste functions for files and directories, available across PowerShell sessions
+$script:FileClipboardPath = Join-Path $env:TEMP 'pwsh-file-clipboard.json'
 
 function fcut {
-  $global:fileClipboard = Get-Item $args[0]
-  $global:fileClipboardMode = "cut"
+  param([Parameter(Mandatory)][string]$Path)
+  $item = Get-Item -LiteralPath $Path -ErrorAction Stop
+  [pscustomobject]@{
+    FullName = $item.FullName
+    Mode = 'cut'
+  } | ConvertTo-Json | Set-Content -LiteralPath $script:FileClipboardPath -Encoding utf8
 }
 
 function fcopy {
-  $global:fileClipboard = Get-Item $args[0]
-  $global:fileClipboardMode = "copy"
+  param([Parameter(Mandatory)][string]$Path)
+  $item = Get-Item -LiteralPath $Path -ErrorAction Stop
+  [pscustomobject]@{
+    FullName = $item.FullName
+    Mode = 'copy'
+  } | ConvertTo-Json | Set-Content -LiteralPath $script:FileClipboardPath -Encoding utf8
 }
 
 function fpaste {
-  if (-not $global:fileClipboard) {
+  param([string]$NewName = $null)
+
+  if (-not (Test-Path $script:FileClipboardPath)) {
     Write-Error "Clipboard is empty."
     return
   }
 
-  switch ($global:fileClipboardMode) {
-    "cut" {
-      Move-Item $global:fileClipboard.FullName -Destination .
+  $clip = Get-Content -LiteralPath $script:FileClipboardPath -Raw | ConvertFrom-Json
+
+  if (-not (Test-Path -LiteralPath $clip.FullName)) {
+    Write-Error "Clipboard source no longer exists: $($clip.FullName)"
+    return
+  }
+
+  $destination = if ($NewName) {
+    Join-Path (Get-Location) $NewName 
+  } else {
+    '.' 
+  }
+
+  switch ($clip.Mode) {
+    'cut' {
+      Move-Item -LiteralPath $clip.FullName -Destination $destination
+      Remove-Item -LiteralPath $script:FileClipboardPath -ErrorAction SilentlyContinue
     }
-    "copy" {
-      Copy-Item $global:fileClipboard.FullName -Destination . -Recurse
+    'copy' {
+      Copy-Item -LiteralPath $clip.FullName -Destination $destination -Recurse
     }
     default {
       Write-Error "Unknown clipboard mode."
