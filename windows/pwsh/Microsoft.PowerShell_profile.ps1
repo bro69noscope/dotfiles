@@ -166,6 +166,15 @@ Set-PSReadLineKeyHandler -Key Ctrl+n -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
+# do not add lines containing cmdkey password to history
+Set-PSReadLineOption -AddToHistoryHandler {
+  param($line)
+  if ($line -match "cmdkey.*pass:") {
+    return $false 
+  }
+  return $true
+}
+
 ## Fzf options
 Import-Module PSFzf
 $env:_PSFZF_FZF_DEFAULT_OPTS = '--layout=reverse --height=40% --preview-window=hidden'
