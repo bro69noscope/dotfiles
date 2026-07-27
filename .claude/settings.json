@@ -1,6 +1,6 @@
 {
   "env": {
-    "EDITOR": "nvim",
+    "EDITOR": "neovide",
     "IS_DEMO": "1"
   },
   "autoUpdatesChannel": "latest",
