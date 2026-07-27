@@ -71,7 +71,8 @@ global LeaderCommands := Map(
   ".w", WriteMessageWorstUserName,
   "RR", Reload,
   "Space]", ResetChromeWindowList,
-  "SpaceSpace", QuickSetup
+  ";s", (*) => QuickSetup(mode := "simple"),
+  ";f", (*) => QuickSetup(mode := "full")
 )
 
 
@@ -375,8 +376,9 @@ for n in StrSplit("0123456789") {
 Hotkey "Space", MakeCallback("Space")
 Hotkey "^Space", MakeCallback("Space")
 
-specials := ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "/", "\", "]", "[", ".",
-  ","]
+specials := [
+  "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "/", "\", "]", "[", ".", ",", ";"]
+
 for s in specials {
   Hotkey s, MakeCallback(s)
 }
@@ -868,13 +870,31 @@ ActivateDeadlock() {
     Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\Deadlock.url"
 }
 
-QuickSetup() {
-  ActivateTobiiGhost()
-  ActivateOBS()
-  ActivateAutoDuck()
-  ActivateBraveBrowser()
-  ActivateDiscord()
-  ActivateWezTerm()
+QuickSetup(mode := "simple") {
+  if mode = "simple" {
+    ActivateTobiiGhost()
+    ActivateOBS()
+    ActivateAutoDuck()
+    ActivateBraveBrowser()
+    ActivateDiscord()
+    ActivateWezTerm()
+  }
+  else if mode = "full" {
+    ActivateTobiiGhost()
+    ActivateOBS()
+    ActivateAutoDuck()
+    ActivateBraveBrowser()
+    ActivateDiscord()
+    ActivateWezTerm()
+    ActivateStreamerBot(portableVersion := "production")
+    ActivateStreamerBot(portableVersion := "ftp")
+    ActivateOBS()
+    ActivateOBSPortable(profile := "ftp")
+    ActivateOBSPortable(profile := "vcam")
+    ActivateBrowser1Window()
+    ActivateBrowser2Window()
+    ActivateBrowser3Window()
+  }
 }
 
 LaunchDeadLockMovementScript() {
