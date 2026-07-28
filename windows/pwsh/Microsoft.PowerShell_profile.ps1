@@ -3,14 +3,14 @@ $consoleHeight = $host.UI.RawUI.WindowSize.Height
 Write-Host ("`n" * $consoleHeight)
 
 ## Constants
-$claudeApiKey = Get-Content -Path `
-  "$HOME\myfiles\documents\api-keys\anthropic\loïc-onboarding-api-key.txt" -Raw
+# $claudeApiKey = Get-Content -Path `
+#   "$HOME\myfiles\documents\api-keys\anthropic\loïc-onboarding-api-key.txt" -Raw
 
 $env:CLAUDE_CODE_HIDE_ACCOUNT_INFO=1
 
 ## Environment variables
 $env:PYTHONIOENCODING="utf-8"
-$env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm usage
+# $env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm usage
 $env:YAZI_FILE_ONE="C:\Program Files\Git\usr\bin\file.exe"
 $env:MYFILES_PATH = "$HOME\myfiles"
 $env:DOTFILES_PATH = "$env:MYFILES_PATH\dotfiles"
