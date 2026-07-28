@@ -55,7 +55,8 @@ customCommands:
       claude -p "The lines above the ---DIFF--- marker are this repo's recent
       commit history. Match that exact style (type(scope): description) for the
       diff below the marker. Output ONLY the commit message, no preamble, no
-      markdown fences." | git commit --edit -F -
+      markdown fences. Use bullets points for additional information as jugded
+      necessary and omit them if superfluous" | git commit --edit -F -
     loadingText: "Asking Claude for a commit message..."
     output: terminal
 
