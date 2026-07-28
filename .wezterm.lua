@@ -349,11 +349,13 @@ local named_tabs_preset = {
 
 wezterm.on("spawn-named-tabs", function(window, pane)
   local mux_window = window:mux_window()
+  local current_tab = pane:tab()
   for _, t in ipairs(named_tabs_preset) do
     local tab, new_pane, new_window = mux_window:spawn_tab({ cwd = t.cwd })
     tab:set_title(t.title)
     manually_set_titles[tostring(tab:tab_id())] = true
   end
+  current_tab:activate()
 end)
 
 config.leader = { key = " ", mods = "SHIFT" }
