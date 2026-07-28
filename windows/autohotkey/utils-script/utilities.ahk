@@ -448,7 +448,10 @@ ActivateWhenReady(checkFn, timeout := 2000) {
   return false
 }
 
-ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "") {
+ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "",
+  winClass := "") {
+  global Browser1_ID, Browser2_ID, Browser3_ID
+
   if (IsSet(windowID) && windowID) {
     VerifyWindowIDs()
     if WinExist("ahk_id " windowID) {
@@ -457,6 +460,9 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
     }
   }
 
+  ; IDs already claimed by other slots — never valid candidates for a "new" window
+  claimedIDs := [Browser1_ID, Browser2_ID, Browser3_ID]
+
   if (profile)
     ; for chrome see chrome://version
     runCommand .= ' --profile-directory="' profile '"'
@@ -464,14 +470,17 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
   if (urls)
     runCommand := runCommand " --new-window " urls
 
-  beforeHWNDs := WinGetList("List", "ahk_exe " exeName)
+  matchCriteria := "ahk_exe " exeName (winClass ? " ahk_class " winClass : "")
+  beforeHWNDs := WinGetList(matchCriteria)
   Run(runCommand)
 
   newHWND := 0
   Loop 50 {
     Sleep 100
-    afterHWNDs := WinGetList("ahk_exe " . exeName)
+    afterHWNDs := WinGetList(matchCriteria)
     for _, hwnd in afterHWNDs {
+      if hwnd = windowID
+        continue
       found := false
       for _, old in beforeHWNDs {
         if hwnd = old {
@@ -479,23 +488,37 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
           break
         }
       }
-      if !found {
-        newHWND := hwnd
+      if found
+        continue
+      isClaimed := false
+      for _, claimed in claimedIDs {
+        if hwnd = claimed {
+          isClaimed := true
+          break
+        }
+      }
+      if isClaimed
+        continue
+
+      ; debounce: make sure it's still alive 150ms later (filters transient popups)
+      candidate := hwnd
+      Sleep 150
+      if WinExist("ahk_id " candidate) {
+        newHWND := candidate
         break 2
       }
     }
   }
 
   if !newHWND {
-    MsgBox "❌ Could not detect the new Chrome window."
+    MsgBox "❌ Could not detect the new " exeName " window."
     return false
   }
 
   windowID := newHWND
   WinActivate("ahk_id " newHWND)
-  if (exeName = "chrome.exe") {
+  if (exeName = "chrome.exe")
     AddToChromeWindowList(windowID)
-  }
   VerifyWindowIDs()
   return true
 }
@@ -723,18 +746,21 @@ ActivateSpotify() {
 
 ActivateBrowser1Window() {
   global Browser1_ID
-  return ActivateOrCreateWindow(&Browser1_ID, "chrome.exe", "chrome.exe", , "Default")
+  return ActivateOrCreateWindow(&Browser1_ID, "chrome.exe", "chrome.exe", , "Default",
+    "Chrome_WidgetWin_1")
 }
 
 ActivateBrowser2Window() {
   global Browser2_ID
-  return ActivateOrCreateWindow(&Browser2_ID, "chrome.exe", "chrome.exe", , "Profile 4"
+  return ActivateOrCreateWindow(&Browser2_ID, "chrome.exe", "chrome.exe", , "Profile 4",
+    "Chrome_WidgetWin_1"
   )
 }
 
 ActivateBrowser3Window() {
   global Browser3_ID
-  return ActivateOrCreateWindow(&Browser3_ID, "chrome.exe", "chrome.exe", , "Profile 5"
+  return ActivateOrCreateWindow(&Browser3_ID, "chrome.exe", "chrome.exe", , "Profile 5",
+    "Chrome_WidgetWin_1"
   )
 }
 
