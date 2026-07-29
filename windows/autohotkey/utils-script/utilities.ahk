@@ -23,6 +23,13 @@ global LeaderKeyTimeout := 2000
 +^!F7:: MoveProductionOBS(direction := "right")
 +^!F8:: MoveProductionOBS(direction := "center")
 
+; some glib globs
+global StartMenuPathProgramData :=
+  "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\"
+
+global StartMenuPathRoaming :=
+  "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
+
 global ObsRemoteDebugArgs :=
   " --remote-debugging-port=9222 --remote-allow-origins=http://localhost:9222"
 
@@ -574,7 +581,7 @@ ActivateOBS(moveChat := false) {
       WinMove(x + 20, y + 110, 800, 1230, chat)
     }
   } else {
-    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OBS Studio\OBS Studio (64bit).lnk"
+    Run StartMenuPathProgramData "OBS Studio\OBS Studio (64bit).lnk"
   }
 }
 
@@ -604,8 +611,7 @@ ActivateOBSPortable(profile := "", moveChat := false) {
     }
   }
   else if profile == "ftp" {
-    dir := StreamingProgramsPath
-      . "\obs-studio-portable-ftp\obs-studio\bin\64bit"
+    dir := StreamingProgramsPath "obs-studio-portable-ftp\obs-studio\bin\64bit"
 
     exe := dir . "\obs64.exe"
 
@@ -613,8 +619,7 @@ ActivateOBSPortable(profile := "", moveChat := false) {
     ActivateWhenReady(idMethod, 3000)
   }
   else if profile == "vcam" {
-    dir := StreamingProgramsPath
-      . "\obs-studio-portable-vcam\obs-studio\bin\64bit"
+    dir := StreamingProgramsPath "obs-studio-portable-vcam\obs-studio\bin\64bit"
 
     exe := dir . "\obs64.exe"
 
@@ -646,7 +651,7 @@ ActivateDiscord() {
   if WinExist("ahk_exe Discord.exe")
     WinActivate
   else
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Discord Inc\Discord.lnk"
+    Run StartMenuPathRoaming "Discord Inc\Discord.lnk"
 }
 
 ActivateAutoDuck() {
@@ -664,22 +669,22 @@ ActivateLosslessCut() {
   if WinExist("ahk_exe LosslessCut.exe")
     WinActivate
   else
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\LosslessCut.lnk"
+    Run StartMenuPathRoaming "LosslessCut.lnk"
 }
 
 ActivateStreamDeck() {
   if WinExist("ahk_exe StreamDeck.exe")
     WinActivate
   else
-    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Elgato\Stream Deck\Stream Deck.lnk"
+    Run StartMenuPathProgramData "Elgato\Stream Deck\Stream Deck.lnk"
 }
 
 ActivateStreamerBot(portableVersion := "") {
   paths := Map(
     "production",
-    "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-production\Streamer.bot\Streamer.bot.exe",
+    StreamingProgramsPath "streamerbot-portable-production\Streamer.bot\Streamer.bot.exe",
     "ftp",
-    "C:\Users\ville\myfiles\streaming-programs\streamerbot-portable-ftp\Streamer.bot\Streamer.bot.exe"
+    StreamingProgramsPath "streamerbot-portable-ftp\Streamer.bot\Streamer.bot.exe"
   )
 
   targetPath := paths[portableVersion]
@@ -709,7 +714,7 @@ ActivateTobiiGhost() {
   if WinExist("ahk_exe TobiiGhost.exe")
     WinActivate
   else
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Tobii\Tobii Ghost.lnk"
+    Run StartMenuPathRoaming "Tobii\Tobii Ghost.lnk"
 }
 
 ActivateMailClient() {
@@ -723,14 +728,14 @@ ActivateSteam() {
   if WinExist("ahk_exe steamwebhelper.exe")
     WinActivate
   else
-    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Steam\Steam.lnk"
+    Run StartMenuPathProgramData "Steam\Steam.lnk"
 }
 
 ActivateAgeOfEmpires2() {
   if WinExist("ahk_exe AoE2DE_s.exe")
     WinActivate
   else
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\Age of Empires II Definitive Edition.url"
+    Run StartMenuPathRoaming "Steam\Age of Empires II Definitive Edition.url"
 }
 
 ActivateAlacritty() {
@@ -745,14 +750,14 @@ ActivateBraveBrowser() {
   if WinExist("ahk_exe brave.exe")
     WinActivate
   else
-    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Brave.lnk"
+    Run StartMenuPathProgramData "Brave.lnk"
 }
 
 ActivateBitwarden() {
   if WinExist("ahk_exe Bitwarden.exe")
     WinActivate
   else
-    Run "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Bitwarden.lnk"
+    Run StartMenuPathProgramData "Bitwarden.lnk"
 }
 
 ActivateSpotify() {
@@ -904,14 +909,14 @@ ActivateNeovide() {
 ActivateKovaaks() {
   if WinExist("ahk_exe FPSAimTrainer-Win64-Shipping.exe")
     WinActivate
-  else Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\KovaaK 2.0.url"
+  else Run StartMenuPathRoaming "Steam\KovaaK 2.0.url"
 }
 
 ActivateDeadlock() {
   if WinExist("ahk_exe deadlock.exe")
     WinActivate
   else
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Steam\Deadlock.url"
+    Run StartMenuPathRoaming "Steam\Deadlock.url"
 }
 
 QuickSetup(mode := "simple") {
