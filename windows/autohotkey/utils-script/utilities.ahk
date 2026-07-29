@@ -23,6 +23,14 @@ global LeaderKeyTimeout := 2000
 +^!F7:: MoveProductionOBS(direction := "right")
 +^!F8:: MoveProductionOBS(direction := "center")
 
+global ObsRemoteDebugArgs :=
+  " --remote-debugging-port=9222 --remote-allow-origins=http://localhost:9222"
+
+global ObsFtpRemoteDebugArgs :=
+  " --remote-debugging-port=9223 --remote-allow-origins=http://localhost:9223"
+
+global StreamingProgramsPath := "C:\Users\ville\myfiles\streaming-programs\"
+
 global LeaderCommands := Map(
   ; Single character commands
   "a", activateAgeOfEmpires2,
@@ -596,11 +604,21 @@ ActivateOBSPortable(profile := "", moveChat := false) {
     }
   }
   else if profile == "ftp" {
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-ftp.lnk"
+    dir := StreamingProgramsPath
+      . "\obs-studio-portable-ftp\obs-studio\bin\64bit"
+
+    exe := dir . "\obs64.exe"
+
+    Run('"' exe '" ' ObsFtpRemoteDebugArgs, dir)
     ActivateWhenReady(idMethod, 3000)
   }
   else if profile == "vcam" {
-    Run "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\obs-studio-portable\obs-vcam.lnk"
+    dir := StreamingProgramsPath
+      . "\obs-studio-portable-vcam\obs-studio\bin\64bit"
+
+    exe := dir . "\obs64.exe"
+
+    Run('"' exe '" ' ObsFtpRemoteDebugArgs, dir)
     ActivateWhenReady(idMethod, 3000)
   }
   else
