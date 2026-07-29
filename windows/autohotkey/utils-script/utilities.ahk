@@ -559,15 +559,17 @@ ActivatePyCharm() {
 
 ActivateOBS(moveChat := false) {
   hwnd := 0
-
-  for win in WinGetList("ahk_exe obs64.exe") {
-    title := WinGetTitle(win)
-    if !InStr(title, "Portable Mode") {
-      hwnd := win
-      break
+  FindOBSWindow() {
+    for win in WinGetList("ahk_exe obs64.exe") {
+      title := WinGetTitle(win)
+      if !InStr(title, "Portable Mode")
+        return win
     }
+    return 0
   }
+  idMethod := () => FindOBSWindow()
 
+  hwnd := idMethod()
   if hwnd {
     WinActivate(hwnd)
 
@@ -582,6 +584,7 @@ ActivateOBS(moveChat := false) {
     }
   } else {
     Run StartMenuPathProgramData "OBS Studio\OBS Studio (64bit).lnk"
+    ActivateWhenReady(idMethod, 3000)
   }
 }
 
