@@ -230,11 +230,19 @@ function Enter-MegaScriptEnvironment {
 
 function Copy-PathToClipboard {
   param(
-    [string]$Path = "."
+    [string]$Path = ".",
+
+    [switch]$Relative
   )
-  $fullPath = (Get-Item $Path).FullName
-  $fullPath | Set-Clipboard
-  Write-Host "Copied to clipboard: $fullPath"
+
+  $resolvedPath = if ($Relative) {
+    Resolve-Path -Path $Path -Relative
+  } else {
+    (Get-Item $Path).FullName
+  }
+
+  $resolvedPath | Set-Clipboard
+  Write-Host "Copied to clipboard: $resolvedPath"
 }
 
 function Get-DirectorySize {
