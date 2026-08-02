@@ -47,6 +47,7 @@ global LeaderCommands := Map(
   "c", ActivateLosslessCut,
   "D", ActivateAutoDuck,
   "d", ActivateDiscord,
+  "f", ActivateSreamFeedApp,
   "g", ActivateSteam,
   "G", ActivateTobiiGhost,
   "k", ActivateKovaaks,
@@ -451,11 +452,13 @@ DelayedToolTipMsg(text, duration := 2000) {
 ; =======================================
 ; WINDOW HELPERS
 ; =======================================
-ActivateWhenReady(checkFn, timeout := 2000) {
+ActivateWhenReady(checkFn, timeout := 2000, callback := "") {
   end := A_TickCount + timeout
   while (A_TickCount < end) {
     if (hwnd := checkFn()) {
       WinActivate(hwnd)
+      if callback
+        callback(hwnd)
       return true
     }
     Sleep 50
@@ -655,6 +658,28 @@ ActivateDiscord() {
     WinActivate
   else
     Run StartMenuPathRoaming "Discord Inc\Discord.lnk"
+}
+
+ActivateSreamFeedApp() {
+  idMethod := () => WinExist("ahk_exe StreamFeedApp.exe")
+  hwnd := idMethod()
+  Reposition(hwnd) {
+    if WinGetMinMax(hwnd) != 1 {
+      WinRestore(hwnd)
+      WinMove(-2300, , , , hwnd)
+    }
+    WinMaximize(hwnd)
+    WinActivate(hwnd)
+  }
+  if hwnd {
+    Reposition(hwnd)
+  }
+  else {
+    Run("dotnet run",
+      "C:\Users\ville\myfiles\git-repos\woertsposzibllen4me\external\StreamFeedApp",
+      "Min")
+    ActivateWhenReady(idMethod, 3000, Reposition)
+  }
 }
 
 ActivateAutoDuck() {
