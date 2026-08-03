@@ -38,6 +38,12 @@ global ObsFtpRemoteDebugArgs :=
 
 global StreamingProgramsPath := "C:\Users\ville\myfiles\streaming-programs\"
 
+global WezTermPaths := [
+  "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
+  "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
+  "C:\Users\ville\scoop\shims\wezterm-gui.exe"
+]
+
 global LeaderCommands := Map(
   ; Single character commands
   "a", activateAgeOfEmpires2,
@@ -70,6 +76,7 @@ global LeaderCommands := Map(
   "v", ActivateVSCode,
   "V", (*) => ActivateOBSPortable(profile := "vcam"),
   "w", ActivateWezTerm,
+  "W", (*) => ActivateWezTermTitled("WezTerm - secondary"),
   "x", ActivateExplorer,
   "y", ActivatePyCharm,
   ; Number/specials commands
@@ -847,29 +854,60 @@ ActivateVSCode() {
 }
 
 ActivateWezTerm() {
-  paths := [
-    "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
-    "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
-    "C:\Users\ville\scoop\shims\wezterm-gui.exe"
-  ]
-  idMethod := () => WinExist("ahk_exe wezterm-gui.exe")
+  winCrit := "Wezterm ahk_exe wezterm-gui.exe"
+  idMethod := () => WinExist(winCrit)
   hwnd := idMethod()
 
   if hwnd
     return WinActivate(hwnd)
 
-  for _, path in paths {
+  for _, path in WezTermPaths {
     if FileExist(path) {
       Run path
       if ActivateWhenReady(idMethod, 2000)
         return
-      else
+      else {
         MsgBox "Could not activate WezTerm window after launching from: " path
+        return
+      }
     }
   }
 
   pretty := ""
-  for line in paths
+  for line in WezTermPaths
+    pretty .= "∙ " line "`n"
+
+  MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty
+}
+
+ActivateWezTermTitled(title) {
+  winCrit := title . " ahk_exe wezterm-gui.exe"
+  idMethod := () => WinExist(winCrit)
+  hwnd := idMethod()
+
+  if hwnd
+    return WinActivate(hwnd)
+
+  psCmd := "[Console]::Write([char]27 + ']1337;SetUserVar=WEZTERM_TITLE=' + "
+    . "[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" title "')) + [char]7)"
+
+  q := Chr(34)
+  for _, path in WezTermPaths {
+    if FileExist(path) {
+      cmd := q path q " start"
+      cmd .= " -- pwsh -NoExit -Command " q psCmd q
+      Run(cmd)
+      if ActivateWhenReady(idMethod, 3000)
+        return
+      else {
+        MsgBox "Could not activate '" title "' window after launching from: " path
+        return
+      }
+    }
+  }
+
+  pretty := ""
+  for line in WezTermPaths
     pretty .= "∙ " line "`n"
 
   MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty

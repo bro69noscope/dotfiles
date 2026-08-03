@@ -39,7 +39,13 @@ else
 end
 config.max_fps = 144
 
-require("wezterm").on("format-window-title", function()
+wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
+  for _, t in ipairs(tabs) do
+    local custom = t.active_pane.user_vars.WEZTERM_TITLE
+    if custom and #custom > 0 then
+      return custom
+    end
+  end
   return "Wezterm"
 end)
 
