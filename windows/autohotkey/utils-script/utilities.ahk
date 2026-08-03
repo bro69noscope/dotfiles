@@ -846,7 +846,7 @@ ActivateVSCode() {
     Run "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 }
 
-ActivateWezTerm(focusonly := false) {
+ActivateWezTerm() {
   paths := [
     "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
     "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
@@ -857,9 +857,6 @@ ActivateWezTerm(focusonly := false) {
 
   if hwnd
     return WinActivate(hwnd)
-
-  if focusonly
-    return
 
   for _, path in paths {
     if FileExist(path) {
