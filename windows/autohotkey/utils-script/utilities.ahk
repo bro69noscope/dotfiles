@@ -998,6 +998,7 @@ QuickSetup(mode := "simple") {
     ActivateBraveBrowser()
     ActivateDiscord()
     ActivateWezTerm()
+    ActivateWezTermTitled("WezTerm - secondary")
     ActivateStreamerBot(portableVersion := "production")
     ActivateStreamerBot(portableVersion := "ftp")
     ActivateOBS()
