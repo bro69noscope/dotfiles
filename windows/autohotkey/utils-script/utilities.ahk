@@ -1017,7 +1017,7 @@ LaunchDeadLockMovementScript() {
 }
 
 WriteMessageDontResendAllCode() {
-  SendText "No need to resend me all the code for this one"
+  SendText "only resend me the relevant code for this message"
 }
 
 WriteMessageWorstUserName() {
