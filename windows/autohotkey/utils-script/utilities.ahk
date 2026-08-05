@@ -897,7 +897,7 @@ ActivateWezTermTitled(title) {
       cmd := q path q " start"
       cmd .= " -- pwsh -NoExit -Command " q psCmd q
       Run(cmd)
-      if ActivateWhenReady(idMethod, 3000)
+      if ActivateWhenReady(idMethod, 4000)
         return
       else {
         MsgBox "Could not activate '" title "' window after launching from: " path
