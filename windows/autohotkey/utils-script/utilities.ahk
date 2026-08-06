@@ -891,6 +891,8 @@ ActivateWezTermTitled(title) {
   psCmd := "[Console]::Write([char]27 + ']1337;SetUserVar=WEZTERM_TITLE=' + "
     . "[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" title "')) + [char]7)"
 
+  Sleep(500)
+
   q := Chr(34)
   for _, path in WezTermPaths {
     if FileExist(path) {
