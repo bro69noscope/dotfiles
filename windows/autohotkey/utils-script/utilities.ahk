@@ -63,6 +63,7 @@ global LeaderCommands := Map(
   "m", ActivateMailClient,
   "N", ActivateNeo4j,
   "Spacen", ActivateNotepad,
+  ".n", ActivateOneNote,
   "n", ActivateNeovide,
   "o", (*) => ActivateOBS(),
   "Spaceo", (*) => ActivateOBS(moveChat := true),
@@ -973,6 +974,13 @@ ActivateNotepad() {
     WinActivate
   else
     Run "notepad.exe"
+}
+
+ActivateOneNote() {
+  if WinExist("ahk_exe ONENOTE.EXE")
+    WinActivate
+  else
+    Run StartMenuPathProgramData "OneNote.lnk"
 }
 
 ActivateNeovide() {
