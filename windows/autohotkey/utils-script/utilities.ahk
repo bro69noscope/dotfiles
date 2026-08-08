@@ -55,6 +55,7 @@ global LeaderCommands := Map(
   "D", ActivateAutoDuck,
   "d", ActivateDiscord,
   "f", ActivateSreamFeedApp,
+  "F", ActivateSreamFeedAppDebug,
   "g", ActivateSteam,
   "G", ActivateTobiiGhost,
   "k", ActivateKovaaks,
@@ -687,6 +688,22 @@ ActivateSreamFeedApp() {
       "C:\Users\ville\myfiles\git-repos\woertsposzibllen4me\external\StreamFeedApp",
       "Min")
     ActivateWhenReady(idMethod, 3000, Reposition)
+  }
+}
+
+ActivateSreamFeedAppDebug() {
+  idMethod := () => WinExist(
+    "DevTools - appassets.local/stream-feed.html ahk_exe msedgewebview2.exe")
+  hwnd := idMethod()
+  if hwnd
+    WinActivate(hwnd)
+  else {
+    hwnd2 := WinExist("ahk_exe StreamFeedApp.exe")
+    if hwnd2 {
+      WinActivate
+      Send "{F12}"
+      ActivateWhenReady(idMethod, 3000)
+    }
   }
 }
 
