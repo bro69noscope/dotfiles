@@ -8,6 +8,7 @@ A_MaxHotkeysPerInterval := 3000
 SendMode "Input"
 SetWorkingDir A_ScriptDir        ; Consistent starting directory
 TraySetIcon "..\icons\utils.png"
+#WinActivateForce ; seems to focus "weak" cusor focus after activation sometimes
 
 ; =======================================
 ; GLOBALS
