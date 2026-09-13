@@ -1,6 +1,8 @@
 #Include window-helpers.ahk
 #Include config.ahk
 #Include chrome-windows.ahk
+#Include nvim-scratch\scratch.ahk
+
 ActivateLosslessCut() {
   idMethod := () => WinExist("ahk_exe LosslessCut.exe")
   return ActivateOrRun(idMethod, StartMenuPathRoaming "LosslessCut.lnk")

@@ -2,6 +2,7 @@
 #Include misc.ahk
 #Include chrome-windows.ahk
 #Include grouped-apps-manager.ahk
+#Include nvim-scratch\scratch.ahk
 
 global LeaderCommands := Map(
   ; `., ,, ;,` commands are just for more apps starting with the same letter
