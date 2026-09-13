@@ -57,11 +57,11 @@ global LeaderCommands := Map(
   "//", (*) => ReplaceClipboardSlashes("/"),
   "/\", (*) => ReplaceClipboardSlashes("\"),
   ; ``` leader commands for handling more than one app at once
-  "``Spacef", (*) => QuickSetup(mode := "full"),
-  "``Spaces", (*) => QuickSetup(mode := "simple"),
   "``ca", (*) => CloseStreamApps(group := "all"),
   "``cd", (*) => QuitStreamDeck(),
   "``cp", (*) => CloseStreamApps(group := "production"),
   "``sa", (*) => StartStreamApps(group := "all"),
   "``sp", (*) => StartStreamApps(group := "production"),
+  "``Spacef", (*) => QuickSetup(mode := "full"),
+  "``Spaces", (*) => QuickSetup(mode := "simple"),
 )
