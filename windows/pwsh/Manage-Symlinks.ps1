@@ -36,7 +36,7 @@ $dotfilesConfig = @{
   }
 
   "Nvim config" = @{
-    "source"  = "$env:DOTFILES_PATH\nvim-config3.0"
+    "source"  = "$env:NVIM_CONFIG_PATH"
     "target" = "$HOME\AppData\Local\nvim\"
   }
 

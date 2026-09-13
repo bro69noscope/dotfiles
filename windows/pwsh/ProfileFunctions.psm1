@@ -12,11 +12,11 @@ function vidata {
 }
 
 function vid {
-  Set-Location "$env:DOTFILES_PATH\nvim-config3.0" # better than if in $HOME for lazydev nvim plugin usage
+  Set-Location "$env:NVIM_CONFIG_PATH" # better than if in $HOME for lazydev nvim plugin usage
 }
 
 function vir {
-  nvim -u "$env:DOTFILES_PATH\nvim-config3.0\repro.lua" @args
+  nvim -u "$env:NVIM_CONFIG_PATH\repro.lua" @args
 }
 
 function roam {
