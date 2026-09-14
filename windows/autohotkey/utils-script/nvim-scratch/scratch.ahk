@@ -41,7 +41,7 @@ ClipAndOpenNvimScratch() {
   ClipWait(1)
   savedClip := A_Clipboard
   A_Clipboard := ""
-  Send("^c")
+  Send("^{Insert}")
   if !ClipWait(0.2, 1) {
     A_Clipboard := savedClip
     ToolTip("No text selected to copy to clipboard")

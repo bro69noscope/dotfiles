@@ -428,6 +428,20 @@ config.keys = {
     end),
   },
 
+  -- alternative copy to clipboard
+  {
+    key = "Insert",
+    mods = "CTRL",
+    action = wezterm.action_callback(function(window, pane)
+      local vars = pane:get_user_vars() or {}
+      if vars.in_Windows_nvim == "1" then
+        window:perform_action(wezterm.action.SendKey({ key = "Insert", mods = "CTRL" }), pane)
+      else
+        window:perform_action(wezterm.action.CopyTo("Clipboard"), pane)
+      end
+    end),
+  },
+
   -- Emojis
   {
     key = "o",
