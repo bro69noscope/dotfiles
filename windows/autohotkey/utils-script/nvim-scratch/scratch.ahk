@@ -98,8 +98,12 @@ LaunchScratchShell() {
       break
     }
   if gui = "" {
+    pretty := ""
+    for line in WezTermPaths
+      pretty .= "∙ " line "`n"
     MsgBox(
-      "Could not find wezterm-gui.exe at any known path (see WezTermPaths in ..\config.ahk)"
+      "Could not find wezterm-gui.exe at any of:`n`n" pretty
+      "`n(see WezTermPaths in " ConfigDirName
     )
     return false
   }

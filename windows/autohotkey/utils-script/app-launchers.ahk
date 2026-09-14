@@ -364,7 +364,10 @@ ActivateWezTermTitled(title) {
   for line in WezTermPaths
     pretty .= "∙ " line "`n"
 
-  MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty
+  MsgBox (
+    "Could not find WezTerm executable at any known path:`n`n" . pretty
+    "`n`n check WezTermPaths in " ConfigDirName
+  )
 }
 
 ActivateZoom() {

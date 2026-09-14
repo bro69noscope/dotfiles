@@ -1,3 +1,8 @@
+SplitPath(A_LineFile, , &ConfigDirName)
+SplitPath(ConfigDirName, &ProjectDirName)
+global ProjectDirName := ProjectDirName
+global ConfigDirName := ConfigDirName
+
 global StartMenuPathProgramData :=
   "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\"
 
