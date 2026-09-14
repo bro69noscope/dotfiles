@@ -11,3 +11,6 @@ size = 12.0
 [window]
 dimensions = { columns = 120, lines = 30 }
 padding = { x = 10, y = 10 }
+
+[keyboard]
+bindings = [{ key = "F11", action = "ToggleFullscreen" }]
