@@ -21,7 +21,7 @@ TraySetIcon "..\icons\utils.png"
 +^!F14:: ActivateOBSPortable(profile := "ftp", moveChat := true)
 +^!F7:: MoveProductionOBS(direction := "right")
 +^!F8:: MoveProductionOBS(direction := "center")
-^@:: ClipAndOpenNvimScratch()
+^\:: ClipAndOpenNvimScratch()
 
 #HotIf WinActive("ahk_exe wezterm-gui.exe")
 ^;::F13
