@@ -14,6 +14,7 @@ global scratchDir := A_Temp "\nvim-scratch"
 global loopScript := scratchDir "\loop.ps1"
 global reqFile := scratchDir "\request.txt"
 global doneFlag := scratchDir "\done.flag"
+global errFlag := scratchDir "\err.flag"
 global pidFile := scratchDir "\shell.pid"
 global scratchTitle := "[[NVIM-SCRATCH]]"
 global scratchHwnd := 0
@@ -24,13 +25,14 @@ DirExist(scratchDir) || DirCreate(scratchDir)
 KillStaleScratchShell()
 WriteLoopScript()
 
-for f in [reqFile, doneFlag]
+for f in [reqFile, doneFlag, errFlag]
   if FileExist(f)
     FileDelete(f)
 OnExit((*) => KillStaleScratchShell())
 
 if LaunchScratchShell()
   WinHide("ahk_id " scratchHwnd)
+SetTimer(CheckErrFlag, 500)
 
 ClipAndOpenNvimScratch() {
   if nvimRunning {
@@ -132,6 +134,9 @@ WriteLoopScript() {
     . '$PID | Set-Content -NoNewline -Encoding utf8 "' pidFile '"' nl
     . '$cfg = "' nvimConfigPath '"' nl
     . '& nvim --cmd "set rtp^=$cfg" --cmd "let g:nvim_scratch = 1" -u "$cfg/init.lua"' nl
+    .
+    '# nvim is never meant to exit in the scratch flow, any exit is a signal to self heal' nl
+    . 'New-Item "' errFlag '" -ItemType File | Out-Null' nl
 
   if FileExist(loopScript)
     FileDelete(loopScript)
@@ -163,4 +168,26 @@ CheckDoneFlag() {
   WinHide("ahk_id " scratchHwnd)
   if lastActiveHwnd && WinExist("ahk_id " lastActiveHwnd)
     WinActivate("ahk_id " lastActiveHwnd)
+}
+
+CheckErrFlag() {
+  global nvimRunning
+  if !FileExist(errFlag)
+    return
+  FileDelete(errFlag)
+  SetTimer(CheckDoneFlag, 0)
+  nvimRunning := false
+
+  ; the old window is still closing, wait for it so the relaunch doesn't match it by title
+  DetectHiddenWindows(true)
+  loop 40 {
+    if !WinExist("ahk_id " scratchHwnd)
+      break
+    Sleep(50)
+  }
+
+  ToolTip("nvim scratch exited unexpectedly, relaunching it")
+  SetTimer(() => ToolTip(), -1500)
+  if LaunchScratchShell()
+    WinHide("ahk_id " scratchHwnd)
 }
