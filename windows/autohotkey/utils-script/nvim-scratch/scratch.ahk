@@ -1,3 +1,4 @@
+#Include ..\config.ahk
 GetNvimConfigPath() {
   path := EnvGet("NVIM_CONFIG_PATH")
   if path = "" {
@@ -28,8 +29,8 @@ for f in [reqFile, doneFlag]
     FileDelete(f)
 OnExit((*) => KillStaleScratchShell())
 
-LaunchScratchShell()
-
+if LaunchScratchShell()
+  WinHide("ahk_id " scratchHwnd)
 
 ClipAndOpenNvimScratch() {
   if nvimRunning {
@@ -59,6 +60,7 @@ ClipAndOpenNvimScratch() {
 OpenNvimScratch() {
   ; buffer content will be set from clipboard register in nvim autocommand
   global lastActiveHwnd, nvimRunning
+  DetectHiddenWindows(true)
 
   if nvimRunning {
     WinActivate("ahk_id " scratchHwnd)
@@ -82,6 +84,7 @@ OpenNvimScratch() {
   FileMove(tmp, reqFile, 1)
   nvimRunning := true
 
+  WinShow("ahk_id " scratchHwnd)
   WinActivate("ahk_id " scratchHwnd)
   SetTimer(CheckDoneFlag, 100)
 }
@@ -91,7 +94,19 @@ LaunchScratchShell() {
   before := Map()
   for hwnd in WinGetList("ahk_exe wezterm-gui.exe")
     before[hwnd] := true
-  Run('wezterm.exe start -- pwsh -NoProfile -NoLogo -File "' loopScript '"')
+  gui := ""
+  for _, path in WezTermPaths
+    if FileExist(path) {
+      gui := path
+      break
+    }
+  if gui = "" {
+    MsgBox(
+      "Could not find wezterm-gui.exe at any known path (see WezTermPaths in ..\config.ahk)"
+    )
+    return false
+  }
+  Run('"' gui '" start -- pwsh -NoProfile -NoLogo -File "' loopScript '"')
   loop 150 {
     Sleep(50)
     for hwnd in WinGetList("ahk_exe wezterm-gui.exe")
@@ -140,6 +155,7 @@ CheckDoneFlag() {
   FileDelete(doneFlag)
   SetTimer(CheckDoneFlag, 0)
   nvimRunning := false
+  WinHide("ahk_id " scratchHwnd)
   if lastActiveHwnd && WinExist("ahk_id " lastActiveHwnd)
     WinActivate("ahk_id " lastActiveHwnd)
 }
