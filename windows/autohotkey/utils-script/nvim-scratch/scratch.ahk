@@ -91,9 +91,6 @@ OpenNvimScratch() {
 
 LaunchScratchShell() {
   global scratchHwnd
-  before := Map()
-  for hwnd in WinGetList("ahk_exe wezterm-gui.exe")
-    before[hwnd] := true
   gui := ""
   for _, path in WezTermPaths
     if FileExist(path) {
@@ -107,13 +104,17 @@ LaunchScratchShell() {
     return false
   }
   Run('"' gui '" start -- pwsh -NoProfile -NoLogo -File "' loopScript '"')
+
+  ; match on the exact title set by loop.ps1, wezterm also spawns transient helper
+  ; windows at startup (e.g. "wgl extension probing window") that must not be picked
+  SetTitleMatchMode(3)
+
   loop 150 {
     Sleep(50)
-    for hwnd in WinGetList("ahk_exe wezterm-gui.exe")
-      if !before.Has(hwnd) {
-        scratchHwnd := hwnd
-        return true
-      }
+    if hwnd := WinExist(scratchTitle " ahk_exe wezterm-gui.exe") {
+      scratchHwnd := hwnd
+      return true
+    }
   }
   MsgBox("Could not find the nvim scratch wezterm window after launching it")
   return false
