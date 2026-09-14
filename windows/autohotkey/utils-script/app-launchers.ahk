@@ -149,6 +149,12 @@ ActivateOBS(moveChat := false) {
   }
   idMethod := () => FindOBSWindow()
 
+  MinMaxOnCreation(hwnd) {
+    ; fixes weird false maximized state
+    WinMinimize(hwnd)
+    WinMaximize(hwnd)
+  }
+
   hwnd := idMethod()
   if hwnd {
     WinActivate(hwnd)
@@ -166,7 +172,7 @@ ActivateOBS(moveChat := false) {
     dir := "C:\Program Files\obs-studio\bin\64bit"
     exe := dir . "\obs64.exe"
     Run('"' exe '"' ObsProductionRemoteDebugArgs, dir)
-    ActivateWhenReady(idMethod, 3000)
+    ActivateWhenReady(idMethod, 7000, MinMaxOnCreation)
   }
 }
 
@@ -225,11 +231,17 @@ MoveProductionOBS(direction := "right") {
     }
   }
 
+  if !hwnd {
+    ToolTip "No production OBS window found to move."
+    SetTimer(() => ToolTip(), -2000)
+    return
+  }
+
+  targetX := direction = "right" ? 2560 : direction = "center" ? 0 : x
+
   WinGetPos(&x, &y, &w, &h, hwnd)
-  if direction = "right"
-    WinMove(2560, y, w, h, hwnd)
-  else if direction = "center"
-    WinMove(0, y, w, h, hwnd)
+  WinMove(targetX, y, w, h, hwnd)
+  EnsureFullscreen(hwnd)
 }
 
 ActivateSreamFeedApp() {
