@@ -339,8 +339,8 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ WHT WHT WHT GDN                                     ___ ___ COR COR DOR ___
-          ___ MAJ CYN GRN YLW GDN                                     CYN AZU AZU AZU AZU ___
-          PNK ___ PUR PUR RED GDN     ___ ___ ___     WHT WHT WHT     CYN ORN PUR PUR ORN ___
+          ___ MAJ CYN GRN YLW GDN                                     BLU AZU AZU AZU AZU ___
+          PNK ___ PUR PUR RED GDN     ___ ___ ___     WHT WHT WHT     BLU ORN PUR PUR ORN ___
           PNK PNK PUR PUR PUR         RED ___ ___     WHT WHT WHT         ___ COR COR ___ ___
         >;
         layer-id = <LAYER_Cursor>;
@@ -409,9 +409,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG AZU SPG CYN                                     CYN TEA TEA TEA TEA ___
-          ___ SPG AZU AZU AZU CYN     ___ ___ ___     ___ ___ ___     CYN SLO FST WRP TEA ___
-          ___ MAJ CYN GRN YLW         SLO FST WRP     ___ RED ___         GDN GDN GDN COR ___
+          ___ SPG SPG AZU SPG CYN                                     BLU AZU AZU AZU COR ___
+          ___ SPG AZU AZU AZU CYN     ___ ___ ___     ___ ___ ___     BLU SLO FST WRP COR ___
+          ___ MAJ CYN GRN YLW         SLO FST WRP     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse>;
       };
@@ -423,9 +423,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG FST SPG CYN                                     MAJ TEA TEA TEA TEA ___
-          ___ SPG FST FST FST CYN     ___ ___ ___     ___ ___ ___     MAJ FST FST FST TEA ___
-          ___ MAJ CYN GRN YLW         FST FST FST     ___ RED ___         GDN GDN GDN COR ___
+          ___ SPG SPG FST SPG CYN                                     BLU AZU AZU AZU COR ___
+          ___ SPG FST FST FST CYN     ___ ___ ___     ___ ___ ___     BLU FST FST FST COR ___
+          ___ MAJ CYN GRN YLW         FST FST FST     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse_fast>;
       };
@@ -437,9 +437,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG WRP SPG CYN                                     MAJ TEA TEA TEA TEA ___
-          ___ SPG WRP WRP WRP CYN     ___ ___ ___     ___ ___ ___     MAJ WRP WRP WRP TEA ___
-          ___ MAJ CYN GRN YLW         WRP WRP WRP     ___ RED ___         GDN GDN GDN COR ___
+          ___ SPG SPG WRP SPG CYN                                     BLU AZU AZU AZU COR ___
+          ___ SPG WRP WRP WRP CYN     ___ ___ ___     ___ ___ ___     BLU WRP WRP WRP COR ___
+          ___ MAJ CYN GRN YLW         WRP WRP WRP     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse_warp>;
       };
@@ -451,9 +451,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG SLO SPG CYN                                     MAJ TEA TEA TEA TEA ___
-          ___ SPG SLO SLO SLO CYN     ___ ___ ___     ___ ___ ___     MAJ SLO SLO SLO TEA ___
-          ___ MAJ CYN GRN YLW         SLO SLO SLO     ___ RED ___         GDN GDN GDN COR ___
+          ___ SPG SPG SLO SPG CYN                                     BLU AZU AZU AZU COR ___
+          ___ SPG SLO SLO SLO CYN     ___ ___ ___     ___ ___ ___     BLU SLO SLO SLO COR ___
+          ___ MAJ CYN GRN YLW         SLO SLO SLO     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse_slow>;
       };
