@@ -243,9 +243,10 @@ ActivateSreamFeedApp() {
     monIdx := GetMonitorAt(targetX, 0)
     MonitorGetWorkArea(monIdx, &mLeft, &mTop, &mRight, &mBottom)
 
-    width := (mRight - mLeft) // 2
+    width := (mRight - mLeft) // 2 ; half width in case we go back to no fullscreen
     height := mBottom - mTop
     WinMove(mRight - width, mTop, width, height, hwnd)
+    EnsureFullscreen(hwnd)
     WinActivate(hwnd)
   }
   if hwnd {
