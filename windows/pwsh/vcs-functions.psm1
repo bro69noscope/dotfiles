@@ -39,3 +39,20 @@ function vcsb {
 function vcso {
   Set-Location "$env:STREAMING_REPO_PATH\external\obs\version-control\vcdata"
 }
+
+# orchestrator wrappers
+function ctat {
+  [CmdletBinding()]
+  param(
+    [switch]$Backup
+  )
+  Invoke-VcsTemplating -Direction To @PSBoundParameters
+}
+
+function cfat {
+  [CmdletBinding()]
+  param(
+    [switch]$Backup
+  )
+  Invoke-VcsTemplating -Direction From @PSBoundParameters
+}
