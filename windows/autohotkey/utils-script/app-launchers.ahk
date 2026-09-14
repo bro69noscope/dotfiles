@@ -44,9 +44,21 @@ ActivateAgeOfEmpires2() {
 
 ActivateAlacritty() {
   SetTitleMatchMode 2
-  idMethod := () => WinExist("ahk_exe alacritty.exe")
-  return ActivateOrRun(idMethod,
-    "C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
+  idMethod := () => FindAlacrittyMainWindow()
+
+  hwnd := idMethod()
+  if hwnd
+    return WinActivate(hwnd)
+
+  Run("C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
+  lastHwnd := WinExist("A")
+  if !ActivateWhenReady(idMethod, 3000)
+    return false
+
+  ; needs to be focused twice at launch to fix the terminal cursor appearance
+  newHwnd := idMethod()
+  WinActivate(lastHwnd)
+  return WinActivate(newHwnd)
 }
 
 ActivateBraveBrowser() {
