@@ -226,10 +226,14 @@ MoveProductionOBS(direction := "right") {
   }
 
   WinGetPos(&x, &y, &w, &h, hwnd)
-  if direction = "right"
+  if direction = "right" {
     WinMove(2560, y, w, h, hwnd)
-  else if direction = "center"
+    EnsureFullscreen(hwnd)
+  }
+  else if direction = "center" {
     WinMove(0, y, w, h, hwnd)
+    EnsureFullscreen(hwnd)
+  }
 }
 
 ActivateSreamFeedApp() {
