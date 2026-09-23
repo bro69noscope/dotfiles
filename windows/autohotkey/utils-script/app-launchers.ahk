@@ -1,4 +1,5 @@
 #Include window-helpers.ahk
+
 #Include config.ahk
 #Include chrome-windows.ahk
 #Include nvim-scratch\scratch.ahk
@@ -111,6 +112,16 @@ ActivateDeadlock() {
 ActivateDiscord() {
   idMethod := () => WinExist("ahk_exe Discord.exe")
   return ActivateOrRun(idMethod, StartMenuPathRoaming "Discord Inc\Discord.lnk")
+}
+
+ActivateDota2() {
+  idMethod := () => WinExist("ahk_exe dota2.exe")
+  return ActivateOrRun(idMethod, StartMenuPathRoaming "Steam\Dota 2.url")
+}
+
+ActivateCalculator() {
+  idMethod := () => WinExist("Calculator ahk_exe ApplicationFrameHost.exe")
+  return ActivateOrRun(idMethod, "calculator:")
 }
 
 ActivateVlc() {

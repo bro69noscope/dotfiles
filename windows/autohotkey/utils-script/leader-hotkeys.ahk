@@ -6,6 +6,7 @@
 
 global LeaderCommands := Map(
   ; `., ,, ;,` commands are just for more apps starting with the same letter
+  ".d", ActivateAutoDuck,
   ",n", ActivateNotepad,
   ".m", WriteMessageDontResendAllCode,
   ".n", ActivateOneNote,
@@ -20,8 +21,9 @@ global LeaderCommands := Map(
   "B", ActivateBitwarden,
   "b", ActivateBraveBrowser,
   "c", ActivateLosslessCut,
-  "D", ActivateAutoDuck,
-  "d", ActivateDiscord,
+  "C", ActivateCalculator,
+  "d", ActivateDota2,
+  "D", ActivateDiscord,
   "f", ActivateSreamFeedApp,
   "F", ActivateSreamFeedAppDebug,
   "g", ActivateSteam,

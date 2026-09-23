@@ -32,10 +32,17 @@ TraySetIcon "..\icons\utils.png"
 !+^F12:: LaunchDeadLockMovementScript()
 #HotIf
 
-Excludegames() {
-  return !WinActive("ahk_exe dota2.exe")
-    && !WinActive("ahk_exe Warcraft III.exe")
-    && !WinActive("ahk_exe deadlock.exe")
+global ExcludedGames := [
+  ; "Warcraft III.exe",
+  "deadlock.exe",
+  ; "dota2.exe",
+]
+
+ExcludeGames() {
+  for exe in ExcludedGames
+    if WinActive("ahk_exe " exe)
+      return false
+  return true
 }
 
 ; Leader key functionality - available on all keyboards except in games
