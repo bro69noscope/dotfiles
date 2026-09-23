@@ -61,13 +61,13 @@ customCommands:
     output: terminal
 
   - key: "I"
-    command: "git -c delta.features=side-by-side diff {{.SelectedPath}}"
+    command: 'git -c delta.features=side-by-side diff -- "{{.SelectedPath}}"'
     context: "files"
     description: "Delta diff of selected item"
     loadingText: "Opening diff in Delta..."
     output: terminal
   - key: "O"
-    command: "git -c delta.features=side-by-side diff --cached -- {{.SelectedPath}}"
+    command: 'git -c delta.features=side-by-side diff --cached -- "{{.SelectedPath}}"'
     context: "files"
     description: "Delta diff of staged changes"
     loadingText: "Opening staged diff..."
@@ -88,10 +88,10 @@ customCommands:
   # For commits panel
 
   - key: "I"
-    command: "git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -p"
-    context: "commits"
-    description: "Show commit with Delta side-by-side"
-    loadingText: "Opening commit diff in Delta..."
+    command: 'git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- "{{.SelectedCommitFilePath}}"'
+    context: "commitFiles"
+    description: "Show file in commit/stash with Delta side-by-side"
+    loadingText: "Opening file diff in Delta..."
     output: terminal
 
   - key: "<c-y>"
