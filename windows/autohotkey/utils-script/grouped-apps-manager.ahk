@@ -1,5 +1,10 @@
 #Include app-launchers.ahk
 #Include delayed-tooltip.ahk
+#Include logger.ahk
+
+global LogFile := "logs\grouped-apps-manager.log"
+LogError("`n", LogFile)
+TrimLogFile(LogFile, 1024 * 1024)
 
 global StreamAppGroups := Map(
   "production", [
@@ -38,15 +43,6 @@ FindWindowByExeAndTitle(exeName, include := "", exclude := "") {
   } finally DetectHiddenWindows(prev)
 }
 
-CloseStreamApp(app, timeout := 8000) {
-  hwnd := app["find"]()
-  if !hwnd
-    return
-  pid := WinGetPID(hwnd)
-  for win in WinGetList("ahk_pid " pid)
-    WinClose(win)
-}
-
 QuitStreamDeck() {
   if FileExist(QuitStreamDeckScript)
     RunWait('wscript.exe "' QuitStreamDeckScript '"')
@@ -60,8 +56,30 @@ CloseStreamApps(group := "production") {
     apps.Push(StreamAppGroups["ftp"]*)
 
   QuitStreamDeck()
-  for app in apps
-    CloseStreamApp(app)
+
+  pending := []
+  for app in apps {
+    hwnd := app["find"]()
+    if !hwnd
+      continue
+    title := WinGetTitle(hwnd)
+    try
+      WinClose(hwnd)
+    catch as e {
+      LogError("WinClose failed: '" title "' hwnd " hwnd ": " e.Message, LogFile)
+      continue
+    }
+    pending.Push({ hwnd: hwnd, title: title })
+  }
+
+  for p in pending {
+    if !WinWaitClose(p.hwnd, , 8000 / 1000) {
+      msg := "Failed to close: '" p.title "'"
+      LogError(msg, LogFile)
+      DelayedToolTipMsg(msg)
+    }
+  }
+
   DelayedToolTipMsg("Closed stream apps: " group)
 }
 
