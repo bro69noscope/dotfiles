@@ -504,8 +504,8 @@
       #ifdef LAYER_Gaming_DL
       Gaming_DL {
         bindings = <
-          RED GOL ___ ___ RED                                             ___ ___ ___ ___ ___
-          ___ ___ ___ ___ ___ RED                                     ___ ___ ___ ___ ___ ___
+          RED GOL RED RED ___                                             ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ORN ___ ___ RED                                     ___ ___ ___ ___ ___ ___
           ___ BLU MAJ ___ ORN ORN                                     ___ ___ ___ ___ ___ ___
           ___ WHT ___ ___ ___ BLU     CHU ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
@@ -554,6 +554,34 @@
           AZU AZU ___ ___ ___         RED ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_AoE2_extra>;
+      };
+      #endif
+
+      #ifdef LAYER_Gaming_Dota2
+      Gaming_Dota2 {
+        bindings = <
+          ___ ___ ___ SPG RED                                             ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ RED                                     ___ ___ ___ ___ ___ ___
+          ___ COR COR COR COR COR                                     ___ ___ ___ ___ ___ ___
+          WHT ___ LAC LAC LAC LAC                                     ___ ___ ___ ___ ___ ___
+          RED BLU ___ ___ LAC LAC     ___ BLU ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ BLU BLU BLU BLU         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+        >;
+        layer-id = <LAYER_Gaming_Dota2>;
+      };
+      #endif
+
+      #ifdef LAYER_Dota2_extra
+      Dota2_extra {
+        bindings = <
+          ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ ___ COR COR COR SPG                                     ___ ___ ___ ___ ___ ___
+          ___ SPG ___ ___ ___ ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          ___ WHT WHT COR COR         ___ RED ___     ___ ___ ___         ___ ___ ___ ___ ___
+        >;
+        layer-id = <LAYER_Dota2_extra>;
       };
       #endif
 

@@ -761,11 +761,11 @@ combos {
   };
   #endif
 
-  // C2R1+C1R2, C5R1+C6R2
+  // C2R1+C1R2, C3R1+C4R1, C5R1+C6R2 gaming layer toggles
   #ifdef LAYER_Gaming_DL
   combo_gaming_dl_layer_toggle {
     timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_LH_C2R1 POS_LH_C1R2>;
+    key-positions = <POS_LH_C3R1 POS_LH_C4R1>;
     bindings = <&tog LAYER_Gaming_DL>;
     layers = <0 LAYER_macOS LAYER_Gaming_DL>;
   };
@@ -777,6 +777,15 @@ combos {
     key-positions = <POS_LH_C5R1 POS_LH_C6R2>;
     bindings = <&tog LAYER_Gaming_AoE2>;
     layers = <0 LAYER_macOS LAYER_Gaming_AoE2>;
+  };
+  #endif
+
+  #ifdef LAYER_Gaming_Dota2
+  combo_gaming_dota2_layer_toggle {
+    timeout-ms = <COMBO_FIRING_DECAY>;
+    key-positions = <POS_LH_C2R1 POS_LH_C1R2>;
+    bindings = <&tog LAYER_Gaming_Dota2>;
+    layers = <0 LAYER_macOS LAYER_Gaming_Dota2>;
   };
   #endif
 
