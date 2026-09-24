@@ -151,8 +151,13 @@ ActivatePyCharm() {
 ActivateOBS(moveChat := false) {
   hwnd := 0
   FindOBSWindow() {
-    for win in WinGetList("ahk_exe obs64.exe") {
-      title := WinGetTitle(win)
+    for win in WinGetList("ahk_exe obs64.exe ahk_class Qt6111QWindowIcon") {
+      if !WinExist("ahk_id " win)
+        continue
+      try
+        title := WinGetTitle(win)
+      catch
+        continue
       if !InStr(title, "Portable Mode")
         return win
     }
@@ -256,7 +261,7 @@ MoveProductionOBS(direction := "right") {
 }
 
 ActivateSreamFeedApp() {
-  idMethod := () => WinExist("ahk_exe StreamFeedApp.exe")
+  idMethod := () => WinExist("Activity Feed ahk_exe StreamFeedApp.exe")
   hwnd := idMethod()
   Reposition(hwnd) {
     if WinGetMinMax(hwnd) != 1
@@ -290,7 +295,7 @@ ActivateSreamFeedAppDebug() {
   if hwnd
     WinActivate(hwnd)
   else {
-    hwnd2 := WinExist("ahk_exe StreamFeedApp.exe")
+    hwnd2 := WinExist("Activity Feed ahk_exe StreamFeedApp.exe")
     if hwnd2 {
       WinActivate
       Send "{F12}"
