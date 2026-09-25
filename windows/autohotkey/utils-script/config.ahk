@@ -9,6 +9,9 @@ global StartMenuPathProgramData :=
 global StartMenuPathRoaming :=
   "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
 
+global StartMenuPathScoopApps :=
+  "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\"
+
 global ObsProductionRemoteDebugArgs :=
   " --remote-debugging-port=9222 --remote-allow-origins=http://localhost:9222"
 

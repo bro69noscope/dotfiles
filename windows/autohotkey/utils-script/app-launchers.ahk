@@ -126,8 +126,7 @@ ActivateCalculator() {
 
 ActivateVlc() {
   idMethod := () => WinExist("ahk_exe vlc.exe")
-  return ActivateOrRun(idMethod, StartMenuPathProgramData "VideoLAN\VLC media player.lnk"
-  )
+  return ActivateOrRun(idMethod, StartMenuPathScoopApps "VLC media player.lnk")
 }
 
 ActivatePyCharm() {
