@@ -560,12 +560,12 @@
       #ifdef LAYER_Gaming_Dota2
       Gaming_Dota2 {
         bindings = <
-          ___ ___ ___ SPG RED                                             ___ ___ ___ ___ ___
+          RED ___ ___ SPG RED                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ RED                                     ___ ___ ___ ___ ___ ___
           ___ COR COR COR COR COR                                     ___ ___ ___ ___ ___ ___
           WHT ___ LAC LAC LAC LAC                                     ___ ___ ___ ___ ___ ___
-          RED BLU ___ ___ LAC LAC     ___ BLU ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          ___ BLU BLU BLU BLU         ___ ___ ___     ___ ___ ___         ___ ___ ___ ___ ___
+          ORN BLU ___ ___ LAC LAC     ___ BLU ___     ___ ___ GRN     ___ ___ ___ ___ ___ ___
+          CYN BLU BLU BLU BLU         ___ ___ ___     ___ ___ RED         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_Gaming_Dota2>;
       };
