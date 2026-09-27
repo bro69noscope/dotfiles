@@ -28,3 +28,5 @@ global WezTermPaths := [
 
 global StreamingRepoPath :=
   "C:\Users\ville\myfiles\git-repos\next-level-live-streaming\"
+
+global StreamingRepoServerName := "MY SERVER"

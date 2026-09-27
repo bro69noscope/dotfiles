@@ -84,8 +84,7 @@ ActivateVSCode() {
 }
 
 ActivatePowerShell() {
-  SetTitleMatchMode 2
-  idMethod := () => WinExist("ahk_exe WindowsTerminal.exe")
+  idMethod := () => WinExist("ahk_exe WindowsTerminal.exe", , StreamingRepoServerName)
   return ActivateOrRun(idMethod, "pwsh")
 }
 
