@@ -257,6 +257,7 @@ MoveProductionOBS(direction := "right") {
   WinGetPos(&x, &y, &w, &h, hwnd)
   WinMove(targetX, y, w, h, hwnd)
   EnsureFullscreen(hwnd)
+  WinActivate(hwnd)
 }
 
 ActivateSreamFeedApp() {
