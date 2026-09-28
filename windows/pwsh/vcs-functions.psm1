@@ -44,7 +44,12 @@ function vcso {
 function ctat {
   [CmdletBinding()]
   param(
-    [switch]$Backup
+    [switch]$Backup,
+    [switch]$Import,
+    [Alias('nogen')] [switch]$SkipScopedGeneration,
+    [Alias('sdeck')] [switch]$StreamDeck,
+    [switch]$Obs,
+    [Alias('sbot')] [switch]$Streamerbot
   )
   Invoke-VcsTemplating -Direction To @PSBoundParameters
 }
@@ -52,7 +57,12 @@ function ctat {
 function cfat {
   [CmdletBinding()]
   param(
-    [switch]$Backup
+    [switch]$Backup,
+    [switch]$Import,
+    [Alias('nogen')] [switch]$SkipScopedGeneration,
+    [Alias('sdeck')] [switch]$StreamDeck,
+    [switch]$Obs,
+    [Alias('sbot')] [switch]$Streamerbot
   )
   Invoke-VcsTemplating -Direction From @PSBoundParameters
 }
