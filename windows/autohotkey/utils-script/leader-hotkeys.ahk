@@ -62,8 +62,10 @@ global LeaderCommands := Map(
   ; ``` leader commands for handling more than one app at once
   "``ca", (*) => CloseStreamApps(group := "all"),
   "``cd", (*) => QuitStreamDeck(),
+  "``co", (*) => CloseStreamApps(group := "obs"),
   "``cp", (*) => CloseStreamApps(group := "production"),
   "``sa", (*) => StartStreamApps(group := "all"),
+  "``so", (*) => StartStreamApps(group := "obs"),
   "``sp", (*) => StartStreamApps(group := "production"),
   "``Spacef", (*) => QuickSetup(mode := "full"),
   "``Spaces", (*) => QuickSetup(mode := "simple"),

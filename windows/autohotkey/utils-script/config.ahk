@@ -3,6 +3,11 @@ SplitPath(ConfigDirName, &ProjectDirName)
 global ProjectDirName := ProjectDirName
 global ConfigDirName := ConfigDirName
 
+global ObsExe := "obs64.exe"
+global StreamerbotExe := "Streamer.bot.exe"
+global FtpPortableString := "Portable Mode - Profile: ftp"
+global VcamPortableString := "Portable Mode - Profile: vcam"
+
 global StartMenuPathProgramData :=
   "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\"
 

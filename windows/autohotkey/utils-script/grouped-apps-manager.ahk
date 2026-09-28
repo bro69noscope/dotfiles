@@ -1,28 +1,42 @@
 #Include app-launchers.ahk
 #Include delayed-tooltip.ahk
 #Include logger.ahk
+#Include config.ahk
 
 global LogFile := "logs\grouped-apps-manager.log"
 LogError("`n", LogFile)
 TrimLogFile(LogFile, 1024 * 1024)
 
+global SbProduction := Map(
+  "find", (*) => FindWindowByExeAndTitle(StreamerbotExe, "production"),
+  "start", (*) => ActivateStreamerBot(portableVersion := "production")
+)
+
+global SbFtp := Map(
+  "find", (*) => FindWindowByExeAndTitle(StreamerbotExe, "ftp"),
+  "start", (*) => ActivateStreamerBot(portableVersion := "ftp")
+)
+
+global ObsProd := Map(
+  "find", (*) => FindWindowByExeAndTitle(ObsExe, "", "Portable Mode"),
+  "start", (*) => ActivateOBS()
+)
+
+global ObsFtp := Map(
+  "find", (*) => FindWindowByExeAndTitle(ObsExe, FtpPortableString),
+  "start", (*) => ActivateOBSPortable(profile := "ftp")
+)
+
+global ObsVcam := Map(
+  "find", (*) => FindWindowByExeAndTitle(ObsExe, VcamPortableString),
+  "start", (*) => ActivateOBSPortable(profile := "vcam")
+)
+
 global StreamAppGroups := Map(
-  "production", [
-    Map("find", (*) => FindWindowByExeAndTitle("Streamer.bot.exe", "production"),
-      "start", (*) => ActivateStreamerBot(portableVersion := "production")),
-    Map("find", (*) => FindWindowByExeAndTitle("obs64.exe", "", "Portable Mode"),
-      "start", (*) => ActivateOBS()),
-  ],
-  "ftp", [
-    Map("find", (*) => FindWindowByExeAndTitle("Streamer.bot.exe", "ftp"),
-      "start", (*) => ActivateStreamerBot(portableVersion := "ftp")),
-    Map("find", (*) => FindWindowByExeAndTitle("obs64.exe",
-      "Portable Mode - Profile: ftp"),
-      "start", (*) => ActivateOBSPortable(profile := "ftp")),
-    Map("find", (*) => FindWindowByExeAndTitle("obs64.exe",
-      "Portable Mode - Profile: vcam"),
-      "start", (*) => ActivateOBSPortable(profile := "vcam")),
-  ]
+  "production", [SbProduction, ObsProd],
+  "ftp", [SbFtp, ObsFtp, ObsVcam],
+  "obs", [ObsProd, ObsFtp, ObsVcam],
+  "all", [SbProduction, ObsProd, SbFtp, ObsFtp, ObsVcam]
 )
 
 global QuitStreamDeckScript := StreamingRepoPath .
@@ -50,12 +64,20 @@ QuitStreamDeck() {
     MsgBox "quit-streamdeck.vbs not found at:`n" QuitStreamDeckScript
 }
 
-CloseStreamApps(group := "production") {
-  apps := StreamAppGroups["production"].Clone()
-  if group = "all"
+GetStreamApps(group) {
+  if group = "all" {
+    apps := StreamAppGroups["production"].Clone()
     apps.Push(StreamAppGroups["ftp"]*)
+    return apps
+  }
+  return StreamAppGroups[group].Clone()
+}
 
-  QuitStreamDeck()
+CloseStreamApps(group := "production") {
+  apps := GetStreamApps(group)
+
+  if group == "all"
+    QuitStreamDeck()
 
   pending := []
   for app in apps {
@@ -84,11 +106,11 @@ CloseStreamApps(group := "production") {
 }
 
 StartStreamApps(group := "production") {
-  apps := StreamAppGroups["production"].Clone()
-  if group = "all"
-    apps.Push(StreamAppGroups["ftp"]*)
+  apps := GetStreamApps(group)
 
-  ActivateStreamDeck()
+  if group == "all"
+    ActivateStreamDeck()
+
   for app in apps
     app["start"]()
   DelayedToolTipMsg("Started stream apps: " group)
