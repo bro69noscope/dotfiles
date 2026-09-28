@@ -1,7 +1,7 @@
-global currentKeyboard := ""
+CurrentKeyboard := ""
 
 DetectAndSetKeyboard() {
-  global currentKeyboard
+  global CurrentKeyboard
   detectedNames := DetectSpecificKeyboard()
 
   for keyboard in detectedNames
@@ -9,11 +9,11 @@ DetectAndSetKeyboard() {
 
   for keyboard in detectedNames {
     if (keyboard = "Keychron Q3") {
-      currentKeyboard := "keychronQ3"
+      CurrentKeyboard := "keychronQ3"
       break
     }
     else if (keyboard = "Glove80") {
-      currentKeyboard := "glove"
+      CurrentKeyboard := "glove"
       break
     }
   }

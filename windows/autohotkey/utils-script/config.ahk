@@ -1,37 +1,34 @@
 SplitPath(A_LineFile, , &ConfigDirName)
-SplitPath(ConfigDirName, &ProjectDirName)
-global ProjectDirName := ProjectDirName
-global ConfigDirName := ConfigDirName
 
-global ObsExe := "obs64.exe"
-global StreamerbotExe := "Streamer.bot.exe"
-global FtpPortableString := "Portable Mode - Profile: ftp"
-global VcamPortableString := "Portable Mode - Profile: vcam"
+ObsExe := "obs64.exe"
+StreamerbotExe := "Streamer.bot.exe"
+FtpPortableString := "Portable Mode - Profile: ftp"
+VcamPortableString := "Portable Mode - Profile: vcam"
 
-global StartMenuPathProgramData :=
+StartMenuPathProgramData :=
   "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\"
 
-global StartMenuPathRoaming :=
+StartMenuPathRoaming :=
   "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
 
-global StartMenuPathScoopApps :=
+StartMenuPathScoopApps :=
   "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\"
 
-global ObsProductionRemoteDebugArgs :=
+ObsProductionRemoteDebugArgs :=
   " --remote-debugging-port=9222 --remote-allow-origins=http://localhost:9222"
 
-global ObsFtpRemoteDebugArgs :=
+ObsFtpRemoteDebugArgs :=
   " --remote-debugging-port=9223 --remote-allow-origins=http://localhost:9223"
 
-global StreamingProgramsPath := "C:\Users\ville\myfiles\streaming-programs\"
+StreamingProgramsPath := "C:\Users\ville\myfiles\streaming-programs\"
 
-global WezTermPaths := [
+WezTermPaths := [
   "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
   "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
   "C:\Users\ville\scoop\shims\wezterm-gui.exe"
 ]
 
-global StreamingRepoPath :=
+StreamingRepoPath :=
   "C:\Users\ville\myfiles\git-repos\next-level-live-streaming\"
 
-global StreamingRepoServerName := "MY SERVER"
+StreamingRepoServerName := "MY SERVER"

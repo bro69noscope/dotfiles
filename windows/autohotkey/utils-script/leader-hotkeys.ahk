@@ -4,7 +4,7 @@
 #Include grouped-apps-manager.ahk
 #Include nvim-scratch\scratch.ahk
 
-global LeaderCommands := Map(
+LeaderCommands := Map(
   ; `., ,, ;,` commands are just for more apps starting with the same letter
   ".d", ActivateAutoDuck,
   ",n", ActivateNotepad,

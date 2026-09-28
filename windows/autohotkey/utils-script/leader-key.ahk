@@ -1,8 +1,8 @@
 #Include config.ahk
 #Include leader-hotkeys.ahk
-global LeaderKeyActive := false
-global LeaderKeyBuffer := ""
-global LeaderKeyTimeout := 2000
+LeaderKeyActive := false
+LeaderKeyBuffer := ""
+LeaderKeyTimeout := 2000
 
 MakeCallback(val) {
   return (*) => AppendLeaderKey(val)

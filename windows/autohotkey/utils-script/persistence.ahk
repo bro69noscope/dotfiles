@@ -1,15 +1,15 @@
 ; Window IDs (persisted individually)
-global Browser1_ID := 0
-global Browser2_ID := 0
-global Browser3_ID := 0
-global SpotifyWindow_ID := 0
+Browser1_ID := 0
+Browser2_ID := 0
+Browser3_ID := 0
+SpotifyWindow_ID := 0
 
 ; Chrome‑tracking (persisted as a list)
-global ChromeWindowList := []
-global ChromeWindowsFile := A_ScriptDir "\chrome_windows.ini"
+ChromeWindowList := []
+ChromeWindowsFile := A_ScriptDir "\chrome_windows.ini"
 
 ; Config file for single‑value IDs
-global ConfigFile := A_ScriptDir "\window_ids.ini"
+ConfigFile := A_ScriptDir "\window_ids.ini"
 
 WriteWindowIDs() {
   global Browser1_ID, Browser2_ID, Browser3_ID, SpotifyWindow_ID, ConfigFile

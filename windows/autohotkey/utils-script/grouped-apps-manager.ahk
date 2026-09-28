@@ -3,43 +3,43 @@
 #Include logger.ahk
 #Include config.ahk
 
-global LogFile := "logs\grouped-apps-manager.log"
+LogFile := "logs\grouped-apps-manager.log"
 LogError("`n", LogFile)
 TrimLogFile(LogFile, 1024 * 1024)
 
-global SbProduction := Map(
+SbProduction := Map(
   "find", (*) => FindWindowByExeAndTitle(StreamerbotExe, "production"),
   "start", (*) => ActivateStreamerBot(portableVersion := "production")
 )
 
-global SbFtp := Map(
+SbFtp := Map(
   "find", (*) => FindWindowByExeAndTitle(StreamerbotExe, "ftp"),
   "start", (*) => ActivateStreamerBot(portableVersion := "ftp")
 )
 
-global ObsProd := Map(
+ObsProd := Map(
   "find", (*) => FindWindowByExeAndTitle(ObsExe, "", "Portable Mode"),
   "start", (*) => ActivateOBS()
 )
 
-global ObsFtp := Map(
+ObsFtp := Map(
   "find", (*) => FindWindowByExeAndTitle(ObsExe, FtpPortableString),
   "start", (*) => ActivateOBSPortable(profile := "ftp")
 )
 
-global ObsVcam := Map(
+ObsVcam := Map(
   "find", (*) => FindWindowByExeAndTitle(ObsExe, VcamPortableString),
   "start", (*) => ActivateOBSPortable(profile := "vcam")
 )
 
-global StreamAppGroups := Map(
+StreamAppGroups := Map(
   "production", [SbProduction, ObsProd],
   "ftp", [SbFtp, ObsFtp, ObsVcam],
   "obs", [ObsProd, ObsFtp, ObsVcam],
   "all", [SbProduction, ObsProd, SbFtp, ObsFtp, ObsVcam]
 )
 
-global QuitStreamDeckScript := StreamingRepoPath .
+QuitStreamDeckScript := StreamingRepoPath .
   "external\streamdeck\utils\quit-streamdeck\quit-streamdeck.vbs"
 
 FindWindowByExeAndTitle(exeName, include := "", exclude := "") {

@@ -1,4 +1,5 @@
 #Include ..\config.ahk
+
 GetNvimConfigPath() {
   path := EnvGet("NVIM_CONFIG_PATH")
   if path = "" {
@@ -9,33 +10,33 @@ GetNvimConfigPath() {
   return StrReplace(path, "\", "/")
 }
 
-global nvimConfigPath := GetNvimConfigPath()
-global scratchDir := A_Temp "\nvim-scratch"
-global loopScript := scratchDir "\loop.ps1"
-global reqFile := scratchDir "\request.txt"
-global doneFlag := scratchDir "\done.flag"
-global errFlag := scratchDir "\err.flag"
-global pidFile := scratchDir "\shell.pid"
-global scratchTitle := "[[NVIM-SCRATCH]]"
-global scratchHwnd := 0
-global lastActiveHwnd := 0
-global nvimRunning := false
+NvimConfigPath := GetNvimConfigPath()
+ScratchDir := A_Temp "\nvim-scratch"
+LoopScript := ScratchDir "\loop.ps1"
+ReqFile := ScratchDir "\request.txt"
+DoneFlag := ScratchDir "\done.flag"
+ErrFlag := ScratchDir "\err.flag"
+PidFile := ScratchDir "\shell.pid"
+ScratchTitle := "[[NVIM-SCRATCH]]"
+ScratchHwnd := 0
+LastActiveHwnd := 0
+NvimRunning := false
 
-DirExist(scratchDir) || DirCreate(scratchDir)
+DirExist(ScratchDir) || DirCreate(ScratchDir)
 KillStaleScratchShell()
 WriteLoopScript()
 
-for f in [reqFile, doneFlag, errFlag]
+for f in [ReqFile, DoneFlag, ErrFlag]
   if FileExist(f)
     FileDelete(f)
 OnExit((*) => KillStaleScratchShell())
 
 if LaunchScratchShell()
-  WinHide("ahk_id " scratchHwnd)
+  WinHide("ahk_id " ScratchHwnd)
 SetTimer(CheckErrFlag, 500)
 
 ClipAndOpenNvimScratch() {
-  if nvimRunning {
+  if NvimRunning {
     OpenNvimScratch()
     return
   }
@@ -61,38 +62,38 @@ ClipAndOpenNvimScratch() {
 
 OpenNvimScratch() {
   ; buffer content will be set from clipboard register in nvim autocommand
-  global lastActiveHwnd, nvimRunning
+  global LastActiveHwnd, NvimRunning
   DetectHiddenWindows(true)
 
-  if nvimRunning {
-    WinActivate("ahk_id " scratchHwnd)
+  if NvimRunning {
+    WinActivate("ahk_id " ScratchHwnd)
     return
   }
 
-  lastActiveHwnd := WinExist("A")
+  LastActiveHwnd := WinExist("A")
 
-  if !(scratchHwnd && WinExist("ahk_id " scratchHwnd)) {
-    nvimRunning := false
+  if !(ScratchHwnd && WinExist("ahk_id " ScratchHwnd)) {
+    NvimRunning := false
     if !LaunchScratchShell()
       return
   }
 
-  if FileExist(doneFlag)
-    FileDelete(doneFlag)
+  if FileExist(DoneFlag)
+    FileDelete(DoneFlag)
 
-  file := scratchDir "\scratch_" FormatTime(, "yyyyMMdd_HHmmss") ".md"
-  tmp := reqFile ".tmp"
+  file := ScratchDir "\scratch_" FormatTime(, "yyyyMMdd_HHmmss") ".md"
+  tmp := ReqFile ".tmp"
   FileAppend(file, tmp, "UTF-8-RAW")
-  FileMove(tmp, reqFile, 1)
-  nvimRunning := true
+  FileMove(tmp, ReqFile, 1)
+  NvimRunning := true
 
-  WinShow("ahk_id " scratchHwnd)
-  WinActivate("ahk_id " scratchHwnd)
+  WinShow("ahk_id " ScratchHwnd)
+  WinActivate("ahk_id " ScratchHwnd)
   SetTimer(CheckDoneFlag, 100)
 }
 
 LaunchScratchShell() {
-  global scratchHwnd
+  global ScratchHwnd
   gui := ""
   for _, path in WezTermPaths
     if FileExist(path) {
@@ -109,7 +110,7 @@ LaunchScratchShell() {
     )
     return false
   }
-  Run('"' gui '" start -- pwsh -NoProfile -NoLogo -File "' loopScript '"')
+  Run('"' gui '" start -- pwsh -NoProfile -NoLogo -File "' LoopScript '"')
 
   ; match on the exact title set by loop.ps1, wezterm also spawns transient helper
   ; windows at startup (e.g. "wgl extension probing window") that must not be picked
@@ -117,8 +118,8 @@ LaunchScratchShell() {
 
   loop 150 {
     Sleep(50)
-    if hwnd := WinExist(scratchTitle " ahk_exe wezterm-gui.exe") {
-      scratchHwnd := hwnd
+    if hwnd := WinExist(ScratchTitle " ahk_exe wezterm-gui.exe") {
+      ScratchHwnd := hwnd
       return true
     }
   }
@@ -129,59 +130,59 @@ LaunchScratchShell() {
 WriteLoopScript() {
   nl := "`n"
   content := "$esc = [char]27" nl
-    . "$b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" scratchTitle "'))" nl
+    . "$b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" ScratchTitle "'))" nl
     . '[Console]::Write("$esc]1337;SetUserVar=WEZTERM_TITLE=$b64$esc\")' nl
-    . '$PID | Set-Content -NoNewline -Encoding utf8 "' pidFile '"' nl
-    . '$cfg = "' nvimConfigPath '"' nl
+    . '$PID | Set-Content -NoNewline -Encoding utf8 "' PidFile '"' nl
+    . '$cfg = "' NvimConfigPath '"' nl
     . '& nvim --cmd "set rtp^=$cfg" --cmd "let g:nvim_scratch = 1" -u "$cfg/init.lua"' nl
     .
     '# nvim is never meant to exit in the scratch flow, any exit is a signal to self heal' nl
-    . 'New-Item "' errFlag '" -ItemType File | Out-Null' nl
+    . 'New-Item "' ErrFlag '" -ItemType File | Out-Null' nl
 
-  if FileExist(loopScript)
-    FileDelete(loopScript)
-  FileAppend(content, loopScript, "UTF-8-RAW")
+  if FileExist(LoopScript)
+    FileDelete(LoopScript)
+  FileAppend(content, LoopScript, "UTF-8-RAW")
 }
 
 KillStaleScratchShell() {
-  if !FileExist(pidFile)
+  if !FileExist(PidFile)
     return
-  pid := Integer(RegExReplace(FileRead(pidFile, "UTF-8"), "[^\d]"))
-  FileDelete(pidFile)
+  pid := Integer(RegExReplace(FileRead(PidFile, "UTF-8"), "[^\d]"))
+  FileDelete(PidFile)
   if ProcessExist(pid)
     ProcessClose(pid)
 }
 
 CheckDoneFlag() {
-  global nvimRunning
+  global NvimRunning
   DetectHiddenWindows(true)
-  if !WinExist("ahk_id " scratchHwnd) {
+  if !WinExist("ahk_id " ScratchHwnd) {
     SetTimer(CheckDoneFlag, 0)
-    nvimRunning := false
+    NvimRunning := false
     return
   }
-  if !FileExist(doneFlag)
+  if !FileExist(DoneFlag)
     return
-  FileDelete(doneFlag)
+  FileDelete(DoneFlag)
   SetTimer(CheckDoneFlag, 0)
-  nvimRunning := false
-  WinHide("ahk_id " scratchHwnd)
-  if lastActiveHwnd && WinExist("ahk_id " lastActiveHwnd)
-    WinActivate("ahk_id " lastActiveHwnd)
+  NvimRunning := false
+  WinHide("ahk_id " ScratchHwnd)
+  if LastActiveHwnd && WinExist("ahk_id " LastActiveHwnd)
+    WinActivate("ahk_id " LastActiveHwnd)
 }
 
 CheckErrFlag() {
-  global nvimRunning
+  global NvimRunning
   if !FileExist(errFlag)
     return
   FileDelete(errFlag)
   SetTimer(CheckDoneFlag, 0)
-  nvimRunning := false
+  NvimRunning := false
 
   ; the old window is still closing, wait for it so the relaunch doesn't match it by title
   DetectHiddenWindows(true)
   loop 40 {
-    if !WinExist("ahk_id " scratchHwnd)
+    if !WinExist("ahk_id " ScratchHwnd)
       break
     Sleep(50)
   }
@@ -189,5 +190,5 @@ CheckErrFlag() {
   ToolTip("nvim scratch exited unexpectedly, relaunching it")
   SetTimer(() => ToolTip(), -1500)
   if LaunchScratchShell()
-    WinHide("ahk_id " scratchHwnd)
+    WinHide("ahk_id " ScratchHwnd)
 }

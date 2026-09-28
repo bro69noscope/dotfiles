@@ -32,7 +32,7 @@ TraySetIcon "..\icons\utils.png"
 !+^F12:: LaunchDeadLockMovementScript()
 #HotIf
 
-global ExcludedGames := [
+ExcludedGames := [
   ; "Warcraft III.exe",
   "deadlock.exe",
   ; "dota2.exe",
