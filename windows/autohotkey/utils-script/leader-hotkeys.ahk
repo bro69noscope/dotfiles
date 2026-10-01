@@ -60,13 +60,18 @@ LeaderCommands := Map(
   "//", (*) => ReplaceClipboardSlashes("/"),
   "/\", (*) => ReplaceClipboardSlashes("\"),
   ; ``` leader commands for handling more than one app at once
+  ; close targeted groups with `c
   "``ca", (*) => CloseStreamApps(group := "all"),
   "``cd", (*) => QuitStreamDeck(),
   "``co", (*) => CloseStreamApps(group := "obs"),
   "``cp", (*) => CloseStreamApps(group := "production"),
+  "``cb", (*) => CloseStreamApps(group := "sbot"),
+  ; start targeted groups with `s
   "``sa", (*) => StartStreamApps(group := "all"),
   "``so", (*) => StartStreamApps(group := "obs"),
   "``sp", (*) => StartStreamApps(group := "production"),
+  "``sb", (*) => StartStreamApps(group := "sbot"),
+  ; run every damn program at once with `Space
   "``Spacef", (*) => QuickSetup(mode := "full"),
   "``Spaces", (*) => QuickSetup(mode := "simple"),
 )

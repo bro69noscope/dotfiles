@@ -36,6 +36,7 @@ StreamAppGroups := Map(
   "production", [SbProduction, ObsProd],
   "ftp", [SbFtp, ObsFtp, ObsVcam],
   "obs", [ObsProd, ObsFtp, ObsVcam],
+  "sbot", [SbProduction, SbFtp],
   "all", [SbProduction, ObsProd, SbFtp, ObsFtp, ObsVcam]
 )
 
