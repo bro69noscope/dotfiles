@@ -364,12 +364,12 @@
       #ifdef LAYER_Function
       Function {
         bindings = <
-          ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
-          ___ ___ ___ ___ ___ ___                                     AZU AZU AZU AZU AZU AZU
-          ___ ___ ___ ___ ___ ___                                     ___ PNK PNK PNK PNK PNK
-          ___ MAJ CYN GRN YLW ___                                     GDN PNK PNK PNK PNK PNK
-          ___ ___ ___ BLU ___ ___     RED ___ ___     COR ORN BLU     ___ PNK PNK PNK PNK PNK
-          ___ ___ ___ ___ ___         ___ ___ ___     COR CYN CYN         CHU CHU CHU CHU CHU
+          ___ ___ ___ ___ ___                                             CHU CHU CHU CHU CHU
+          ___ ___ ___ ___ ___ ___                                     BLU WHT ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     BLU AZU AZU AZU AZU CYN
+          ___ MAJ CYN GRN YLW ___                                     BLU AZU AZU AZU AZU CYN
+          ___ ___ ___ ___ ___ ___     RED ___ ___     COR ORN BLU     BLU AZU AZU AZU AZU CYN
+          ___ ___ ___ ___ ___         ___ ___ ___     COR CYN CYN         TEA TEA TEA TEA TEA
         >;
         layer-id = <LAYER_Function>;
       };

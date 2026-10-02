@@ -682,12 +682,12 @@ combos {
 
   // T2+T5
 
-  combo_ctrl_tab_switcher_left {
-    timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_LH_T2 POS_LH_T5>;
-    bindings = <&mod_tab_chord LCTL LAYER_Cursor>;
-    layers = <0 1 2 3 4>;
-  };
+  /* combo_ctrl_tab_switcher_left { */
+  /*   timeout-ms = <COMBO_FIRING_DECAY>; */
+  /*   key-positions = <POS_LH_T2 POS_LH_T5>; */
+  /*   bindings = <&mod_tab_chord LCTL LAYER_Cursor>; */
+  /*   layers = <0 1 2 3 4>; */
+  /* }; */
 
   combo_meh_ACS_right {
     timeout-ms = <COMBO_FIRING_DECAY>;
@@ -721,25 +721,25 @@ combos {
     layers = <0 1 2 3 4 5>;
   };
 
-  combo_caps_word_right {
+  combo_caps_lock_right {
     timeout-ms = <COMBO_FIRING_DECAY>;
     key-positions = <POS_RH_T4 POS_RH_T5>;
-    bindings = <&caps_word>;
+    bindings = <&kp CAPSLOCK>;
     layers = <0 1 2 3 4 5>;
   };
+
+  /* combo_caps_word_right { */
+  /*   timeout-ms = <COMBO_FIRING_DECAY>; */
+  /*   key-positions = <POS_RH_T4 POS_RH_T5>; */
+  /*   bindings = <&caps_word>; */
+  /*   layers = <0 1 2 3 4 5>; */
+  /* }; */
 
   // T2+T6
 
   combo_caps_lock_left {
     timeout-ms = <COMBO_FIRING_DECAY>;
     key-positions = <POS_LH_T2 POS_LH_T6>;
-    bindings = <&kp CAPSLOCK>;
-    layers = <0 1 2 3 4 5>;
-  };
-
-  combo_caps_lock_right {
-    timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_RH_T2 POS_RH_T6>;
     bindings = <&kp CAPSLOCK>;
     layers = <0 1 2 3 4 5>;
   };
