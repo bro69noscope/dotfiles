@@ -3,7 +3,9 @@
     "EDITOR": "neovide",
     "IS_DEMO": "1"
   },
+  "model": "sonnet",
   "autoUpdatesChannel": "latest",
   "theme": "dark",
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "agentPushNotifEnabled": true
 }
