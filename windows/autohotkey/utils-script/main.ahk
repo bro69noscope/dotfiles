@@ -14,13 +14,12 @@ TraySetIcon "..\icons\utils.png"
 #Include leader-key.ahk
 #Include leader-hotkeys.ahk
 #Include overlay.ahk
+#Include ws.ahk
 
-; functions bound to direct hotkeys rather than leader key
-!Home:: ToggleMousePosOverlay()
-+^!F13:: ActivateOBS(moveChat := true)
-+^!F14:: ActivateOBSPortable(profile := "ftp", moveChat := true)
-+^!F7:: MoveProductionOBS(direction := "right")
-+^!F8:: MoveProductionOBS(direction := "center")
+; ==================================================
+; Direct system wide hotkeys binds and remappings
+; ==================================================
++^!Home:: ToggleMousePosOverlay()
 ^\:: ClipAndOpenNvimScratch()
 
 #HotIf WinActive("ahk_exe wezterm-gui.exe")
@@ -32,26 +31,30 @@ TraySetIcon "..\icons\utils.png"
 !+^F12:: LaunchDeadLockMovementScript()
 #HotIf
 
+; ========================================
+; Leader key functionality - available on all keyboards except in excluded games
+; =========================================
 ExcludedGames := [
   ; "Warcraft III.exe",
   "deadlock.exe",
   ; "dota2.exe",
 ]
 
-ExcludeGames() {
+ExcludeGame() {
   for exe in ExcludedGames
     if WinActive("ahk_exe " exe)
-      return false
-  return true
+      return true
+  return false
 }
 
-; Leader key functionality - available on all keyboards except in games
-#HotIf Excludegames()
+#HotIf !ExcludeGame()
 $^Space:: ActivateLeaderKey()
 #HotIf
 
+; ========================================
 ; Keyboard-specific hotkeys - only for Keychron Q3, also excluding games
-#HotIf Excludegames() && (currentKeyboard = "keychronQ3")
+; ========================================
+#HotIf !Excludegame() && (currentKeyboard = "keychronQ3")
 CapsLock::Esc
 Esc::CapsLock
 !j::Down

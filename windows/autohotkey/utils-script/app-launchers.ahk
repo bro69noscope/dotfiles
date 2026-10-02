@@ -259,7 +259,7 @@ MoveProductionOBS(direction := "right") {
   WinActivate(hwnd)
 }
 
-ActivateSreamFeedApp() {
+ActivateStreamFeedApp() {
   idMethod := () => WinExist("Activity Feed ahk_exe StreamFeedApp.exe")
   hwnd := idMethod()
   Reposition(hwnd) {
@@ -287,7 +287,7 @@ ActivateSreamFeedApp() {
   }
 }
 
-ActivateSreamFeedAppDebug() {
+ActivateStreamFeedAppDebug() {
   idMethod := () => WinExist(
     "DevTools - appassets.local/stream-feed.html ahk_exe msedgewebview2.exe")
   hwnd := idMethod()
@@ -453,7 +453,7 @@ QuickSetup(mode := "simple") {
     ActivateWezTermTitled("WezTerm - secondary")
     ActivateStreamerBot(portableVersion := "production")
     ActivateStreamerBot(portableVersion := "ftp")
-    ActivateSreamFeedApp()
+    ActivateStreamFeedApp()
     ActivateOBS()
     ActivateOBSPortable(profile := "ftp")
     ActivateOBSPortable(profile := "vcam")
