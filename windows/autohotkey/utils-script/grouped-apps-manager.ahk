@@ -3,9 +3,9 @@
 #Include logger.ahk
 #Include config.ahk
 
-LogFile := "logs\grouped-apps-manager.log"
-LogError("`n", LogFile)
-TrimLogFile(LogFile, 1024 * 1024)
+GroupedAppsLogFile := "logs\grouped-apps-manager.log"
+TrimLogFile(GroupedAppsLogFile, 200000)
+LogBlank(GroupedAppsLogFile)
 
 SbProduction := Map(
   "find", (*) => FindWindowByExeAndTitle(StreamerbotExe, "production"),
@@ -89,7 +89,8 @@ CloseStreamApps(group := "production") {
     try
       WinClose(hwnd)
     catch as e {
-      LogError("WinClose failed: '" title "' hwnd " hwnd ": " e.Message, LogFile)
+      msg := "WinClose failed: '" title "' hwnd " hwnd ": " e.Message
+      LogError(msg, GroupedAppsLogFile)
       continue
     }
     pending.Push({ hwnd: hwnd, title: title })
@@ -98,7 +99,7 @@ CloseStreamApps(group := "production") {
   for p in pending {
     if !WinWaitClose(p.hwnd, , 8000 / 1000) {
       msg := "Failed to close: '" p.title "'"
-      LogError(msg, LogFile)
+      LogError(msg, GroupedAppsLogFile)
       DelayedToolTipMsg(msg)
     }
   }
