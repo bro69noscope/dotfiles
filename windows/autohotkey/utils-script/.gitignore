@@ -1,2 +1,5 @@
 *.ini
 logs/
+keyboard_info.txt
+node_modules/
+relay.pid
