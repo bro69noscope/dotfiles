@@ -17,7 +17,7 @@ $env:DOTFILES_PATH = "$env:MYFILES_PATH\dotfiles"
 $env:STREAMING_DATA_PATH = "$env:MYFILES_PATH\streaming-data"
 $env:STREAMING_REPO_PATH = "$env:MYFILES_PATH\git-repos\next-level-live-streaming"
 
-# This was set in registry (Get-ItemProperty -Path "HKCU:\Environment")
+# These are set in registry (Get-ItemProperty -Path "HKCU:\Environment")
 # $env:NVIM_CONFIG_PATH = "$env:DOTFILES_PATH\nvim-config3.0"
 
 $env:STREAMER_BOT_PRODUCTION_PATH= Join-Path $env:MYFILES_PATH `
