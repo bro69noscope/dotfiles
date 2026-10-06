@@ -1,9 +1,8 @@
-SplitPath(A_LineFile, , &ConfigDirName)
+; If the next lines fail with "Failed to open file": the streaming repo ahk junction is missing.
+; Run: pwsh -File "create-junction.ps1"
+#Include streaming-ahk\config.ahk
 
-ObsExe := "obs64.exe"
-StreamerbotExe := "Streamer.bot.exe"
-FtpPortableString := "Portable Mode - Profile: ftp"
-VcamPortableString := "Portable Mode - Profile: vcam"
+SplitPath(A_LineFile, , &ConfigDirName)
 
 StartMenuPathProgramData :=
   "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\"
@@ -14,21 +13,8 @@ StartMenuPathRoaming :=
 StartMenuPathScoopApps :=
   "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\"
 
-ObsProductionRemoteDebugArgs :=
-  " --remote-debugging-port=9222 --remote-allow-origins=http://localhost:9222"
-
-ObsFtpRemoteDebugArgs :=
-  " --remote-debugging-port=9223 --remote-allow-origins=http://localhost:9223"
-
-StreamingProgramsPath := "C:\Users\ville\myfiles\streaming-programs\"
-
 WezTermPaths := [
   "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
   "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
   "C:\Users\ville\scoop\shims\wezterm-gui.exe"
 ]
-
-StreamingRepoPath :=
-  "C:\Users\ville\myfiles\git-repos\next-level-live-streaming\"
-
-StreamingRepoServerName := "MY SERVER"

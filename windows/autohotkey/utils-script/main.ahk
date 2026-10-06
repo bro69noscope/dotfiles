@@ -14,7 +14,6 @@ TraySetIcon "..\icons\utils.png"
 #Include leader-key.ahk
 #Include leader-hotkeys.ahk
 #Include overlay.ahk
-#Include ws.ahk
 #Include logger.ahk
 
 MainLogFile := "logs\main.log"
