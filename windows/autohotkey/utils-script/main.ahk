@@ -17,62 +17,9 @@ TraySetIcon "..\icons\utils.png"
 #Include ws.ahk
 #Include logger.ahk
 
-relayPidFile := A_ScriptDir "\relay.pid"
-nodePid := 0
-relayDebug := false
-
 MainLogFile := "logs\main.log"
 TrimLogFile(MainLogFile, 200000)
 LogBlank(MainLogFile)
-
-KillTree(pid) {
-  RunWait("taskkill /f /t /pid " pid, , "Hide")
-}
-
-KillStaleRelay() {
-  if !FileExist(relayPidFile)
-    return
-  try {
-    parts := StrSplit(Trim(FileRead(relayPidFile)), ":")
-    if parts.Length = 2
-      && (parts[1] = "debug" || parts[1] = "normal")
-      && IsInteger(parts[2]) && parts[2] > 0 {
-      expected := parts[1] = "debug" ? "cmd.exe" : "node.exe"
-      pid := Integer(parts[2])
-      if ProcessGetName(pid) = expected
-        KillTree(pid)
-    }
-  }
-  try FileDelete(relayPidFile)
-}
-
-StartRelay() {
-  global nodePid
-  KillStaleRelay()
-  mode := relayDebug ? "debug" : "normal"
-  cmd := relayDebug ? 'cmd /k node "relay.mjs"' : 'node "relay.mjs"'
-  try {
-    Run(cmd, A_ScriptDir, relayDebug ? "" : "Hide", &nodePid)
-  } catch as e {
-    nodePid := 0
-    LogInfo("Failed to start relay: " e.Message, MainLogFile)
-    MsgBox("Failed to start relay: " e.Message, "Error", 16)
-    return
-  }
-  try {
-    f := FileOpen(relayPidFile, "w")
-    f.Write(mode ":" nodePid)
-    f.Close()
-  }
-}
-
-StopRelay(*) {
-  if nodePid
-    KillTree(nodePid)
-  try FileDelete(relayPidFile)
-}
-
-StartRelay()
 
 ; ==================================================
 ; Direct system wide hotkeys binds and remappings
@@ -131,6 +78,5 @@ VerifyWindowIDs()
 
 OnExit((*) => (
   WriteWindowIDs(),
-  SaveChromeWindowList(),
-  StopRelay()
+  SaveChromeWindowList()
 ))
