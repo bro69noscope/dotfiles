@@ -6,7 +6,11 @@ family = "BerkeleyMono Nerd Font"
 style = "Regular"
 
 [font]
-size = 12.5
+# 1440p 175% win os scale
+# size = 12.5
+
+# 1080p 150% win os scale 145 nvim col
+size = 11.6
 
 [window]
 dimensions = { columns = 120, lines = 30 }
