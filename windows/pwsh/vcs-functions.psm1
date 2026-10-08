@@ -47,7 +47,7 @@ function ctat {
     [switch]$Backup,
     [switch]$Import,
     [Alias('nogen')] [switch]$SkipScopedGeneration,
-    [Alias('sdeck')] [switch]$StreamDeck,
+    [Alias('deck')] [switch]$StreamDeck,
     [switch]$Obs,
     [Alias('sbot')] [switch]$Streamerbot
   )
@@ -60,7 +60,7 @@ function cfat {
     [switch]$Backup,
     [switch]$Import,
     [Alias('nogen')] [switch]$SkipScopedGeneration,
-    [Alias('sdeck')] [switch]$StreamDeck,
+    [Alias('deck')] [switch]$StreamDeck,
     [switch]$Obs,
     [Alias('sbot')] [switch]$Streamerbot
   )
