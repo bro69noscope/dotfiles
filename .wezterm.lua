@@ -9,10 +9,10 @@ local workspace_switcher =
 -- local font_size = 11.8 -- Allows for 97/98 char length lines in Nvim vs 87/88 with 12.0.
 
 -- 1440p 175% Win OS scale, 150 nvim columns. Dropoff to 141 at 12.5
--- local font_size = 12.4
+local font_size = 12.4
 
 -- 1080p 150% Win OS scale, 147 nvim columns.
-local font_size = 11.2
+-- local font_size = 11.2
 
 config.font = wezterm.font("BerkeleyMono Nerd Font", { weight = "Regular" })
 config.font_size = font_size
