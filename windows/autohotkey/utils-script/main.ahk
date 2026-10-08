@@ -60,7 +60,7 @@ StartStreamingAhk() {
 ; =========================================
 ExcludedGames := [
   ; "Warcraft III.exe",
-  "deadlock.exe",
+  ; "deadlock.exe",
   ; "dota2.exe",
 ]
 
