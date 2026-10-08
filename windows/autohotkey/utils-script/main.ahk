@@ -20,6 +20,26 @@ MainLogFile := "logs\main.log"
 TrimLogFile(MainLogFile, 200000)
 LogBlank(MainLogFile)
 
+StartStreamingAhk() {
+  repo := EnvGet("STREAMING_REPO_PATH")
+  if !repo
+    repo := RegRead("HKCU\Environment", "STREAMING_REPO_PATH", "")
+  if !repo {
+    MsgBox("STREAMING_REPO_PATH environment variable not set.", "Error", "Iconx")
+    return
+  }
+
+  script := RTrim(repo, "\") "\external\ahk\main.ahk"
+  if !FileExist(script) {
+    e := "streaming ahk script not found: '" script "'"
+    LogError(e, MainLogFile)
+    MsgBox(e, "Error", "Iconx")
+    return
+  }
+
+  Run('"' A_AhkPath '" "' script '"')
+}
+
 ; ==================================================
 ; Direct system wide hotkeys binds and remappings
 ; ==================================================
@@ -74,6 +94,7 @@ DetectAndSetKeyboard()
 LoadWindowIDs()
 LoadChromeWindowList()
 VerifyWindowIDs()
+StartStreamingAhk()
 
 OnExit((*) => (
   WriteWindowIDs(),
