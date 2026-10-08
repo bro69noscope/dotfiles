@@ -2,7 +2,7 @@
 
 LaunchDeadLockMovementScript() {
   scriptPath :=
-    "C:\Users\ville\myfiles\deadlock-movement-tracker\deadlock-movement-tracker.ahk"
+    "C:\Users\ville\myfiles\git-repos\deadlock-movement-tracker\deadlock-movement-tracker.ahk"
   Run scriptPath
 }
 
