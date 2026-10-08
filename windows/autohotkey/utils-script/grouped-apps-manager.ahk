@@ -19,7 +19,7 @@ SbFtp := Map(
 
 ObsProd := Map(
   "find", (*) => FindWindowByExeAndTitle(ObsExe, "", "Portable Mode"),
-  "start", (*) => ActivateOBS()
+  "start", (*) => ActivateObsProduction()
 )
 
 ObsFtp := Map(

@@ -285,7 +285,7 @@ ActivateNeovide() {
 QuickSetup(mode := "simple") {
   if mode = "simple" {
     ActivateTobiiGhost()
-    ActivateOBS()
+    ActivateObsProduction()
     ActivateAutoDuck()
     ActivateBraveBrowser()
     ActivateDiscord()
@@ -301,7 +301,7 @@ QuickSetup(mode := "simple") {
     ActivateStreamerBot(portableVersion := "production")
     ActivateStreamerBot(portableVersion := "ftp")
     ActivateStreamFeedApp()
-    ActivateOBS()
+    ActivateObsProduction()
     ActivateOBSPortable(profile := "ftp")
     ActivateOBSPortable(profile := "vcam")
     ActivateBrowser1Window()

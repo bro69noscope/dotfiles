@@ -33,7 +33,7 @@ LeaderCommands := Map(
   "m", ActivateMailClient,
   "N", ActivateNeo4j,
   "n", ActivateNeovide,
-  "o", (*) => ActivateOBS(),
+  "o", (*) => ActivateObsProduction(),
   "O", (*) => ActivateOBSPortable(profile := "ftp", moveChat := true),
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
