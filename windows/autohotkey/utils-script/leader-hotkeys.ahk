@@ -10,7 +10,7 @@ LeaderCommands := Map(
   ",n", ActivateNotepad,
   ".m", WriteMessageDontResendAllCode,
   ".n", ActivateOneNote,
-  ".o", (*) => ActivateOBSPortable(profile := "vcam"),
+  ".o", (*) => ActivateObsPortable(profile := "vcam"),
   ; regular single-letter commands
   "0", ActivateUngroupedChromeWindow,
   "1", ActivateBrowser1Window,
@@ -34,7 +34,7 @@ LeaderCommands := Map(
   "N", ActivateNeo4j,
   "n", ActivateNeovide,
   "o", (*) => ActivateObsProduction(),
-  "O", (*) => ActivateOBSPortable(profile := "ftp", moveChat := true),
+  "O", (*) => ActivateObsPortable(profile := "ftp", moveChat := true),
   "P", ActivateAdminPowerShell,
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,

@@ -24,12 +24,12 @@ ObsProd := Map(
 
 ObsFtp := Map(
   "find", (*) => FindWindowByExeAndTitle(ObsExe, FtpPortableString),
-  "start", (*) => ActivateOBSPortable(profile := "ftp")
+  "start", (*) => ActivateObsPortable(profile := "ftp")
 )
 
 ObsVcam := Map(
   "find", (*) => FindWindowByExeAndTitle(ObsExe, VcamPortableString),
-  "start", (*) => ActivateOBSPortable(profile := "vcam")
+  "start", (*) => ActivateObsPortable(profile := "vcam")
 )
 
 StreamAppGroups := Map(
