@@ -18,7 +18,7 @@ SbFtp := Map(
 )
 
 ObsProd := Map(
-  "find", (*) => FindWindowByExeAndTitle(ObsExe, "", "Portable Mode"),
+  "find", (*) => FindWindowByExeAndTitle(ObsExe, "", ObsPortableString),
   "start", (*) => ActivateObsProduction()
 )
 
@@ -47,7 +47,10 @@ FindWindowByExeAndTitle(exeName, include := "", exclude := "") {
   prev := DetectHiddenWindows(true)
   try {
     for hwnd in WinGetList("ahk_exe " exeName) {
-      title := WinGetTitle(hwnd)
+      try
+        title := WinGetTitle(hwnd)
+      catch
+        continue
       if (include && !InStr(title, include))
         continue
       if (exclude && InStr(title, exclude))
@@ -85,7 +88,10 @@ CloseStreamApps(group := "production") {
     hwnd := app["find"]()
     if !hwnd
       continue
-    title := WinGetTitle(hwnd)
+    try
+      title := WinGetTitle(hwnd)
+    catch
+      continue
     try
       WinClose(hwnd)
     catch as e {
