@@ -3,7 +3,8 @@
   "name": "Claude Code Zoom",
   "version": "1.0",
   "description": "Sets a fixed zoom level on claude.ai/code paths only, independent of other claude.ai tabs.",
-  "permissions": ["tabs", "webNavigation"],
+  "permissions": ["tabs", "storage", "webNavigation"],
+  "action": { "default_popup": "popup.html" },
   "host_permissions": ["https://claude.ai/*"],
   "background": {
     "service_worker": "background.js"

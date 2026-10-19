@@ -1,5 +1,23 @@
-const TARGET_ZOOM = 1.1;
-const PATH_MATCH = "/code";
+const DEFAULT_PERCENT = 100;
+const PATH_MATCH = "/code/";
+
+async function getZoomFactor() {
+  const { zoomPercent } = await chrome.storage.sync.get({
+    zoomPercent: DEFAULT_PERCENT,
+  });
+  return zoomPercent / 100;
+}
+
+async function applyZoomIfNeeded(tabId, url) {
+  if (!isTargetUrl(url)) return;
+
+  try {
+    await chrome.tabs.setZoomSettings(tabId, { scope: "per-tab" });
+    await chrome.tabs.setZoom(tabId, await getZoomFactor());
+  } catch (e) {
+    console.warn("zoom failed", tabId, e);
+  }
+}
 
 function isTargetUrl(url) {
   if (!url) return false;
@@ -9,14 +27,6 @@ function isTargetUrl(url) {
   } catch {
     return false;
   }
-}
-
-async function applyZoomIfNeeded(tabId, url) {
-  if (!isTargetUrl(url)) return;
-
-  // per-tab scope means this zoom change won't leak to other claude.ai tabs
-  await chrome.tabs.setZoomSettings(tabId, { scope: "per-tab" });
-  await chrome.tabs.setZoom(tabId, TARGET_ZOOM);
 }
 
 // fires on full navigation
@@ -32,3 +42,10 @@ if (chrome.webNavigation) {
     applyZoomIfNeeded(details.tabId, details.url);
   });
 }
+
+// re-apply to all open matching tabs when the setting changes
+chrome.storage.onChanged.addListener(async (changes, area) => {
+  if (area !== "sync" || !changes.zoomPercent) return;
+  const tabs = await chrome.tabs.query({ url: "https://claude.ai/code*" });
+  for (const tab of tabs) applyZoomIfNeeded(tab.id, tab.url);
+});
