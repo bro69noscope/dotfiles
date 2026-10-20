@@ -57,7 +57,7 @@ ActivateAlacritty() {
 
   Run("C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
   lastHwnd := WinExist("A")
-  if !ActivateWhenReady(idMethod, 3000)
+  if !ActivateWhenReady(idMethod, 3000, , isLaunch := true)
     return false
 
   ; needs to be focused twice at launch to fix the terminal cursor appearance
