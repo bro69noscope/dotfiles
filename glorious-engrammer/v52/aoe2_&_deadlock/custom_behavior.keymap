@@ -3078,6 +3078,25 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
+  //
+  // Since we can type `greater/less than` with the parang_left and
+  // parang_right keys, we dont need the usual `<>` variants on shifted `.` and
+  // `,` keys. Instead, we can use them for `caret` and `dollar` symbols
+  //
+  comma_caret: comma_and_caret {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp COMMA>, <&kp CARET>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  dot_dollar: dot_and_dollar {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp DOT>, <&kp DLLR>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   //////////////////////////////////////////////////////////////////////////
   //
   // &sk (sticky key) variant that is truly one-shot
