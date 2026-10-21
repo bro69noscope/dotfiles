@@ -1,0 +1,4 @@
+# first existing path wins. read by config.ahk and open-cwd-wezterm.lua
+C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe
+C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe
+C:\Users\ville\scoop\shims\wezterm-gui.exe

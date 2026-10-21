@@ -13,8 +13,25 @@ StartMenuPathRoaming :=
 StartMenuPathScoopApps :=
   "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\"
 
-WezTermPaths := [
-  "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm-gui.exe",
-  "C:\Users\ville\scoop\apps\wezterm-nightly\current\wezterm-gui.exe",
-  "C:\Users\ville\scoop\shims\wezterm-gui.exe"
-]
+FindUp(startDir, relPath) {
+  dir := startDir
+  Loop {
+    if FileExist(dir "\" relPath)
+      return dir "\" relPath
+    parent := RegExReplace(dir, "\\[^\\]+$")
+    if (parent = dir)
+      return ""
+    dir := parent
+  }
+}
+
+pathsFile := FindUp(ConfigDirName, "shared\wezterm-paths.txt")
+
+WezTermPaths := []
+if (pathsFile != "") {
+  Loop Read pathsFile {
+    line := Trim(A_LoopReadLine)
+    if (line != "" && SubStr(line, 1, 1) != "#")
+      WezTermPaths.Push(line)
+  }
+}
