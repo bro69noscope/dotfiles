@@ -7,5 +7,6 @@
   "autoUpdatesChannel": "latest",
   "theme": "dark",
   "editorMode": "vim",
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "remoteControlAtStartup": true
 }
