@@ -28,7 +28,10 @@ config.audible_bell = "Disabled"
 config.default_prog = { "pwsh" }
 config.initial_cols = 120
 config.initial_rows = 30
-config.enable_kitty_keyboard = false -- Breaks ahk remapping
+
+-- Note that enabling this will break ahk remapping
+config.enable_kitty_keyboard = true
+
 config.enable_kitty_graphics = true
 if font_size ~= 12 then
   config.window_padding = { -- Adjust inevitable padding with font != 12
