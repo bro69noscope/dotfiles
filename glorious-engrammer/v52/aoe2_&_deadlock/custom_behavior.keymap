@@ -3079,9 +3079,8 @@ behaviors {
   };
 
   //
-  // Since we can type `greater/less than` with the parang_left and
-  // parang_right keys, we dont need the usual `<>` variants on shifted `.` and
-  // `,` keys. Instead, we can use them for `caret` and `dollar` symbols
+  // Bro's overhaul: START
+  // Additional symbols made available on the alpha layer ...
   //
   comma_caret: comma_and_caret {
     compatible = "zmk,behavior-mod-morph";
@@ -3096,6 +3095,23 @@ behaviors {
     bindings = <&kp DOT>, <&kp DLLR>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
+
+  under_dunder: under_dunder {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp UNDER>, <&dunder>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+    minus_trunder: minus_trunder {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp MINUS>, <&trunder>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+  //
+  // Bro's overhaul: END
+  //
 
   //////////////////////////////////////////////////////////////////////////
   //
@@ -3168,6 +3184,22 @@ behaviors {
 
 macros {
 
+  //
+  // Bro's overhaul: START
+  // additional macros
+  //
+  ZMK_MACRO(trunder,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp UNDER &kp UNDER &kp UNDER>;
+  )
+
+  ZMK_MACRO(dunder,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp UNDER &kp UNDER>;
+  )
+
   ZMK_MACRO(dot_dot,
     wait-ms = <0>;
     tap-ms = <0>;
@@ -3203,6 +3235,9 @@ macros {
     tap-ms = <0>;
     bindings = <&macro_tap &kp Z &kp EQUAL>;
   )
+  //
+  // Bro's overhaul: END
+  //
 
   //
   // Linux Magic System Request Key - hold this down and type REISUB
