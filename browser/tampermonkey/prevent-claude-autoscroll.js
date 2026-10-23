@@ -6,27 +6,44 @@
 // ==/UserScript==
 (() => {
   let enabled = true;
-  let lastUser = 0;
-  const mark = () => {
-    lastUser = performance.now();
-  };
-  for (const ev of ["wheel", "touchstart", "keydown", "pointerdown"])
-    addEventListener(ev, mark, { capture: true, passive: true });
+  let until = 0;
 
-  // Alt+S toggles the block
+  const SEND_WINDOW_MS = 1500;
+  const open = () => {
+    until = performance.now() + SEND_WINDOW_MS;
+  };
+  const allowed = () => !enabled || performance.now() < until;
+
+  // Send detection: Enter in composer, or click on send button
   addEventListener(
     "keydown",
     (e) => {
       if (e.altKey && e.key.toLowerCase() === "s") {
         enabled = !enabled;
         console.log("[no-autoscroll]", enabled ? "ON" : "OFF");
+        return;
       }
+      if (
+        e.key === "Enter" &&
+        !e.shiftKey &&
+        e.target instanceof Element &&
+        e.target.closest('[contenteditable="true"], textarea')
+      )
+        open();
     },
     true,
   );
-
-  // Programmatic scrolls only pass within 300 ms of a user input
-  const allowed = () => !enabled || performance.now() - lastUser < 300;
+  addEventListener(
+    "pointerdown",
+    (e) => {
+      if (
+        e.target instanceof Element &&
+        e.target.closest('button[aria-label*="send" i]')
+      )
+        open();
+    },
+    true,
+  );
 
   const wrap = (obj, name) => {
     const orig = obj[name];
@@ -35,15 +52,36 @@
       if (allowed()) return orig.apply(this, a);
     };
   };
-  for (const n of ["scrollTo", "scroll", "scrollBy", "scrollIntoView"])
+  for (const n of [
+    "scrollTo",
+    "scroll",
+    "scrollBy",
+    "scrollIntoView",
+    "scrollIntoViewIfNeeded",
+  ])
     wrap(Element.prototype, n);
   for (const n of ["scrollTo", "scroll", "scrollBy"]) wrap(window, n);
 
-  const d = Object.getOwnPropertyDescriptor(Element.prototype, "scrollTop");
-  Object.defineProperty(Element.prototype, "scrollTop", {
-    ...d,
-    set(v) {
-      if (allowed()) d.set.call(this, v);
-    },
-  });
+  for (const prop of ["scrollTop", "scrollLeft"]) {
+    const d = Object.getOwnPropertyDescriptor(Element.prototype, prop);
+    Object.defineProperty(Element.prototype, prop, {
+      ...d,
+      set(v) {
+        if (allowed()) d.set.call(this, v);
+      },
+    });
+  }
+
+  const focus = HTMLElement.prototype.focus;
+  HTMLElement.prototype.focus = function (o) {
+    return focus.call(this, allowed() ? o : { ...o, preventScroll: true });
+  };
+
+  try {
+    history.scrollRestoration = "manual";
+  } catch {}
+
+  const style = document.createElement("style");
+  style.textContent = "* { overflow-anchor: none !important; }";
+  (document.head || document.documentElement).appendChild(style);
 })();
