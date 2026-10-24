@@ -43,11 +43,11 @@ StartStreamingAhk() {
 ; ==================================================
 ; Direct system wide hotkeys binds and remappings
 ; ==================================================
-+^!Home:: ToggleMousePosOverlay()
+^!+Home:: ToggleMousePosOverlay()
 ^\:: ClipAndOpenNvimScratch()
 
 #HotIf WinActive("ahk_exe deadlock.exe")
-!+^F12:: LaunchDeadLockMovementScript()
+^!+F12:: LaunchDeadLockMovementScript()
 #HotIf
 
 ; ========================================
