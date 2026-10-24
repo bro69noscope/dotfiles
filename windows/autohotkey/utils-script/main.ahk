@@ -46,11 +46,6 @@ StartStreamingAhk() {
 +^!Home:: ToggleMousePosOverlay()
 ^\:: ClipAndOpenNvimScratch()
 
-#HotIf WinActive("ahk_exe wezterm-gui.exe")
-^;::F13
-^,::+F13
-#HotIf
-
 #HotIf WinActive("ahk_exe deadlock.exe")
 !+^F12:: LaunchDeadLockMovementScript()
 #HotIf
