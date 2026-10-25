@@ -3107,17 +3107,38 @@ behaviors {
   // Bro's overhaul: START
   // Additional symbols made available on the alpha layer ...
   //
-  comma_caret: comma_and_caret {
+  comma_caret: comma_caret {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp COMMA>, <&kp CARET>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  dot_dollar: dot_and_dollar {
+  dot_dollar: dot_dollar {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp DOT>, <&kp DLLR>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  quote_triple_quote: quote_triple_quote {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp SQT>, <&triple_quote>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  dquotes_triple_dquotes: dquotes_triple_dquotes {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp DOUBLE_QUOTES>, <&triple_doublequotes>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  btick_triple_btick: btick_triple_btick {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp GRAVE>, <&triple_backtick>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
@@ -3128,7 +3149,7 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-    minus_trunder: minus_trunder {
+  minus_trunder: minus_trunder {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp MINUS>, <&trunder>;
@@ -3237,7 +3258,13 @@ macros {
     bindings = <&macro_tap &kp GRAVE &kp GRAVE &kp GRAVE>;
   )
 
-  ZMK_MACRO(triple_doublequote,
+  ZMK_MACRO(triple_quote,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp SQT &kp SQT &kp SQT>;
+  )
+
+  ZMK_MACRO(triple_doublequotes,
     wait-ms = <0>;
     tap-ms = <0>;
     bindings = <&macro_tap &kp DOUBLE_QUOTES &kp DOUBLE_QUOTES &kp DOUBLE_QUOTES>;
