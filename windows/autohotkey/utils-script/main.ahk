@@ -10,12 +10,12 @@ SetWorkingDir A_ScriptDir ; Consistent starting directory
 TraySetIcon "..\icons\utils.png"
 #WinActivateForce ; seems to focus "weak" cusor focus after activation sometimes
 
-#Include keyboard-detect.ahk
-#Include leader-key.ahk
-#Include leader-hotkeys.ahk
-#Include overlay.ahk
-#Include logger.ahk
-#Include move-window-to-monitor.ahk
+#Include input\keyboard-detect.ahk
+#Include input\leader-key.ahk
+#Include input\leader-hotkeys.ahk
+#Include ui\overlay.ahk
+#Include core\logger.ahk
+#Include windows\move-window-to-monitor.ahk
 
 MainLogFile := "logs\main.log"
 TrimLogFile(MainLogFile, 200000)

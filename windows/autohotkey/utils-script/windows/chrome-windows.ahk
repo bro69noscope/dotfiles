@@ -1,4 +1,4 @@
-#Include persistence.ahk
+#Include ..\core\persistence.ahk
 #Include window-helpers.ahk
 ResetChromeWindowList() {
   global ChromeWindowList

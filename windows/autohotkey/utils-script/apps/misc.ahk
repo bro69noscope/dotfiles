@@ -1,4 +1,4 @@
-#Include delayed-tooltip.ahk
+#Include ..\ui\delayed-tooltip.ahk
 
 LaunchDeadLockMovementScript() {
   scriptPath :=

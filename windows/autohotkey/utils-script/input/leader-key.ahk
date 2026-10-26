@@ -1,4 +1,4 @@
-#Include config.ahk
+#Include ..\core\config.ahk
 #Include leader-hotkeys.ahk
 LeaderKeyActive := false
 LeaderKeyBuffer := ""

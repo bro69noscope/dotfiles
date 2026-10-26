@@ -1,12 +1,12 @@
-#Include window-helpers.ahk
-#Include config.ahk
-#Include chrome-windows.ahk
+#Include ..\windows\window-helpers.ahk
+#Include ..\core\config.ahk
+#Include ..\windows\chrome-windows.ahk
 #Include nvim-scratch\scratch.ahk
 
 ; If the next lines fail with "Failed to open file": the streaming repo ahk junction is missing.
-; Run: pwsh -File "create-junction.ps1"
-#Include streaming-ahk\window-helpers.ahk
-#Include streaming-ahk\stream-apps.ahk
+; Run: pwsh -File "scripts\create-junction.ps1"
+#Include ..\streaming-ahk\window-helpers.ahk
+#Include ..\streaming-ahk\stream-apps.ahk
 
 ActivateLosslessCut() {
   idMethod := () => WinExist("ahk_exe LosslessCut.exe")

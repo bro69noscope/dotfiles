@@ -1,7 +1,7 @@
-#Include app-launchers.ahk
-#Include delayed-tooltip.ahk
-#Include logger.ahk
-#Include config.ahk
+#Include ..\apps\app-launchers.ahk
+#Include ..\ui\delayed-tooltip.ahk
+#Include ..\core\logger.ahk
+#Include ..\core\config.ahk
 
 GroupedAppsLogFile := "logs\grouped-apps-manager.log"
 TrimLogFile(GroupedAppsLogFile, 200000)

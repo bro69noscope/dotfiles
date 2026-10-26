@@ -1,4 +1,4 @@
-#Include ..\config.ahk
+#Include ..\..\core\config.ahk
 
 GetNvimConfigPath() {
   path := EnvGet("NVIM_CONFIG_PATH")

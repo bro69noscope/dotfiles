@@ -1,8 +1,8 @@
-#Include app-launchers.ahk
-#Include misc.ahk
-#Include chrome-windows.ahk
-#Include grouped-apps-manager.ahk
-#Include nvim-scratch\scratch.ahk
+#Include ..\apps\app-launchers.ahk
+#Include ..\apps\misc.ahk
+#Include ..\windows\chrome-windows.ahk
+#Include ..\windows\grouped-apps-manager.ahk
+#Include ..\apps\nvim-scratch\scratch.ahk
 
 LeaderCommands := Map(
   ; `., ,, ;,` commands are just for more apps starting with the same letter
@@ -26,6 +26,7 @@ LeaderCommands := Map(
   "D", ActivateDiscord,
   "f", ActivateStreamFeedApp,
   "F", ActivateStreamFeedAppDebug,
+  ".f", (*) => ActivateStreamFeedApp("center"),
   "g", ActivateSteam,
   "G", ActivateTobiiGhost,
   "k", ActivateKovaaks,

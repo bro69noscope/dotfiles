@@ -1,4 +1,4 @@
-#Include persistence.ahk
+#Include ..\core\persistence.ahk
 
 ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "",
   winClass := "") {

@@ -1,6 +1,6 @@
 ; If the next lines fail with "Failed to open file": the streaming repo ahk junction is missing.
-; Run: pwsh -File "create-junction.ps1"
-#Include streaming-ahk\config\general_config.ahk
+; Run: pwsh -File "scripts\create-junction.ps1"
+#Include ..\streaming-ahk\config\general_config.ahk
 
 SplitPath(A_LineFile, , &ConfigDirName)
 
