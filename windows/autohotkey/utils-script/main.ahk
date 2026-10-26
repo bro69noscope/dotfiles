@@ -15,6 +15,7 @@ TraySetIcon "..\icons\utils.png"
 #Include leader-hotkeys.ahk
 #Include overlay.ahk
 #Include logger.ahk
+#Include move-window-to-monitor.ahk
 
 MainLogFile := "logs\main.log"
 TrimLogFile(MainLogFile, 200000)
@@ -49,6 +50,9 @@ StartStreamingAhk() {
 #HotIf WinActive("ahk_exe deadlock.exe")
 ^!+F12:: LaunchDeadLockMovementScript()
 #HotIf
+
+^!+Right:: MoveActiveWindowRight()
+^!+Left:: MoveActiveWindowLeft()
 
 ; ========================================
 ; Leader key functionality - available on all keyboards except in excluded games
