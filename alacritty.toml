@@ -14,7 +14,9 @@ size = 11.6
 
 [window]
 dimensions = { columns = 120, lines = 30 }
-padding = { x = 10, y = 10 }
+# padding = { x = 10, y = 10 }
+padding = { x = 180, y = 10 } # for claude code usage
+dynamic_padding = true
 
 [keyboard]
 bindings = [
