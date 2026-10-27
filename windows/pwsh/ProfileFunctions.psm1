@@ -1,4 +1,12 @@
 ## Location functions
+function alerts {
+  Set-Location "$env:STREAMING_REPO_PATH\external\html\alerts-overlays"
+}
+
+function feedapp {
+  Set-Location "$env:STREAMING_REPO_PATH\external\StreamFeedApp"
+}
+
 function dl {
   Set-location "$env:USERPROFILE\Downloads"
 }
@@ -50,13 +58,13 @@ function temp {
 # Invoke python Stream Deck icon generator script
 function genico {
   param([string]$path)
-  pyvenv
+  pyenv
   $repoRoot = $env:STREAMING_REPO_PATH
   & python `
     "$repoRoot\external\streamdeck\utils\generate-icons\main.py"
 }
 
-function pyvenv {
+function pyenv {
   $repoRoot = $env:STREAMING_REPO_PATH
   . $repoRoot\.venv\Scripts\Activate.ps1
   Set-PythonPath "$repoRoot"
