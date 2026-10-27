@@ -171,7 +171,7 @@ local function get_last_two_path_segments(tab)
   end
 end
 
-wezterm.on("format-tab-title", function(tab, tabs, panes, hover, max_width)
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local process_name = get_process_name(tab.active_pane.foreground_process_name)
   local process_icon = process_icons[process_name] or ""
   local tab_number = tab.tab_index + 1
@@ -202,16 +202,12 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, hover, max_width)
       { Text = " " .. title .. " " },
     }
   else
-    local title = string.format(
-      "%s%d: %s%s%s: ../%s/%s",
-      zoom_icon,
-      tab_number,
-      os_icon,
-      process_icon,
-      process_name,
-      parent_folder,
-      cwd
-    )
+    local prefix =
+      string.format("%s%d: %s%s%s: ", zoom_icon, tab_number, os_icon, process_icon, process_name)
+    local title = prefix .. "../" .. parent_folder .. "/" .. cwd
+    if wezterm.column_width(title) > max_width - 2 then
+      title = prefix .. "../" .. cwd
+    end
     return {
       { Text = " " .. title .. " " },
     }
