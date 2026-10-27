@@ -186,9 +186,9 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, hover, max_width)
 
   if manually_set_titles[tostring(tab.tab_id)] then -- Keep the title if it was manually set
     local title = tab.tab_title or ""
-
+    title = string.format("%s%d: %s%s ", zoom_icon, tab_number, process_icon, title)
     return {
-      { Text = string.format("%s%d: %s%s ", zoom_icon, tab_number, process_icon, title) },
+      { Text = " " .. title .. " " },
     }
   end
 
