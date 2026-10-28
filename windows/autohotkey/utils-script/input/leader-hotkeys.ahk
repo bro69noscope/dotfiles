@@ -63,12 +63,14 @@ LeaderCommands := Map(
   ; ``` leader commands for handling more than one app at once
   ; close targeted groups with `c
   "``ca", (*) => CloseStreamApps(group := "all"),
+  "``cA", (*) => CloseStreamApps(group := "all-but-obs-ftp"),
   "``cd", (*) => QuitStreamDeck(),
   "``co", (*) => CloseStreamApps(group := "obs"),
   "``cp", (*) => CloseStreamApps(group := "production"),
   "``cb", (*) => CloseStreamApps(group := "sbot"),
   ; start targeted groups with `s
   "``sa", (*) => StartStreamApps(group := "all"),
+  "``sA", (*) => StartStreamApps(group := "all-but-obs-ftp"),
   "``so", (*) => StartStreamApps(group := "obs"),
   "``sp", (*) => StartStreamApps(group := "production"),
   "``sb", (*) => StartStreamApps(group := "sbot"),

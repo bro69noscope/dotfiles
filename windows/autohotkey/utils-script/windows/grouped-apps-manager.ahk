@@ -37,7 +37,8 @@ StreamAppGroups := Map(
   "ftp", [SbFtp, ObsFtp, ObsVcam],
   "obs", [ObsProd, ObsFtp, ObsVcam],
   "sbot", [SbProduction, SbFtp],
-  "all", [SbProduction, ObsProd, SbFtp, ObsFtp, ObsVcam]
+  "all", [SbProduction, ObsProd, SbFtp, ObsFtp, ObsVcam],
+  "all-but-obs-ftp", [SbProduction, ObsProd, SbFtp]
 )
 
 QuitStreamDeckScript := StreamingRepoPath .
@@ -80,7 +81,7 @@ GetStreamApps(group) {
 CloseStreamApps(group := "production") {
   apps := GetStreamApps(group)
 
-  if group == "all"
+  if group == "all" || group == "all-but-obs-ftp"
     QuitStreamDeck()
 
   pending := []
@@ -116,7 +117,7 @@ CloseStreamApps(group := "production") {
 StartStreamApps(group := "production") {
   apps := GetStreamApps(group)
 
-  if group == "all"
+  if group == "all" || group == "all-but-obs-ftp"
     ActivateStreamDeck()
 
   for app in apps
