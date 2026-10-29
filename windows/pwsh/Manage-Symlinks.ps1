@@ -60,6 +60,17 @@ $dotfilesConfig = @{
     "target" = "$HOME\.claude\settings.json"
   }
 
+  "Claude md" = @{
+    "source"  = "$env:DOTFILES_PATH\.claude\CLAUDE.md"
+    "target" = "$HOME\.claude\CLAUDE.md"
+  }
+
+  # Skills: cannot symlink the whole folder because ~\.claude\skills\synced is managed externally
+  "Claude skill qf" = @{
+    "source"  = "$env:DOTFILES_PATH\.claude\skills\qf"
+    "target" = "$HOME\.claude\skills\qf"
+  }
+
   # Yazi: cannot symlink the whole folder because of interactions with the package manager
   "Yazi general config" = @{
     "source"  = "$env:DOTFILES_PATH\yazi-config\yazi.toml"
