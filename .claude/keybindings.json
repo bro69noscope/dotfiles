@@ -6,7 +6,7 @@
       "context": "Global",
       "bindings": {
         "ctrl+t": "app:toggleTodos",
-        "ctrl+o": "app:toggleTranscript",
+        "alt+k": "app:toggleTranscript",
         "ctrl+shift+b": "app:toggleBrief",
         "ctrl+r": "history:search",
         "ctrl+up": "app:diffFileListUp",
@@ -29,7 +29,7 @@
         "meta+t": "chat:thinkingToggle",
         "meta+w": "chat:workflowKeywordToggle",
         "enter": "chat:submit",
-        "ctrl+j": "chat:newline",
+        "alt+j": "chat:newline",
         "up": "history:previous",
         "down": "history:next",
         "ctrl+_": "chat:undo",
