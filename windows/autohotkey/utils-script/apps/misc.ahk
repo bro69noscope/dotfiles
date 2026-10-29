@@ -1,4 +1,5 @@
 #Include ..\ui\delayed-tooltip.ahk
+A_MenuMaskKey := "vkFF"
 
 LaunchDeadLockMovementScript() {
   scriptPath :=
@@ -23,4 +24,14 @@ ReplaceClipboardSlashes(direction := "/") {
     A_Clipboard := newText
   }
   DelayedToolTipMsg("Clipboard slashes replaced with " . direction, 1000)
+}
+
+SmallPageScrollMove(direction, notches := 4) {
+  MouseGetPos(&mx, &my)
+  WinGetPos(&x, &y, &w, &h, "A")
+
+  if (mx < x || mx >= x + w || my < y || my >= y + h)
+    MouseMove(x + w * 4 // 5, y + h * 4 // 5, 0)
+
+  Send(direction > 0 ? "{WheelUp " notches "}" : "{WheelDown " notches "}")
 }

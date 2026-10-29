@@ -54,6 +54,11 @@ StartStreamingAhk() {
 ^!+Right:: MoveActiveWindowRight()
 ^!+Left:: MoveActiveWindowLeft()
 
+!PgUp:: SmallPageScrollMove(1)
+!PgDn:: SmallPageScrollMove(-1)
+^PgUp:: SmallPageScrollMove(1, 1)
+^PgDn:: SmallPageScrollMove(-1, 1)
+
 ; ========================================
 ; Leader key functionality - available on all keyboards except in excluded games
 ; =========================================
