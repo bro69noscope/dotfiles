@@ -3121,6 +3121,13 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
+  percent_qmark: percent_qmark {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp PRCNT>, <&kp QMARK>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   quote_triple_quote: quote_triple_quote {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
