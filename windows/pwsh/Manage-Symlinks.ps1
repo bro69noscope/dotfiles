@@ -66,9 +66,9 @@ $dotfilesConfig = @{
   }
 
   # Skills: cannot symlink the whole folder because ~\.claude\skills\synced is managed externally
-  "Claude skill qf" = @{
-    "source"  = "$env:DOTFILES_PATH\.claude\skills\qf"
-    "target" = "$HOME\.claude\skills\qf"
+  "Claude skill nvim-qf-notes" = @{
+    "source"  = "$env:DOTFILES_PATH\.claude\skills\nvim-qf-notes"
+    "target" = "$HOME\.claude\skills\nvim-qf-notes"
   }
 
   # Yazi: cannot symlink the whole folder because of interactions with the package manager
