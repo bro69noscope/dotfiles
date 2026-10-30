@@ -3121,6 +3121,13 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
+  dquote_escaped_dquote: dquote_escaped_dquote {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp DQT>, <&escaped_dquote>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   percent_qmark: percent_qmark {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
@@ -3149,17 +3156,17 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  under_dunder: under_dunder {
+  under_trunder: under_trunder {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&kp UNDER>, <&dunder>;
+    bindings = <&kp UNDER>, <&trunder>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  minus_trunder: minus_trunder {
+  minus_triple_minus: minus_triple_minus {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&kp MINUS>, <&trunder>;
+    bindings = <&kp MINUS>, <&triple_minus>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
   //
@@ -3273,6 +3280,12 @@ macros {
   // Bro's overhaul: START
   // additional macros
   //
+  ZMK_MACRO(escaped_dquote,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp BSLH &kp DQT>;
+  )
+
   ZMK_MACRO(trunder,
     wait-ms = <0>;
     tap-ms = <0>;
@@ -3289,6 +3302,12 @@ macros {
     wait-ms = <0>;
     tap-ms = <0>;
     bindings = <&macro_tap &kp DOT &kp DOT>;
+  )
+
+  ZMK_MACRO(triple_minus,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp MINUS &kp MINUS &kp MINUS>;
   )
 
   ZMK_MACRO(triple_backtick,
