@@ -13,10 +13,10 @@ ActivateLosslessCut() {
   return ActivateOrRun(idMethod, StartMenuPathRoaming "LosslessCut.lnk")
 }
 
-ActivateStreamDeck() {
+ActivateStreamDeck(activate := true) {
   idMethod := () => WinExist("ahk_exe StreamDeck.exe")
-  return ActivateOrRun(idMethod, StartMenuPathProgramData "Elgato\Stream Deck\Stream Deck.lnk"
-  )
+  return ActivateOrRun(idMethod, StartMenuPathProgramData "Elgato\Stream Deck\Stream Deck.lnk", ,
+    , activate)
 }
 
 ActivateOsu() {
@@ -24,10 +24,10 @@ ActivateOsu() {
   return ActivateOrRun(idMethod, "C:\Users\ville\AppData\Local\osu!\osu!.exe")
 }
 
-ActivateTobiiGhost() {
+ActivateTobiiGhost(activate := true) {
   idMethod := () => WinExist("ahk_exe TobiiGhost.exe")
   return ActivateOrRun(idMethod, StartMenuPathRoaming "Tobii\Tobii Ghost.lnk", ,
-    ensureFullscreen)
+    ensureFullscreen, activate)
 }
 
 ActivateMailClient() {
@@ -66,9 +66,9 @@ ActivateAlacritty() {
   return WinActivate(newHwnd)
 }
 
-ActivateBraveBrowser() {
+ActivateBraveBrowser(activate := true) {
   idMethod := () => WinExist("ahk_exe brave.exe")
-  return ActivateOrRun(idMethod, StartMenuPathProgramData "Brave.lnk")
+  return ActivateOrRun(idMethod, StartMenuPathProgramData "Brave.lnk", , , activate)
 }
 
 ActivateBitwarden() {
@@ -76,9 +76,9 @@ ActivateBitwarden() {
   return ActivateOrRun(idMethod, StartMenuPathProgramData "Bitwarden.lnk")
 }
 
-ActivateSpotify() {
+ActivateSpotify(activate := true) {
   idMethod := () => WinExist("ahk_exe Spotify.exe")
-  return ActivateOrRun(idMethod, "spotify.exe") ; It's some bullshit windows store unfindable path
+  return ActivateOrRun(idMethod, "spotify.exe", , , activate) ; It's some bullshit windows store unfindable path
 }
 
 ActivateVSCode() {
@@ -112,9 +112,10 @@ ActivateDeadlock() {
   return ActivateOrRun(idMethod, StartMenuPathRoaming "Steam\Deadlock.url")
 }
 
-ActivateDiscord() {
+ActivateDiscord(activate := true) {
   idMethod := () => WinExist("ahk_exe Discord.exe")
-  return ActivateOrRun(idMethod, StartMenuPathRoaming "Discord Inc\Discord.lnk")
+  return ActivateOrRun(idMethod, StartMenuPathRoaming "Discord Inc\Discord.lnk", , ,
+    activate)
 }
 
 ActivateDota2() {
@@ -150,17 +151,18 @@ ActivatePyCharm() {
   MsgBox "Could not find PyCharm executable."
 }
 
-ActivateAutoDuck() {
+ActivateAutoDuck(activate := true) {
   idMethod := () => (DetectHiddenWindows(true), WinExist("ahk_exe Auto-Duck.exe"))
   return ActivateOrRun(
     idMethod,
     "C:\Users\ville\OneDrive\Streaming\Software settings\AutoDuck\stream_duck.adrt",
     3000,
-    (hwnd) => WinShow(hwnd)
+    (hwnd) => WinShow(hwnd),
+    activate
   )
 }
 
-ActivateStreamerBot(portableVersion := "") {
+ActivateStreamerBot(portableVersion := "", activate := true) {
   paths := Map(
     "production",
     StreamingProgramsPath "streamerbot-portable-production\Streamer.bot\Streamer.bot.exe",
@@ -177,21 +179,21 @@ ActivateStreamerBot(portableVersion := "") {
   }
   idMethod := () => FindStreamerBotWindow(portableVersion)
 
-  return ActivateOrRun(idMethod, '"' paths[portableVersion] '"')
+  return ActivateOrRun(idMethod, '"' paths[portableVersion] '"', , , activate)
 }
 
-ActivateWezTerm() {
+ActivateWezTerm(activate := true) {
   winCrit := "Wezterm ahk_exe wezterm-gui.exe"
   idMethod := () => WinExist(winCrit)
   hwnd := idMethod()
 
   if hwnd
-    return WinActivate(hwnd)
+    return activate ? WinActivate(hwnd) : hwnd
 
   for _, path in WezTermPaths {
     if FileExist(path) {
       Run path
-      if ActivateWhenReady(idMethod, 2000, , true)
+      if ActivateWhenReady(idMethod, 2000, , true, activate)
         return
       else {
         MsgBox "Could not activate WezTerm window after launching from: " path
@@ -207,13 +209,13 @@ ActivateWezTerm() {
   MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty
 }
 
-ActivateWezTermTitled(title) {
+ActivateWezTermTitled(title, activate := true) {
   winCrit := title . " ahk_exe wezterm-gui.exe"
   idMethod := () => WinExist(winCrit)
   hwnd := idMethod()
 
   if hwnd
-    return WinActivate(hwnd)
+    return activate ? WinActivate(hwnd) : hwnd
 
   psCmd := "[Console]::Write([char]27 + ']1337;SetUserVar=WEZTERM_TITLE=' + "
     . "[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" title "')) + [char]7)"
@@ -226,7 +228,7 @@ ActivateWezTermTitled(title) {
       cmd := q path q " start"
       cmd .= " -- pwsh -NoExit -Command " q psCmd q
       Run(cmd)
-      if ActivateWhenReady(idMethod, 8000, , true)
+      if ActivateWhenReady(idMethod, 8000, , true, activate)
         return
       else {
         MsgBox "Could not activate '" title "' window after launching from: " path
@@ -284,29 +286,29 @@ ActivateNeovide() {
 
 QuickSetup(mode := "simple") {
   if mode = "simple" {
-    ActivateTobiiGhost()
-    ActivateObsProduction()
-    ActivateAutoDuck()
-    ActivateBraveBrowser()
-    ActivateDiscord()
-    ActivateWezTerm()
+    ActivateTobiiGhost(activate := false)
+    ActivateObsProduction(moveChat := false, activate := false)
+    ActivateAutoDuck(activate := false)
+    ActivateBraveBrowser(activate := false)
+    ActivateDiscord(activate := false)
+    ActivateWezTerm(activate := false)
   }
   else if mode = "full" {
-    ActivateTobiiGhost()
-    ActivateAutoDuck()
-    ActivateBraveBrowser()
-    ActivateDiscord()
-    ActivateWezTerm()
-    ActivateWezTermTitled("WezTerm - secondary")
-    ActivateStreamerBot(portableVersion := "production")
-    ActivateStreamerBot(portableVersion := "ftp")
-    ActivateStreamFeedApp()
-    ActivateObsProduction()
-    ActivateObsPortable(profile := "ftp")
-    ActivateObsPortable(profile := "vcam")
-    ActivateBrowser1Window()
-    ActivateBrowser2Window()
-    ActivateBrowser3Window()
-    ActivateSpotify()
+    ActivateTobiiGhost(activate := false)
+    ActivateAutoDuck(activate := false)
+    ActivateBraveBrowser(activate := false)
+    ActivateDiscord(activate := false)
+    ActivateWezTerm(activate := false)
+    ActivateWezTermTitled("WezTerm - secondary", activate := false)
+    ActivateStreamerBot(portableVersion := "production", activate := false)
+    ActivateStreamerBot(portableVersion := "ftp", activate := false)
+    ActivateStreamFeedApp("left", activate := false)
+    ActivateObsProduction(moveChat := false, activate := false)
+    ActivateObsPortable(profile := "ftp", moveChat := false, activate := false)
+    ActivateObsPortable(profile := "vcam", moveChat := false, activate := false)
+    ActivateBrowser1Window(activate := false)
+    ActivateBrowser2Window(activate := false)
+    ActivateBrowser3Window(activate := false)
+    ActivateSpotify(activate := false)
   }
 }

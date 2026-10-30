@@ -1,13 +1,14 @@
 #Include ..\core\persistence.ahk
 
 ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "",
-  winClass := "") {
+  winClass := "", activate := true) {
   global Browser1_ID, Browser2_ID, Browser3_ID
 
   if (IsSet(windowID) && windowID) {
     VerifyWindowIDs()
     if WinExist("ahk_id " windowID) {
-      WinActivate("ahk_id " windowID)
+      if activate
+        WinActivate("ahk_id " windowID)
       return true
     }
   }
@@ -68,7 +69,8 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
   }
 
   windowID := newHWND
-  WinActivate("ahk_id " newHWND)
+  if activate
+    WinActivate("ahk_id " newHWND)
   if (exeName = "chrome.exe")
     AddToChromeWindowList(windowID)
   VerifyWindowIDs()

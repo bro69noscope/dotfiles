@@ -57,23 +57,23 @@ CaptureCurrentChromeWindow(slot) {
   return true
 }
 
-ActivateBrowser1Window() {
+ActivateBrowser1Window(activate := true) {
   global Browser1_ID
   return ActivateOrCreateWindow(&Browser1_ID, "chrome.exe", "chrome.exe", , "Default",
-    "Chrome_WidgetWin_1")
+    "Chrome_WidgetWin_1", activate)
 }
 
-ActivateBrowser2Window() {
+ActivateBrowser2Window(activate := true) {
   global Browser2_ID
   return ActivateOrCreateWindow(&Browser2_ID, "chrome.exe", "chrome.exe", , "Profile 4",
-    "Chrome_WidgetWin_1"
+    "Chrome_WidgetWin_1", activate
   )
 }
 
-ActivateBrowser3Window() {
+ActivateBrowser3Window(activate := true) {
   global Browser3_ID
   return ActivateOrCreateWindow(&Browser3_ID, "chrome.exe", "chrome.exe", , "Profile 5",
-    "Chrome_WidgetWin_1"
+    "Chrome_WidgetWin_1", activate
   )
 }
 
