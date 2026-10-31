@@ -1,7 +1,6 @@
 {
   "env": {
-    "EDITOR": "neovide",
-    "IS_DEMO": "1"
+    "EDITOR": "neovide"
   },
   "model": "sonnet",
   "autoUpdatesChannel": "latest",
@@ -15,7 +14,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -Command \"(New-Object Media.SoundPlayer 'C:\\Windows\\Media\\Windows Print complete.wav').PlaySync()\""
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/stop-sound.ps1\""
           }
         ]
       }
