@@ -1,4 +1,8 @@
 ## Location functions
+function csh {
+  Set-Location "$env:STREAMING_REPO_PATH\external\streamerbot\version-control\vcdata\common\csharp"
+}
+
 function alerts {
   Set-Location "$env:STREAMING_REPO_PATH\external\html\alerts-overlays"
 }
