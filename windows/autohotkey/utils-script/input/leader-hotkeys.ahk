@@ -61,6 +61,8 @@ LeaderCommands := Map(
   "//", (*) => ReplaceClipboardSlashes("/"),
   "/\", (*) => ReplaceClipboardSlashes("\"),
   ; ``` leader commands for handling more than one app at once
+  ; show grouped apps status
+  "````", (*) => ShowOpenStreamApps(),
   ; close targeted groups with `c
   "``ca", (*) => CloseStreamApps(group := "all"),
   "``cA", (*) => CloseStreamApps(group := "all-but-obs-ftp"),

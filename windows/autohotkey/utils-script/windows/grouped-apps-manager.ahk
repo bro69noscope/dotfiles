@@ -78,6 +78,42 @@ GetStreamApps(group) {
   return StreamAppGroups[group].Clone()
 }
 
+; Status-only entries
+StreamFeedApp := Map(
+  "find", (*) => FindStreamFeedAppWindow()
+)
+StreamDeckProc := Map(
+  "find", (*) => ProcessExist("StreamDeck.exe")
+)
+
+StreamAppPrograms := [
+  ["STREAMER.BOT", [["production", SbProduction], ["ftp", SbFtp]]],
+  ["FEEDAPP", [["window", StreamFeedApp]]],
+  ["DECK", [["process", StreamDeckProc]]],
+  ["OBS", [["production", ObsProd], ["ftp", ObsFtp], ["vcam", ObsVcam]]]
+]
+
+ShowOpenStreamApps() {
+  bar := "----------------------------------------"
+  text := ""
+  anyOpen := false
+
+  for program in StreamAppPrograms {
+    text .= bar "`n" program[1] ":`n"
+    for inst in program[2] {
+      if !inst[2]["find"]()
+        continue
+      text .= "  [OPEN]  " inst[1] "`n"
+      anyOpen := true
+    }
+    text .= "`n"
+  }
+
+  if !anyOpen
+    text .= "nothing open. ur gay."
+  MsgBox(RTrim(text, "`n"), "Open stream apps")
+}
+
 CloseStreamApps(group := "production") {
   apps := GetStreamApps(group)
 
