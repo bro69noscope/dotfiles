@@ -56,8 +56,9 @@ AppendLeaderKey(key) {
 
   ; Check if we have a matching command
   if (LeaderCommands.Has(LeaderKeyBuffer)) {
-    LeaderCommands[LeaderKeyBuffer]()
-    CancelLeaderKey()
+    cmd := LeaderCommands[LeaderKeyBuffer]
+    CancelLeaderKey() ; clear first: blocking commands (MsgBox) would leave the tooltip up
+    cmd()
   } else {
     ; Show progress and wait for more keys
     ToolTip("Leader mode: " LeaderKeyBuffer)
