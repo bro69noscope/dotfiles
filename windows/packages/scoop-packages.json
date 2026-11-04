@@ -1,248 +1,262 @@
 {
-    "apps": [
-        {
-            "Source": "main",
-            "Version": "26.02",
-            "Info": "",
-            "Updated": "2026-07-21T16:28:22.2865843+02:00",
-            "Name": "7zip"
-        },
-        {
-            "Source": "extras",
-            "Version": "0.17.0",
-            "Info": "",
-            "Updated": "2026-07-21T16:28:26.546049+02:00",
-            "Name": "alacritty"
-        },
-        {
-            "Source": "main",
-            "Version": "0.44.1",
-            "Info": "",
-            "Updated": "2026-07-21T16:30:14.6418599+02:00",
-            "Name": "ast-grep"
-        },
-        {
-            "Source": "extras",
-            "Version": "2.0.26",
-            "Info": "",
-            "Updated": "2026-07-21T18:50:05.0568761+02:00",
-            "Name": "autohotkey"
-        },
-        {
-            "Source": "main",
-            "Version": "1.18.2",
-            "Info": "",
-            "Updated": "2026-07-19T14:59:24.0184075+02:00",
-            "Name": "chafa"
-        },
-        {
-            "Source": "main",
-            "Version": "0.19.2",
-            "Info": "",
-            "Updated": "2026-07-21T16:30:20.4597379+02:00",
-            "Name": "delta"
-        },
-        {
-            "Source": "main",
-            "Version": "1.4.10",
-            "Info": "",
-            "Updated": "2026-07-21T16:30:20.9516383+02:00",
-            "Name": "diff-so-fancy"
-        },
-        {
-            "Source": "main",
-            "Version": "0.69.0",
-            "Info": "",
-            "Updated": "2026-07-21T16:30:28.0821999+02:00",
-            "Name": "difftastic"
-        },
-        {
-            "Source": "main",
-            "Version": "0.23.5",
-            "Info": "",
-            "Updated": "2026-07-21T16:30:29.5267648+02:00",
-            "Name": "eza"
-        },
-        {
-            "Source": "main",
-            "Version": "8.1.2",
-            "Info": "",
-            "Updated": "2026-07-21T16:32:06.6220162+02:00",
-            "Name": "ffmpeg"
-        },
-        {
-            "Source": "main",
-            "Version": "39.2.0",
-            "Info": "",
-            "Updated": "2026-07-04T20:04:08.9015084+02:00",
-            "Name": "fx"
-        },
-        {
-            "Source": "main",
-            "Version": "0.74.1",
-            "Info": "",
-            "Updated": "2026-07-21T16:33:25.0560153+02:00",
-            "Name": "fzf"
-        },
-        {
-            "Source": "main",
-            "Version": "2.96.0",
-            "Info": "",
-            "Updated": "2026-07-21T16:32:15.2045634+02:00",
-            "Name": "gh"
-        },
-        {
-            "Source": "main",
-            "Version": "10.07.1",
-            "Info": "",
-            "Updated": "2026-07-21T16:32:56.0634155+02:00",
-            "Name": "ghostscript"
-        },
-        {
-            "Source": "main",
-            "Version": "1.26.5",
-            "Info": "",
-            "Updated": "2026-07-21T16:34:03.9317264+02:00",
-            "Name": "go"
-        },
-        {
-            "Source": "main",
-            "Version": "7.1.2-27",
-            "Info": "",
-            "Updated": "2026-07-21T16:34:30.4111337+02:00",
-            "Name": "imagemagick"
-        },
-        {
-            "Source": "main",
-            "Version": "1.8.2",
-            "Info": "",
-            "Updated": "2026-07-21T18:38:38.6751776+02:00",
-            "Name": "jq"
-        },
-        {
-            "Source": "extras",
-            "Version": "0.1.41",
-            "Info": "",
-            "Updated": "2026-07-21T18:38:55.7166447+02:00",
-            "Name": "komorebi"
-        },
-        {
-            "Source": "extras",
-            "Version": "0.16.2",
-            "Info": "",
-            "Updated": "2026-07-05T14:46:31.5800068+02:00",
-            "Name": "neovide"
-        },
-        {
-            "Source": "main",
-            "Version": "0.12.4",
-            "Info": "",
-            "Updated": "2026-07-06T22:23:30.0897838+02:00",
-            "Name": "neovim"
-        },
-        {
-            "Source": "main",
-            "Version": "1.2.2",
-            "Info": "",
-            "Updated": "2025-06-28T18:58:25.7348434+02:00",
-            "Name": "nvm"
-        },
-        {
-            "Source": "main",
-            "Version": "5.42.2.1",
-            "Info": "",
-            "Updated": "2026-07-21T18:42:12.8122155+02:00",
-            "Name": "perl"
-        },
-        {
-            "Source": "main",
-            "Version": "26.02.0-0",
-            "Info": "",
-            "Updated": "2026-07-21T18:42:23.4279646+02:00",
-            "Name": "poppler"
-        },
-        {
-            "Source": "main",
-            "Version": "0.47.0",
-            "Info": "",
-            "Updated": "2026-07-21T18:42:24.947239+02:00",
-            "Name": "resvg"
-        },
-        {
-            "Source": "main",
-            "Version": "15.2.0",
-            "Info": "",
-            "Updated": "2026-07-21T18:42:26.5504616+02:00",
-            "Name": "ripgrep"
-        },
-        {
-            "Source": "main",
-            "Version": "1.26.0",
-            "Info": "",
-            "Updated": "2026-07-21T18:42:30.8349145+02:00",
-            "Name": "starship"
-        },
-        {
-            "Source": "main",
-            "Version": "0.9.0",
-            "Info": "",
-            "Updated": "2026-07-21T18:43:09.8135486+02:00",
-            "Name": "uutils-coreutils"
-        },
-        {
-            "Source": "versions",
-            "Version": "nightly-20250624",
-            "Info": "",
-            "Updated": "2025-06-24T21:22:20.79733+02:00",
-            "Name": "wezterm-nightly"
-        },
-        {
-            "Source": "extras",
-            "Version": "0.2.10",
-            "Info": "",
-            "Updated": "2026-01-06T11:19:33.7804381+01:00",
-            "Name": "whkd"
-        },
-        {
-            "Source": "extras",
-            "Version": "5.13.2",
-            "Info": "",
-            "Updated": "2025-05-13T02:05:08.3134654+02:00",
-            "Name": "win-vind"
-        },
-        {
-            "Source": "main",
-            "Version": "26.5.6",
-            "Info": "",
-            "Updated": "2026-07-19T12:12:53.3972057+02:00",
-            "Name": "yazi"
-        },
-        {
-            "Source": "main",
-            "Version": "2026.07.04",
-            "Info": "",
-            "Updated": "2026-07-21T18:43:20.89008+02:00",
-            "Name": "yt-dlp"
-        }
-    ],
     "buckets": [
         {
             "Name": "main",
             "Source": "https://github.com/ScoopInstaller/Main.git",
-            "Updated": "2026-07-21T14:50:27+02:00",
-            "Manifests": 1612
+            "Updated": "2026-11-04T17:22:59+01:00",
+            "Manifests": 1705
         },
         {
             "Name": "extras",
             "Source": "https://github.com/ScoopInstaller/Extras",
-            "Updated": "2026-07-21T14:49:18+02:00",
-            "Manifests": 2348
+            "Updated": "2026-11-04T17:26:24+01:00",
+            "Manifests": 2454
         },
         {
             "Name": "versions",
             "Source": "https://github.com/ScoopInstaller/Versions",
-            "Updated": "2026-07-21T12:36:30+02:00",
-            "Manifests": 593
+            "Updated": "2026-11-04T17:50:57+01:00",
+            "Manifests": 642
+        }
+    ],
+    "apps": [
+        {
+            "Name": "7zip",
+            "Version": "26.05",
+            "Source": "main",
+            "Updated": "2026-11-04T18:05:08.6476231+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "alacritty",
+            "Version": "0.17.0",
+            "Source": "extras",
+            "Updated": "2026-07-21T16:28:26.546049+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "ast-grep",
+            "Version": "0.51.1",
+            "Source": "main",
+            "Updated": "2026-11-04T18:05:18.9708835+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "chafa",
+            "Version": "1.18.3",
+            "Source": "main",
+            "Updated": "2026-11-04T18:05:34.3551091+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "delta",
+            "Version": "0.20.1",
+            "Source": "main",
+            "Updated": "2026-11-04T18:05:37.1218915+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "diff-so-fancy",
+            "Version": "1.4.14",
+            "Source": "main",
+            "Updated": "2026-11-04T18:05:38.2092423+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "difftastic",
+            "Version": "0.72.0",
+            "Source": "main",
+            "Updated": "2026-11-04T18:05:43.5575503+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "eza",
+            "Version": "0.23.5",
+            "Source": "main",
+            "Updated": "2026-07-21T16:30:29.5267648+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "ffmpeg",
+            "Version": "9.0.2",
+            "Source": "main",
+            "Updated": "2026-11-04T18:07:09.8899373+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "fx",
+            "Version": "40.0.1",
+            "Source": "main",
+            "Updated": "2026-11-04T18:07:20.8201489+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "fzf",
+            "Version": "0.74.5",
+            "Source": "main",
+            "Updated": "2026-11-04T18:07:23.0653136+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "gh",
+            "Version": "2.103.3",
+            "Source": "main",
+            "Updated": "2026-11-04T18:07:31.2145881+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "ghostscript",
+            "Version": "10.08.0",
+            "Source": "main",
+            "Updated": "2026-11-04T18:08:07.5025644+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "go",
+            "Version": "1.27.3",
+            "Source": "main",
+            "Updated": "2026-11-04T18:09:10.9177834+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "imagemagick",
+            "Version": "7.1.2-35",
+            "Source": "main",
+            "Updated": "2026-11-04T18:09:39.5894067+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "innounp",
+            "Version": "2.71.3",
+            "Source": "main",
+            "Updated": "2026-11-04T18:09:31.1164408+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "jq",
+            "Version": "1.8.2",
+            "Source": "main",
+            "Updated": "2026-07-21T18:38:38.6751776+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "komorebi",
+            "Version": "0.1.41",
+            "Source": "extras",
+            "Updated": "2026-07-21T18:38:55.7166447+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "neovide",
+            "Version": "0.16.2",
+            "Source": "extras",
+            "Updated": "2026-07-05T14:46:31.5800068+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "neovim",
+            "Version": "0.12.4",
+            "Source": "main",
+            "Updated": "2026-07-06T22:23:30.0897838+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "nvm",
+            "Version": "1.2.2",
+            "Source": "main",
+            "Updated": "2025-06-28T18:58:25.7348434+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "opencode",
+            "Version": "1.19.5",
+            "Source": "main",
+            "Updated": "2026-11-04T18:10:21.1635082+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "perl",
+            "Version": "5.42.3.1",
+            "Source": "main",
+            "Updated": "2026-11-04T18:13:11.4753071+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "poppler",
+            "Version": "26.09.0-0",
+            "Source": "main",
+            "Updated": "2026-11-04T18:13:34.8521476+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "resvg",
+            "Version": "0.49.0",
+            "Source": "main",
+            "Updated": "2026-11-04T18:13:36.6511444+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "ripgrep",
+            "Version": "15.2.0",
+            "Source": "main",
+            "Updated": "2026-07-21T18:42:26.5504616+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "starship",
+            "Version": "1.27.0",
+            "Source": "main",
+            "Updated": "2026-11-04T18:13:42.7679468+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "uutils-coreutils",
+            "Version": "0.12.0",
+            "Source": "main",
+            "Updated": "2026-11-04T18:14:26.5516908+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "vlc",
+            "Version": "3.0.24",
+            "Source": "extras",
+            "Updated": "2026-09-24T19:32:26.3201669+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "wezterm-nightly",
+            "Version": "nightly-20250624",
+            "Source": "versions",
+            "Updated": "2025-06-24T21:22:20.79733+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "whkd",
+            "Version": "0.2.10",
+            "Source": "extras",
+            "Updated": "2026-01-06T11:19:33.7804381+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "win-vind",
+            "Version": "5.13.2",
+            "Source": "extras",
+            "Updated": "2025-05-13T02:05:08.3134654+02:00",
+            "Info": ""
+        },
+        {
+            "Name": "yazi",
+            "Version": "26.9.1",
+            "Source": "main",
+            "Updated": "2026-11-04T18:14:36.1581373+01:00",
+            "Info": ""
+        },
+        {
+            "Name": "yt-dlp",
+            "Version": "2026.10.26",
+            "Source": "main",
+            "Updated": "2026-11-04T18:14:48.422103+01:00",
+            "Info": ""
         }
     ]
 }
