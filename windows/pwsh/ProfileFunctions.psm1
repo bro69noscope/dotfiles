@@ -1,14 +1,14 @@
 ## Location functions
 function csh {
-  Set-Location "$env:STREAMING_REPO_PATH\external\streamerbot\version-control\vcdata\common\csharp"
+  Set-Location "$env:BRO_NLLS_REPO_PATH\external\streamerbot\version-control\vcdata\common\csharp"
 }
 
 function alerts {
-  Set-Location "$env:STREAMING_REPO_PATH\external\html\alerts-overlays"
+  Set-Location "$env:BRO_NLLS_REPO_PATH\external\html\alerts-overlays"
 }
 
 function feedapp {
-  Set-Location "$env:STREAMING_REPO_PATH\external\StreamFeedApp"
+  Set-Location "$env:BRO_NLLS_REPO_PATH\external\StreamFeedApp"
 }
 
 function dl {
@@ -63,13 +63,13 @@ function temp {
 function genico {
   param([string]$path)
   pyenv
-  $repoRoot = $env:STREAMING_REPO_PATH
+  $repoRoot = $env:BRO_NLLS_REPO_PATH
   & python `
     "$repoRoot\external\streamdeck\utils\generate-icons\main.py"
 }
 
 function pyenv {
-  $repoRoot = $env:STREAMING_REPO_PATH
+  $repoRoot = $env:BRO_NLLS_REPO_PATH
   . $repoRoot\.venv\Scripts\Activate.ps1
   Set-PythonPath "$repoRoot"
 }
@@ -253,7 +253,7 @@ function Set-PythonPath {
 }
 
 function Enter-MegaScriptEnvironment {
-  Set-Location $env:STREAMING_REPO_PATH
+  Set-Location $env:BRO_NLLS_REPO_PATH
   Set-PythonPath
   .\.venv\Scripts\activate
 }
@@ -313,11 +313,11 @@ function Invoke-Yazi {
 }
 
 function Import-StreamingTemplatesModules {
-  if (-not $env:STREAMING_REPO_PATH) {
-    throw "STREAMING_REPO_PATH environment variable is not set"
+  if (-not $env:BRO_NLLS_REPO_PATH) {
+    throw "BRO_NLLS_REPO_PATH environment variable is not set"
   }
 
-  $repo = $env:STREAMING_REPO_PATH
+  $repo = $env:BRO_NLLS_REPO_PATH
   $modules = @{
     OBS = Join-Path $repo `
       "external\obs\version-control\obs-templater.psm1"

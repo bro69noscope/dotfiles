@@ -15,7 +15,7 @@ $env:YAZI_FILE_ONE="C:\Program Files\Git\usr\bin\file.exe"
 $env:MYFILES_PATH = "$HOME\myfiles"
 $env:DOTFILES_PATH = "$env:MYFILES_PATH\dotfiles"
 $env:STREAMING_DATA_PATH = "$env:MYFILES_PATH\streaming-data"
-$env:STREAMING_REPO_PATH = "$env:MYFILES_PATH\git-repos\next-level-live-streaming"
+$env:BRO_NLLS_REPO_PATH = "$env:MYFILES_PATH\git-repos\next-level-live-streaming"
 
 # These are set in registry (Get-ItemProperty -Path "HKCU:\Environment")
 # $env:NVIM_CONFIG_PATH = "$env:DOTFILES_PATH\nvim-config3.0"
@@ -49,7 +49,7 @@ Import-Module "$env:DOTFILES_PATH\windows\pwsh\LocationHistory.psm1" -Force
 Import-Module "$env:DOTFILES_PATH\windows\pwsh\vcs-functions.psm1" -Force
 Import-Module (
   Join-Path `
-    $env:STREAMING_REPO_PATH `
+    $env:BRO_NLLS_REPO_PATH `
     "external\common\streaming-software\version-control\load-stream-modules.psm1"
 ) -Force
 

@@ -22,11 +22,11 @@ TrimLogFile(MainLogFile, 200000)
 LogBlank(MainLogFile)
 
 StartStreamingAhk() {
-  repo := EnvGet("STREAMING_REPO_PATH")
+  repo := EnvGet("BRO_NLLS_REPO_PATH")
   if !repo
-    repo := RegRead("HKCU\Environment", "STREAMING_REPO_PATH", "")
+    repo := RegRead("HKCU\Environment", "BRO_NLLS_REPO_PATH", "")
   if !repo {
-    MsgBox("STREAMING_REPO_PATH environment variable not set.", "Error", "Iconx")
+    MsgBox("BRO_NLLS_REPO_PATH environment variable not set.", "Error", "Iconx")
     return
   }
 

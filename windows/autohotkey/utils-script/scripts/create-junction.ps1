@@ -5,12 +5,12 @@ param(
 if (-not $env:DOTFILES_PATH) {
   throw "DOTFILES_PATH is not set"
 }
-if (-not $env:STREAMING_REPO_PATH) {
-  throw "STREAMING_REPO_PATH is not set"
+if (-not $env:BRO_NLLS_REPO_PATH) {
+  throw "BRO_NLLS_REPO_PATH is not set"
 }
 
 $link = Join-Path $env:DOTFILES_PATH "windows\autohotkey\utils-script\streaming-ahk"
-$target = Join-Path $env:STREAMING_REPO_PATH "external\ahk"
+$target = Join-Path $env:BRO_NLLS_REPO_PATH "external\ahk"
 
 $existing = Get-Item $link -Force -ErrorAction SilentlyContinue
 
@@ -29,7 +29,7 @@ if ($Remove) {
 }
 
 if (-not (Test-Path $target)) {
-  throw "Target not found: $target (is STREAMING_REPO_PATH correct?)"
+  throw "Target not found: $target (is BRO_NLLS_REPO_PATH correct?)"
 }
 
 New-Item -ItemType Junction -Path $link -Target $target | Out-Null

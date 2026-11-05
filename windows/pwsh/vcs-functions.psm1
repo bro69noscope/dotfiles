@@ -29,15 +29,15 @@ function obsf {
 
 # vcs repository locations
 function vcsd {
-  Set-Location "$env:STREAMING_REPO_PATH\external\streamdeck\version-control\vcdata"
+  Set-Location "$env:BRO_NLLS_REPO_PATH\external\streamdeck\version-control\vcdata"
 }
 
 function vcsb {
-  Set-Location "$env:STREAMING_REPO_PATH\external\streamerbot\version-control\vcdata"
+  Set-Location "$env:BRO_NLLS_REPO_PATH\external\streamerbot\version-control\vcdata"
 }
 
 function vcso {
-  Set-Location "$env:STREAMING_REPO_PATH\external\obs\version-control\vcdata"
+  Set-Location "$env:BRO_NLLS_REPO_PATH\external\obs\version-control\vcdata"
 }
 
 # orchestrator wrappers
