@@ -131,7 +131,7 @@ WriteLoopScript() {
   nl := "`n"
   content := "$esc = [char]27" nl
     . "$b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" ScratchTitle "'))" nl
-    . '[Console]::Write("$esc]1337;SetUserVar=WEZTERM_TITLE=$b64$esc\")' nl
+    . '[Console]::Write("$esc]1337;SetUserVar=USER_SET_WEZTERM_TITLE=$b64$esc\")' nl
     . '$PID | Set-Content -NoNewline -Encoding utf8 "' PidFile '"' nl
     . '$cfg = "' NvimConfigPath '"' nl
     . '& nvim --cmd "set rtp^=$cfg" --cmd "let g:nvim_scratch = 1" -u "$cfg/init.lua"' nl

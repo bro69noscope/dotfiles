@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local act = wezterm.action
-local manually_set_titles = {}
 local workspace_switcher =
   wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
 
@@ -52,7 +51,7 @@ config.max_fps = 144
 
 wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
   for _, t in ipairs(tabs) do
-    local custom = t.active_pane.user_vars.WEZTERM_TITLE
+    local custom = t.active_pane.user_vars.USER_SET_WEZTERM_TITLE
     if custom and #custom > 0 then
       return custom
     end
@@ -184,7 +183,10 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     os_icon = "🪟 "
   end
 
-  if manually_set_titles[tostring(tab.tab_id)] then -- Keep the title if it was manually set
+  -- tab.tab_title stays "" until something sets it explicitly (rename binding, tab:set_title(),
+  -- `wezterm cli set-tab-title`).
+  local explicit_title = tab.tab_title and #tab.tab_title > 0
+  if explicit_title then
     local title = tab.tab_title or ""
     title = string.format("%s%d: %s%s ", zoom_icon, tab_number, process_icon, title)
     return {
@@ -366,7 +368,6 @@ wezterm.on("spawn-named-tabs", function(window, pane)
   for _, t in ipairs(named_tabs_preset) do
     local tab, new_pane, new_window = mux_window:spawn_tab({ cwd = t.cwd })
     tab:set_title(t.title)
-    manually_set_titles[tostring(tab:tab_id())] = true
   end
   current_tab:activate()
 end)
@@ -697,7 +698,6 @@ config.keys = {
       action = wezterm.action_callback(function(window, pane, line)
         if line then
           local tab = window:active_tab()
-          manually_set_titles[tostring(tab:tab_id())] = true
           tab:set_title(line)
         end
       end),

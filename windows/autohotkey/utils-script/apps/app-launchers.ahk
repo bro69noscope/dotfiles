@@ -209,7 +209,24 @@ ActivateWezTerm(activate := true) {
   MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty
 }
 
-ActivateWezTermTitled(title, activate := true) {
+onWezTermTertiaryStart(hwnd := 0) {
+  EnsureFullscreen(hwnd)
+  script := FindUp(ConfigDirName, "scripts\vctabs.ps1")
+  if !script {
+    MsgBox "Could not find scripts\vctabs.ps1 above " ConfigDirName
+    return
+  }
+  guiHwnd := WinExist("WezTerm - tertiary ahk_exe wezterm-gui.exe")
+  cli := RegExReplace(WinGetProcessPath(guiHwnd), "[^\\]+$", "wezterm.exe")
+  Run('pwsh -NoProfile -File "' script '" -Wez "' cli '" -GuiPid ' WinGetPID(
+    guiHwnd) ' -Title "WezTerm - tertiary"')
+}
+
+ActivateWezTermTertiary(activate := true) {
+  return ActivateWezTermTitled("WezTerm - tertiary", activate, onWezTermTertiaryStart)
+}
+
+ActivateWezTermTitled(title, activate := true, onStart := "") {
   winCrit := title . " ahk_exe wezterm-gui.exe"
   idMethod := () => WinExist(winCrit)
   hwnd := idMethod()
@@ -217,8 +234,11 @@ ActivateWezTermTitled(title, activate := true) {
   if hwnd
     return activate ? WinActivate(hwnd) : hwnd
 
-  psCmd := "[Console]::Write([char]27 + ']1337;SetUserVar=WEZTERM_TITLE=' + "
-    . "[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('" title "')) + [char]7)"
+  titleScript := FindUp(ConfigDirName, "scripts\set-wezterm-title.ps1")
+  if !titleScript {
+    MsgBox "Could not find scripts\set-wezterm-title.ps1 above " ConfigDirName
+    return
+  }
 
   Sleep(500)
 
@@ -226,9 +246,9 @@ ActivateWezTermTitled(title, activate := true) {
   for _, path in WezTermPaths {
     if FileExist(path) {
       cmd := q path q " start"
-      cmd .= " -- pwsh -NoExit -Command " q psCmd q
+      cmd .= " -- pwsh -NoExit -File " q titleScript q " -Title " q title q
       Run(cmd)
-      if ActivateWhenReady(idMethod, 8000, , true, activate)
+      if ActivateWhenReady(idMethod, 8000, onStart, true, activate)
         return
       else {
         MsgBox "Could not activate '" title "' window after launching from: " path
@@ -300,6 +320,7 @@ QuickSetup(mode := "simple") {
     ActivateDiscord(activate := false)
     ActivateWezTerm(activate := false)
     ActivateWezTermTitled("WezTerm - secondary", activate := false)
+    ActivateWezTermTertiary(activate := false)
     ActivateStreamerBot(portableVersion := "production", activate := false)
     ActivateStreamerBot(portableVersion := "ftp", activate := false)
     ActivateStreamFeedApp("left", activate := false)

@@ -46,6 +46,7 @@ LeaderCommands := Map(
   "v", ActivateVLC,
   "V", ActivateVSCode,
   "W", (*) => ActivateWezTermTitled("WezTerm - secondary"),
+  ".w", (*) => ActivateWezTermTertiary(),
   "w", ActivateWezTerm,
   "x", ActivateExplorer,
   "y", ActivatePyCharm,
