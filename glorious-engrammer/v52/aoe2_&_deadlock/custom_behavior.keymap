@@ -653,6 +653,13 @@ combos {
 
   // T1+T4
 
+  combo_caps_word_right {
+    timeout-ms = <COMBO_FIRING_DECAY>;
+    key-positions = <POS_RH_T1 POS_RH_T4>;
+    bindings = <&caps_word>;
+    layers = <0 1 2 3 4 5>;
+  };
+
   /*   combo_sticky_shift_left { */
   /*   timeout-ms = <SHIFT_FIRING_DECAY>; */
   /*   key-positions = <POS_LH_T1 POS_LH_T4>; */
@@ -702,16 +709,16 @@ combos {
 
   // T2+T5
 
-  combo_caps_word_left {
+  /* combo_caps_word_left { */
+  /*   timeout-ms = <COMBO_FIRING_DECAY>; */
+  /*   key-positions = <POS_LH_T2 POS_LH_T5>; */
+  /*   bindings = <&caps_word>; */
+  /*   layers = <0 1 2 3 4 5>; */
+  /* }; */
+
+  combo_caps_lock_left {
     timeout-ms = <COMBO_FIRING_DECAY>;
     key-positions = <POS_LH_T2 POS_LH_T5>;
-    bindings = <&caps_word>;
-    layers = <0 1 2 3 4 5>;
-  };
-
-  combo_caps_lock_right {
-    timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_RH_T2 POS_RH_T5>;
     bindings = <&kp CAPSLOCK>;
     layers = <0 1 2 3 4 5>;
   };
@@ -846,6 +853,14 @@ combos {
     layers = <0 LAYER_macOS LAYER_Gaming_Dota2>;
   };
   #endif
+
+  // C2R6 + C2R6
+  combo_caps_lock_mirrored {
+    timeout-ms = <COMBO_FIRING_DECAY>;
+    key-positions = <POS_LH_C2R6 POS_LH_C2R6>;
+    bindings = <&kp CAPSLOCK>;
+    layers = <0 1 2 3 4>;
+  };
 
   /* #ifdef LAYER_Typing */
   /* combo_typing_layer_toggle { */
