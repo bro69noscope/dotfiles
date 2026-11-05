@@ -210,7 +210,6 @@ ActivateWezTerm(activate := true) {
 }
 
 onWezTermTertiaryStart(hwnd := 0) {
-  EnsureFullscreen(hwnd)
   script := FindUp(ConfigDirName, "scripts\vctabs.ps1")
   if !script {
     MsgBox "Could not find scripts\vctabs.ps1 above " ConfigDirName
