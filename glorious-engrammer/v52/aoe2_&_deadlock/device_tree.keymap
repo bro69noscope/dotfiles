@@ -352,10 +352,10 @@
         bindings = <
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ GDN                                     ___ ___ ___ ___ ___ ___
-          ___ TEA TEA TEA TEA GDN                                     TUR ORN ORN ORN ___ ___
+          ___ TEA TEA TEA TEA GDN                                     TUR ORN ORN ORN BLU ___
           ___ MAJ CYN GRN YLW GDN                                     AZU ORN ORN ORN GDN AZU
-          ___ COR COR COR COR GDN     ___ ___ ___     ___ ___ ___     AZU ORN ORN ORN BLU ___
-          ___ WHT TEA TEA YLW         ___ RED ___     GOL PNK ORN         LAC LAC LAC LAC ___
+          WHT COR COR COR COR GDN     ___ ___ ___     ___ LAC LAC     AZU ORN ORN ORN BLU ___
+          ___ BLU TEA TEA YLW         ___ RED ___     LAC LAC ORN         YLW ___ ___ ___ ___
         >;
         layer-id = <LAYER_Number>;
       };

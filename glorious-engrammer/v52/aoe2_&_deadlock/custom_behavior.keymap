@@ -857,7 +857,7 @@ combos {
   // C2R6 + C2R6
   combo_caps_lock_mirrored {
     timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_LH_C2R6 POS_LH_C2R6>;
+    key-positions = <POS_LH_C2R6 POS_RH_C2R6>;
     bindings = <&kp CAPSLOCK>;
     layers = <0 1 2 3 4>;
   };
