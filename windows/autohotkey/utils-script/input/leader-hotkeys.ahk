@@ -5,7 +5,7 @@
 #Include ..\apps\nvim-scratch\scratch.ahk
 
 LeaderCommands := Map(
-  ; `., ,, ;,` commands are just for more apps starting with the same letter
+  ; `.,;` commands are just for more apps starting with the same letter
   ".d", ActivateAutoDuck,
   ",n", ActivateNotepad,
   ".m", WriteMessageDontResendAllCode,
