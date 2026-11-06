@@ -10,6 +10,7 @@ SetWorkingDir A_ScriptDir ; Consistent starting directory
 TraySetIcon "..\icons\utils.png"
 #WinActivateForce ; seems to focus "weak" cusor focus after activation sometimes
 
+#Include streaming-ahk\keybinds.ahk
 #Include input\keyboard-detect.ahk
 #Include input\leader-key.ahk
 #Include input\leader-hotkeys.ahk
@@ -45,20 +46,21 @@ StartStreamingAhk() {
 ; ==================================================
 ; Direct system wide hotkeys binds and remappings
 ; ==================================================
-^!+Home:: ToggleMousePosOverlay()
-^\:: ClipAndOpenNvimScratch()
+; Key strings live in streaming-ahk\keybinds.ahk
+Hotkey(Keybinds["ToggleMousePosOverlay"], (*) => ToggleMousePosOverlay())
+Hotkey(Keybinds["ClipAndOpenNvimScratch"], (*) => ClipAndOpenNvimScratch())
 
-#HotIf WinActive("ahk_exe deadlock.exe")
-^!+F12:: LaunchDeadLockMovementScript()
-#HotIf
+HotIf (*) => WinActive("ahk_exe deadlock.exe")
+Hotkey(Keybinds["LaunchDeadLockMovementScript"], (*) => LaunchDeadLockMovementScript())
+HotIf
 
-^!+Right:: MoveActiveWindowRight()
-^!+Left:: MoveActiveWindowLeft()
+Hotkey(Keybinds["MoveActiveWindowRight"], (*) => MoveActiveWindowRight())
+Hotkey(Keybinds["MoveActiveWindowLeft"], (*) => MoveActiveWindowLeft())
 
-!PgUp:: SmallPageScrollMove(1)
-!PgDn:: SmallPageScrollMove(-1)
-^PgUp:: SmallPageScrollMove(1, 1)
-^PgDn:: SmallPageScrollMove(-1, 1)
+Hotkey(Keybinds["SmallPageScrollUp"], (*) => SmallPageScrollMove(1))
+Hotkey(Keybinds["SmallPageScrollDown"], (*) => SmallPageScrollMove(-1))
+Hotkey(Keybinds["PageScrollUp"], (*) => SmallPageScrollMove(1, 1))
+Hotkey(Keybinds["PageScrollDown"], (*) => SmallPageScrollMove(-1, 1))
 
 ; ========================================
 ; Leader key functionality - available on all keyboards except in excluded games
@@ -76,21 +78,20 @@ ExcludeGame() {
   return false
 }
 
-#HotIf !ExcludeGame()
-$^Space:: ActivateLeaderKey()
-#HotIf
+; Hotkey() cannot remap to a key name (v1 feature), so send the target key instead
+MakeKeySender(key) => (*) => Send("{" key "}")
+
+HotIf (*) => !ExcludeGame()
+Hotkey(Keybinds["ActivateLeaderKey"], (*) => ActivateLeaderKey())
+HotIf
 
 ; ========================================
 ; Keyboard-specific hotkeys - only for Keychron Q3, also excluding games
 ; ========================================
-#HotIf !Excludegame() && (currentKeyboard = "keychronQ3")
-CapsLock::Esc
-Esc::CapsLock
-!j::Down
-!k::Up
-!h::Left
-!l::Right
-#HotIf
+HotIf (*) => !ExcludeGame() && (currentKeyboard = "keychronQ3")
+for src, dst in KeychronQ3Remaps
+  Hotkey(src, MakeKeySender(dst))
+HotIf
 
 ; =======================================
 ; STARTUP / SHUTDOWN
