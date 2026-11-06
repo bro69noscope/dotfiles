@@ -217,8 +217,11 @@ onWezTermTertiaryStart(hwnd := 0) {
   }
   guiHwnd := WinExist("WezTerm - tertiary ahk_exe wezterm-gui.exe")
   cli := RegExReplace(WinGetProcessPath(guiHwnd), "[^\\]+$", "wezterm.exe")
-  Run('pwsh -NoProfile -File "' script '" -Wez "' cli '" -GuiPid ' WinGetPID(
-    guiHwnd) ' -Title "WezTerm - tertiary"')
+  cmd := Format(
+    'pwsh -NoProfile -File "{}" -Wez "{}" -GuiPid {} -Title "WezTerm - tertiary"',
+    script, cli, WinGetPID(guiHwnd)
+  )
+  Run(cmd)
 }
 
 ActivateWezTermTertiary(activate := true) {
@@ -241,11 +244,9 @@ ActivateWezTermTitled(title, activate := true, onStart := "") {
 
   Sleep(500)
 
-  q := Chr(34)
   for _, path in WezTermPaths {
     if FileExist(path) {
-      cmd := q path q " start"
-      cmd .= " -- pwsh -NoExit -File " q titleScript q " -Title " q title q
+      cmd := Format('"{}" start -- pwsh -NoExit -File "{}" -Title "{}"', path, titleScript, title)
       Run(cmd)
       if ActivateWhenReady(idMethod, 8000, onStart, true, activate)
         return

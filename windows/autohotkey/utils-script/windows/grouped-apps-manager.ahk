@@ -63,9 +63,10 @@ FindWindowByExeAndTitle(exeName, include := "", exclude := "") {
 }
 
 QuitStreamDeck() {
-  if FileExist(QuitStreamDeckScript)
-    RunWait('wscript.exe "' QuitStreamDeckScript '"')
-  else
+  if FileExist(QuitStreamDeckScript) {
+    cmd := Format('wscript.exe "{}"', QuitStreamDeckScript)
+    RunWait(cmd)
+  } else
     MsgBox "quit-streamdeck.vbs not found at:`n" QuitStreamDeckScript
 }
 

@@ -110,7 +110,8 @@ LaunchScratchShell() {
     )
     return false
   }
-  Run('"' gui '" start -- pwsh -NoProfile -NoLogo -File "' LoopScript '"')
+  cmd := Format('"{}" start -- pwsh -NoProfile -NoLogo -File "{}"', gui, LoopScript)
+  Run(cmd)
 
   ; match on the exact title set by loop.ps1, wezterm also spawns transient helper
   ; windows at startup (e.g. "wgl extension probing window") that must not be picked

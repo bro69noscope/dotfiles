@@ -38,7 +38,8 @@ StartStreamingAhk() {
     return
   }
 
-  Run('"' A_AhkPath '" "' script '"')
+  cmd := Format('"{}" "{}"', A_AhkPath, script)
+  Run(cmd)
 }
 
 ; ==================================================
