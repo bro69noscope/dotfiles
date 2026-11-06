@@ -40,6 +40,7 @@ LeaderCommands := Map(
   "p", ActivatePowerShell,
   "r", ActivateStreamDeck,
   "s", ActivateSpotify,
+  "S", ActivateNllsMainServer,
   "T", (*) => ActivateStreamerBot(portableVersion := "ftp"),
   "t", (*) => ActivateStreamerBot(portableVersion := "production"),
   "u", ActivateOsu,
