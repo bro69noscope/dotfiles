@@ -47,20 +47,21 @@ StartStreamingAhk() {
 ; Direct system wide hotkeys binds and remappings
 ; ==================================================
 ; Key strings live in streaming-ahk\keybinds.ahk
-Hotkey(Keybinds["ToggleMousePosOverlay"], (*) => ToggleMousePosOverlay())
-Hotkey(Keybinds["ClipAndOpenNvimScratch"], (*) => ClipAndOpenNvimScratch())
+Hotkey(HK["bro_hk_ahk__toggle_mouse_pos_overlay"], (*) => ToggleMousePosOverlay())
+Hotkey(HK["bro_hk_ahk__clip_and_open_nvim_scratch"], (*) => ClipAndOpenNvimScratch())
 
 HotIf (*) => WinActive("ahk_exe deadlock.exe")
-Hotkey(Keybinds["LaunchDeadLockMovementScript"], (*) => LaunchDeadLockMovementScript())
+Hotkey(HK["bro_hk_ahk__launch_deadlock_movement_script"], (*) =>
+  LaunchDeadLockMovementScript())
 HotIf
 
-Hotkey(Keybinds["MoveActiveWindowRight"], (*) => MoveActiveWindowRight())
-Hotkey(Keybinds["MoveActiveWindowLeft"], (*) => MoveActiveWindowLeft())
+Hotkey(HK["bro_hk_ahk__move_active_window_right"], (*) => MoveActiveWindowRight())
+Hotkey(HK["bro_hk_ahk__move_active_window_left"], (*) => MoveActiveWindowLeft())
 
-Hotkey(Keybinds["SmallPageScrollUp"], (*) => SmallPageScrollMove(1))
-Hotkey(Keybinds["SmallPageScrollDown"], (*) => SmallPageScrollMove(-1))
-Hotkey(Keybinds["PageScrollUp"], (*) => SmallPageScrollMove(1, 1))
-Hotkey(Keybinds["PageScrollDown"], (*) => SmallPageScrollMove(-1, 1))
+Hotkey(HK["bro_hk_ahk__small_page_scroll_up"], (*) => SmallPageScrollMove(1))
+Hotkey(HK["bro_hk_ahk__small_page_scroll_down"], (*) => SmallPageScrollMove(-1))
+Hotkey(HK["bro_hk_ahk__page_scroll_up"], (*) => SmallPageScrollMove(1, 1))
+Hotkey(HK["bro_hk_ahk__page_scroll_down"], (*) => SmallPageScrollMove(-1, 1))
 
 ; ========================================
 ; Leader key functionality - available on all keyboards except in excluded games
@@ -82,7 +83,7 @@ ExcludeGame() {
 MakeKeySender(key) => (*) => Send("{" key "}")
 
 HotIf (*) => !ExcludeGame()
-Hotkey(Keybinds["ActivateLeaderKey"], (*) => ActivateLeaderKey())
+Hotkey(HK["bro_hk_ahk__activate_leader_key"], (*) => ActivateLeaderKey())
 HotIf
 
 ; ========================================
