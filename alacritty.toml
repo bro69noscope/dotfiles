@@ -1,5 +1,6 @@
 [terminal.shell]
-program = "pwsh.exe"
+# program = "pwsh.exe"
+program = "zellij.exe"
 
 [font.normal]
 family = "BerkeleyMono Nerd Font"
