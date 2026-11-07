@@ -10,7 +10,7 @@ SetWorkingDir A_ScriptDir ; Consistent starting directory
 TraySetIcon "..\icons\utils.png"
 #WinActivateForce ; seems to focus "weak" cusor focus after activation sometimes
 
-#Include streaming-ahk\keybinds.ahk
+#Include streaming-ahk\config\hotkeys_map.ahk
 #Include input\keyboard-detect.ahk
 #Include input\leader-key.ahk
 #Include input\leader-hotkeys.ahk
@@ -87,17 +87,40 @@ Hotkey(HK["bro_hk_ahk__activate_leader_key"], (*) => ActivateLeaderKey())
 HotIf
 
 ; ========================================
-; Keyboard-specific hotkeys - only for Keychron Q3, also excluding games
+; Keyboard-specific hotkeys - any non-Glove80 keyboard, also excluding games
 ; ========================================
-HotIf (*) => !ExcludeGame() && (currentKeyboard = "keychronQ3")
-for src, dst in KeychronQ3Remaps
+NonGlove80RemapsEnabled := false
+
+NonGlove80Remaps := Map(
+  "CapsLock", "Esc",
+  "Esc", "CapsLock",
+  "!j", "Down",
+  "!k", "Up",
+  "!h", "Left",
+  "!l", "Right"
+)
+
+HotIf (*) => !ExcludeGame() && NonGlove80RemapsEnabled
+for src, dst in NonGlove80Remaps
   Hotkey(src, MakeKeySender(dst))
 HotIf
+
+PromptNonGlove80Remaps() {
+  global NonGlove80RemapsEnabled
+  if (CurrentKeyboard = "glove")
+    return
+  msg := "Non-Glove80 keyboard detected.`n"
+    . "Enable non-Glove80 remappings?`n`n"
+    . "(vim-style arrow keys on Alt+hjkl, and CapsLock <-> Esc swap)"
+  answer := MsgBox(msg, "Keyboard remaps", "YesNo Icon?")
+  NonGlove80RemapsEnabled := (answer = "Yes")
+}
 
 ; =======================================
 ; STARTUP / SHUTDOWN
 ; =======================================
 DetectAndSetKeyboard()
+PromptNonGlove80Remaps()
 LoadWindowIDs()
 LoadChromeWindowList()
 VerifyWindowIDs()
