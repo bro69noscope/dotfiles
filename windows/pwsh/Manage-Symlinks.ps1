@@ -96,6 +96,11 @@ $dotfilesConfig = @{
     "source"  = "$env:DOTFILES_PATH\yazi-config\init.lua"
     "target" = "$HOME\AppData\Roaming\yazi\config\init.lua"
   }
+
+  "Zellij config" = @{
+    "source"  = "$env:DOTFILES_PATH\zellij\config.kdl"
+    "target" = "$HOME\AppData\Roaming\Zellij\config\config.kdl"
+  }
 }
 
 
