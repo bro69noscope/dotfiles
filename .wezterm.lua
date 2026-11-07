@@ -374,6 +374,22 @@ end)
 
 config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
+
+  -- Toggle big margins for claude code usage
+  {
+    key = "|",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action_callback(function(window, pane)
+      local o = window:get_config_overrides() or {}
+      if o.window_padding then
+        o.window_padding = nil -- back to config default
+      else
+        o.window_padding = { left = 230, right = 230, top = 0, bottom = 0 }
+      end
+      window:set_config_overrides(o)
+    end),
+  },
+
   -- spawn tabs preset
   { key = "o", mods = "LEADER", action = act.EmitEvent("spawn-named-tabs") },
 
