@@ -339,9 +339,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ WHT WHT WHT GDN                                     ___ ___ COR COR DOR ___
-          ___ MAJ CYN GRN YLW GDN                                     BLU AZU AZU AZU AZU ___
-          PNK ___ PUR PUR RED GDN     ___ ___ ___     WHT WHT WHT     BLU ORN PUR PUR ORN ___
-          PNK PNK PUR PUR PUR         RED ___ ___     WHT WHT WHT         ___ COR COR ___ ___
+          WHT MAJ CYN GRN YLW GDN                                     BLU AZU AZU AZU AZU ___
+          WHT RED PUR PUR GDN GDN     ___ ___ ___     WHT WHT WHT     BLU ORN PUR PUR ORN ___
+          WHT PNK PUR PUR PUR         RED ___ ___     WHT WHT WHT         ___ COR COR PNK ___
         >;
         layer-id = <LAYER_Cursor>;
       };
@@ -365,11 +365,11 @@
       Function {
         bindings = <
           ___ ___ ___ ___ ___                                             CHU CHU CHU CHU CHU
-          ___ ___ ___ ___ ___ ___                                     BLU WHT ___ ___ ___ ___
-          ___ ___ ___ ___ ___ ___                                     BLU AZU AZU AZU AZU CYN
-          ___ MAJ CYN GRN YLW ___                                     BLU AZU AZU AZU AZU CYN
-          ___ ___ ___ ___ ___ ___     RED ___ ___     COR ORN BLU     BLU AZU AZU AZU AZU CYN
-          ___ ___ ___ ___ ___         ___ ___ ___     COR CYN CYN         TEA TEA TEA TEA TEA
+          ___ ___ ___ ___ ___ ___                                     TEA WHT ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     TEA AZU AZU AZU AZU TEA
+          ___ MAJ CYN GRN YLW ___                                     TEA AZU AZU AZU AZU TEA
+          ___ ___ ___ ___ ___ ___     RED ___ ___     COR ORN BLU     TEA AZU AZU AZU AZU TEA
+          ___ ___ ___ ___ ___         ___ ___ ___     COR CYN CYN         BLU BLU BLU BLU BLU
         >;
         layer-id = <LAYER_Function>;
       };
