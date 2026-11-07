@@ -374,7 +374,9 @@ end)
 
 config.leader = { key = " ", mods = "SHIFT" }
 config.keys = {
+  -- spawn tabs preset
   { key = "o", mods = "LEADER", action = act.EmitEvent("spawn-named-tabs") },
+
   -- workspace switching
   {
     key = "g",
@@ -398,8 +400,8 @@ config.keys = {
 
   -- presentation zoom preset
   {
-    key = "/",
-    mods = "CTRL",
+    key = "M",
+    mods = "CTRL|SHIFT",
     action = wezterm.action_callback(function(win, pane)
       win:perform_action(wezterm.action.ResetFontSize, pane)
       for _ = 1, 4 do
