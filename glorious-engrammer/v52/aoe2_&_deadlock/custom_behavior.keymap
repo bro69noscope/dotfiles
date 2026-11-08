@@ -3221,6 +3221,28 @@ behaviors {
     bindings = <&kp MINUS>, <&triple_minus>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
+
+  minus_space_minus: minus_space_minus {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp MINUS>, <&space_minus>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  bslash_escaped_r: bslash_escaped_r {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp BSLH>, <&escaped_r>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  fslash_fslash_return: fslash_fslash_return {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp FSLH>, <&fslash_return>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   //
   // Bro's overhaul: END
   //
@@ -3332,6 +3354,24 @@ macros {
   // Bro's overhaul: START
   // additional macros
   //
+  ZMK_MACRO(fslash_return,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp FSLH &kp RET>;
+  )
+
+  ZMK_MACRO(escaped_r,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp BSLH &kp R>;
+  )
+
+  ZMK_MACRO(space_minus,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp SPACE &kp MINUS>;
+  )
+
   ZMK_MACRO(escaped_dquote,
     wait-ms = <0>;
     tap-ms = <0>;
