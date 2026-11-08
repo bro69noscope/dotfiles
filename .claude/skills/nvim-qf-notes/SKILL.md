@@ -1,6 +1,6 @@
 ---
 name: nvim-qf-notes
-description: Annotate the code locations relevant to the current question as nvim virtual lines and a quickfix list, by writing .claude-qf-notes.lua in the working directory for the user to run with `:luafile .claude-qf-notes.lua`. Source files are never modified. Use when the user invokes /nvim-qf-notes or asks for code locations or notes in nvim.
+description: Annotate the code locations relevant to the current question as nvim virtual lines and a quickfix list, by writing .claude-qf-notes.lua in the user's nvim cwd (the main checkout, even from a worktree) for the user to run with `:luafile .claude-qf-notes.lua`. Source files are never modified. Use when the user invokes /nvim-qf-notes or asks for code locations or notes in nvim.
 ---
 
 # nvim-qf-notes
@@ -8,9 +8,28 @@ description: Annotate the code locations relevant to the current question as nvi
 This skill only places an explanation into the nvim UI. It does not decide what the explanation
 says or how detailed it is. The prompt that came with `/nvim-qf-notes` (or `$ARGUMENTS` if given)
 does that: work out the answer the way that prompt asks, then dispatch its segments onto the code
-lines they belong to, in `.claude-qf-notes.lua` in the primary working directory, overwriting any
-existing one. Answer the user's question as usual; the notes file is an addition. Never edit the
-source files themselves.
+lines they belong to, in `.claude-qf-notes.lua` in the user's nvim cwd, overwriting any existing
+one. Answer the user's question as usual; the notes file is an addition. Never edit the source files
+themselves.
+
+## Where the notes file goes
+
+Write it where the user's nvim runs, not where Claude happens to be working. Claude cannot see
+nvim's cwd, so use the main checkout: the first entry of `git worktree list --porcelain`, run from
+the primary working directory. This holds even when the session is isolated in a linked worktree
+(for example `.claude/worktrees/<name>`), so never write the file into the worktree. If the prompt
+names another directory, or the user says nvim runs elsewhere, use that instead.
+
+If the location is ambiguous, ask before writing instead of guessing. Ambiguous means, for
+example: the annotated file lives in a different repo or checkout than the main one (such as
+`rev5` versus `nvim-config3.0`), several checkouts hold the file and the prompt does not say which,
+or the user has mentioned running nvim from somewhere else earlier in the conversation. Use
+AskUserQuestion with the candidate directories as options. When the answer is clear from the
+prompt, do not ask.
+
+`file` paths are relative to that directory. A file inside a linked worktree is therefore written
+as `.claude/worktrees/<name>/lua/...`, and `line` comes from reading that actual file. If the
+annotated file exists in both main and a worktree, annotate the one the prompt names.
 
 ## Template
 
@@ -42,7 +61,7 @@ multi-line shape the template uses, with a trailing comma after every field and 
   },
 ```
 
-- `file`: path relative to the working directory, forward slashes.
+- `file`: path relative to the notes file's directory (see above), forward slashes.
 - `line`: 1-based line of the real code. Read the file or grep for it before writing. Never guess.
   There are no markers in the source, so there is nothing to shift the numbers.
 - `text`: the part of the answer that belongs to this line, as terse or as in depth as the prompt
@@ -100,12 +119,12 @@ width changes in the template, update the files above in the same change.
 
 Tell the user:
 
-- Press `<leader>cn` from nvim started in (or `:cd`'d to) the working directory, since paths are
-  relative. Because the file was just rewritten, it runs `.claude-qf-notes.lua` and opens the list
-  at the last step they visited if it is still in the new list, otherwise at the first one. Pressed
-  again later with the file unchanged, it only returns to the notes list and the last step, for
-  example after a detour into other lists. `:luafile .claude-qf-notes.lua` alone redraws the notes
-  and refills the list.
+- Press `<leader>cn` from nvim started in (or `:cd`'d to) the directory the notes file was written
+  to, since paths are relative. Say which directory that is. Because the file was just rewritten, it
+  runs `.claude-qf-notes.lua` and opens the list at the last step they visited if it is still in the
+  new list, otherwise at the first one. Pressed again later with the file unchanged, it only returns
+  to the notes list and the last step, for example after a detour into other lists. `:luafile
+  .claude-qf-notes.lua` alone redraws the notes and refills the list.
 - `<leader>cs` shows the note under the cursor as selectable text.
 - `<leader>cq` clears the virtual lines and closes the quickfix window. Nothing in the source files
   needs cleaning up, so the git tree stays clean. The list stays in the quickfix stack and the `N`
