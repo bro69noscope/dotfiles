@@ -3077,6 +3077,27 @@ behaviors {
   //
   // Thumb cluster hold-tap keys for Miryoku layers
   //
+
+  //
+  // Bro's overhaul: START
+  // new custom thumb tap-hold behavior for space, to use a macro on shift press
+  // needs to be passed 0 as a 2nd binding argument: `&thumb_space LAYER_Cursor 0`
+  //
+  thumb_space: thumb_layer_space {
+    compatible = "zmk,behavior-hold-tap";
+    flavor = THUMB_HOLDING_TYPE;
+    tapping-term-ms = <THUMB_HOLDING_TIME>;
+    quick-tap-ms = <THUMB_REPEAT_DECAY>;
+    #binding-cells = <2>;
+    bindings = <&mo>, <&space_space_minus>;
+    #ifdef THUMB_FORGIVENESS
+    retro-tap;
+    #endif
+  };
+  //
+  // Bro's overhaul: END
+  //
+
   thumb: thumb_layer_access {
     compatible = "zmk,behavior-hold-tap";
     flavor = THUMB_HOLDING_TYPE;
@@ -3222,10 +3243,17 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  minus_space_minus: minus_space_minus {
+  minus_minus_space: minus_minus_space {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&kp MINUS>, <&space_minus>;
+    bindings = <&kp MINUS>, <&minus_space>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  space_space_minus: space_space_minus {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp SPACE>, <&space_minus>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
@@ -3370,6 +3398,12 @@ macros {
     wait-ms = <0>;
     tap-ms = <0>;
     bindings = <&macro_tap &kp SPACE &kp MINUS>;
+  )
+
+  ZMK_MACRO(minus_space,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp MINUS &kp SPACE>;
   )
 
   ZMK_MACRO(escaped_dquote,
