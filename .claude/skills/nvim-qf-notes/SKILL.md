@@ -5,11 +5,11 @@ description: Annotate the code locations relevant to the current question as nvi
 
 # nvim-qf-notes
 
-This skill only places an explanation into the nvim UI. It does not decide what the explanation
-says or how detailed it is. The prompt that came with `/nvim-qf-notes` (or `$ARGUMENTS` if given)
-does that: work out the answer the way that prompt asks, then dispatch its segments onto the code
-lines they belong to, in `.claude-qf-notes.lua` in the user's nvim cwd, overwriting any existing
-one. Answer the user's question as usual; the notes file is an addition. Never edit the source files
+This skill only places an explanation into the nvim UI. It does not decide what the explanation says
+or how detailed it is. The prompt that came with `/nvim-qf-notes` (or `$ARGUMENTS` if given) does
+that: work out the answer the way that prompt asks, then dispatch its segments onto the code lines
+they belong to, in `.claude-qf-notes.lua` in the user's nvim cwd, overwriting any existing one.
+Answer the user's question as usual; the notes file is an addition. Never edit the source files
 themselves.
 
 ## Where the notes file goes
@@ -57,7 +57,7 @@ multi-line shape the template uses, with a trailing comma after every field and 
   {
     file = "relative/path/to/file.ext",
     line = 39,
-    text = "[1] START: what this code does and why it matters",
+    text = "[1] START(a3): what this code does and why it matters",
   },
 ```
 
@@ -67,9 +67,14 @@ multi-line shape the template uses, with a trailing comma after every field and 
 - `text`: the part of the answer that belongs to this line, as terse or as in depth as the prompt
   calls for. The start note covers the code from this line on, the end note closes it, for example
   what it hands off to. Do not shorten or pad it for the sake of the skill.
-- Prefix every text with `[n]`, where n is the step number of the location in the flow, and use
-  the same n for its start and end note. The template decides above or below from the `[n] END:`
-  prefix, so keep that prefix exact. Start notes begin `[n] START:`.
+- Start every text with `[n]`, where n is the step number of the location in the flow, and
+  use the same n for its start and end note. The run id, described below, goes in the parentheses.
+  The template decides above or below from the `[n] END(<id>):` prefix, so keep that prefix exact.
+  Start notes begin `[n] START(<id>):`. A note that has a single line and no start/end pair still
+  begins `[n] START(<id>):`.
+- Run id: pick 2 random lowercase hex characters (`0-9a-f`) once per run, different from the id of
+  the previous run, and use that same id in every note of the file. It is how the user checks that
+  the notes in the editor are the ones Claude is talking about.
 - Order the notes in the order they happen in the flow, not alphabetically, with the end note
   directly after its start note.
 - Lua string rules: use double-quoted strings, escape `\` and `"` inside text, and put no newline
@@ -86,34 +91,35 @@ included) onto as many virtual lines as needed, in the `DiagnosticVirtualTextHin
 live in the extmark namespace `claude_qf_notes`.
 
 Every note, start and end, also becomes a quickfix entry, in the same order, so `:cnext` and
-`:cprev` walk the flow and the `[n] START:`/`[n] END:` text shows in the list. The list is titled
-`claude_qf_notes`. It is updated in place when it is still in the quickfix stack, otherwise it is
-pushed as a new list, so any other list the user has is kept. It is not opened automatically.
+`:cprev` walk the flow and the `[n] START(<id>):`/`[n] END(<id>):` text shows in the list. The list
+is titled `claude_qf_notes`. It is updated in place when it is still in the quickfix stack,
+otherwise it is pushed as a new list, so any other list the user has is kept. It is not opened
+automatically.
 
 ## Related files in the user's nvim config
 
 These live in `C:\Users\ville\myfiles\dotfiles\nvim-config3.0` and depend on the template. Keep
 them in sync when the template changes:
 
-- `lua/scripts/ui/claude-qf-notes/navigate.lua`: finds the list by its title, so `QFLIST_TITLE`
-  must equal the template's. It tracks the last quickfix step the user jumped to in the global
-  mark `N` (declared as `claude_qf_notes_step` in `lua/config/reserved.lua`), and provides `open()`
-  and `clear()`. `open()` regenerates the notes by running `.claude-qf-notes.lua` when the file
-  changed since the last run or the list or virtual lines are gone, and otherwise just makes the
-  existing list current and jumps to the step. `clear()` removes the virtual lines by namespace and
-  closes the quickfix window. It never deletes the list. It is set up from `init.lua`.
-- `lua/scripts/ui/claude-qf-notes/expand-note.lua`: `peek()` reads the virtual lines on the
-  cursor line and shows them as real text in a float, wrapped at 100 columns. The template's
-  wrapping width should match its own.
+- `lua/scripts/ui/claude-qf-notes/navigate.lua`: finds the list by its title, so `QFLIST_TITLE` must
+  equal the template's. It tracks the last quickfix step the user jumped to in the global mark `N`
+  (declared as `claude_qf_notes_step` in `lua/config/reserved.lua`), and provides `open()` and
+  `clear()`. `open()` regenerates the notes by running `.claude-qf-notes.lua` when the file changed
+  since the last run or the list or virtual lines are gone, and otherwise just makes the existing
+  list current and jumps to the step. `clear()` removes the virtual lines by namespace and closes
+  the quickfix window. It never deletes the list. It is set up from `init.lua`.
+- `lua/scripts/ui/claude-qf-notes/expand-note.lua`: `peek()` reads the virtual lines on the cursor
+  line and shows them as real text in a float, wrapped at 100 columns. The template's wrapping width
+  should match its own.
 - `navigate.lua` runs the script by its filename, `NOTES_FILE`, so the generated file name must
   equal it. The template states the name in a comment.
-- Both modules declare the extmark namespace as a module-level `NAMESPACE`, and its name must
-  equal the template's.
+- Both modules declare the extmark namespace as a module-level `NAMESPACE`, and its name must equal
+  the template's.
 - `lua/config/keymaps.lua`: `<leader>cn` calls `open()`, `<leader>cs` calls `peek()`, and
   `<leader>cq` calls `clear()`.
 
-If the namespace name, the list title, the file name, the `[n] END:` convention, or the 100-column
-width changes in the template, update the files above in the same change.
+If the namespace name, the list title, the file name, the `[n] END(<id>):` convention, or the
+100-column width changes in the template, update the files above in the same change.
 
 ## After writing
 
@@ -131,3 +137,8 @@ Tell the user:
   mark is kept, so `<leader>cn` still returns to it, redrawing the virtual lines by re-running the
   script.
 - `.claude-qf-notes.lua` is a generated file; they may want to gitignore it.
+
+Finish the reply with the run id as its very last line, on a line of its own, for example
+`Notes id: a3`, with nothing after it. Every note shows the id inside START(...):/END(...):, so the
+user can confirm the notes in the editor are this run's. Do not put the id in the first line, and do
+not add text, a question or a sign-off after it.
