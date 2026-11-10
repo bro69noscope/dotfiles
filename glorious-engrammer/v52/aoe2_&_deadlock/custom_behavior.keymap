@@ -3380,6 +3380,26 @@ macros {
 
   //
   // Bro's overhaul: START
+  // new mouse macros tests.
+  // NOTE: this doesnt work for now, it keeps holding LMB down without any way
+  // to release it AFAIK. Left in to re-iterate on later.
+  //
+  lclk_down: lclk_down { compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_press &mkp LCLK>;
+  };
+
+  lclk_up: lclk_up {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &mkp LCLK>;
+  };
+  //
+  // Bro's overhaul: END
+  //
+
+  //
+  // Bro's overhaul: START
   // additional macros
   //
   ZMK_MACRO(fslash_return,

@@ -158,9 +158,9 @@
   //
   // underglow for keyboard locks on the Base layer
   //
-  #define BSL &ug_sl LAC_RGB WHT_RGB // ScrollLock COLOR_OFF COLOR_ON
+  #define BSL &ug_sl BLK_RGB WHT_RGB // ScrollLock COLOR_OFF COLOR_ON
   #define BNL &ug_nl LAC_RGB WHT_RGB // NumLock    COLOR_OFF COLOR_ON
-  #define BCL &ug_cl BLK_RGB WHT_RGB // CapsLock   COLOR_OFF COLOR_ON
+  #define BCL &ug_cl LAC_RGB WHT_RGB // CapsLock   COLOR_OFF COLOR_ON
 
   //
   // underglow for keyboard locks on the System layer
@@ -409,9 +409,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG AZU SPG CYN                                     BLU AZU AZU AZU COR ___
-          ___ SPG AZU AZU AZU CYN     ___ ___ ___     ___ ___ ___     BLU SLO FST WRP COR ___
-          ___ MAJ CYN GRN YLW         SLO FST WRP     ___ RED ___         GDN GDN GDN AZU ___
+          ___ SPG SPG AZU SPG CYN                                     BLU YLW GRN CYN MAJ ___
+          ___ SPG AZU AZU AZU CYN     TUR ___ COR     ___ ___ ___     BLU SLO FST WRP COR ___
+          ___ ___ ___ ___ ___         AZU AZU COR     ___ RED ___         GDN GDN GDN ___ ___
         >;
         layer-id = <LAYER_Mouse>;
       };
@@ -423,9 +423,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG FST SPG CYN                                     BLU AZU AZU AZU COR ___
-          ___ SPG FST FST FST CYN     ___ ___ ___     ___ ___ ___     BLU FST FST FST COR ___
-          ___ MAJ CYN GRN YLW         FST FST FST     ___ RED ___         GDN GDN GDN AZU ___
+          ___ SPG SPG FST SPG CYN                                     BLU YLW GRN CYN MAJ ___
+          ___ SPG FST FST FST CYN     TUR ___ COR     ___ ___ ___     BLU FST FST FST COR ___
+          ___ ___ ___ ___ ___         AZU AZU COR     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse_fast>;
       };
@@ -437,9 +437,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG WRP SPG CYN                                     BLU AZU AZU AZU COR ___
-          ___ SPG WRP WRP WRP CYN     ___ ___ ___     ___ ___ ___     BLU WRP WRP WRP COR ___
-          ___ MAJ CYN GRN YLW         WRP WRP WRP     ___ RED ___         GDN GDN GDN AZU ___
+          ___ SPG SPG WRP SPG CYN                                     BLU YLW GRN CYN MAJ ___
+          ___ SPG WRP WRP WRP CYN     TUR ___ COR     ___ ___ ___     BLU WRP WRP WRP COR ___
+          ___ ___ ___ ___ ___         AZU AZU COR     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse_warp>;
       };
@@ -451,9 +451,9 @@
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG SPG SLO SPG CYN                                     BLU AZU AZU AZU COR ___
-          ___ SPG SLO SLO SLO CYN     ___ ___ ___     ___ ___ ___     BLU SLO SLO SLO COR ___
-          ___ MAJ CYN GRN YLW         SLO SLO SLO     ___ RED ___         GDN GDN GDN AZU ___
+          ___ SPG SPG SLO SPG CYN                                     BLU YLW GRN CYN MAJ ___
+          ___ SPG SLO SLO SLO CYN     TUR ___ COR     ___ ___ ___     BLU SLO SLO SLO COR ___
+          ___ ___ ___ ___ ___         AZU AZU COR     ___ RED ___         GDN GDN GDN AZU ___
         >;
         layer-id = <LAYER_Mouse_slow>;
       };
@@ -467,7 +467,7 @@
           ___ PNK AZU SPG GDN COR                                     ___ ___ ___ ___ ___ ___
           ___ PNK AZU SPG GDN COR                                     ___ YLW GRN CYN MAJ ___
           ___ ___ BLU BLU BLU COR     PUR PUR PUR     ___ ___ RED     ___ ___ ___ ___ ___ ___
-          ___ ___ ___ ___ ORN         SSL SNL SCL     ___ ___ ___         ___ ___ ___ ___ ___
+          ___ ___ ___ ___ ORN         SCL SNL SSL     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_System>;
       };
