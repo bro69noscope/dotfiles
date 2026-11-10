@@ -351,11 +351,11 @@
       Number {
         bindings = <
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
-          ___ ___ ___ ___ ___ GDN                                     ___ ___ ___ ___ ___ ___
-          ___ TEA TEA TEA TEA GDN                                     TUR ORN ORN ORN BLU ___
-          ___ MAJ CYN GRN YLW GDN                                     AZU ORN ORN ORN GDN AZU
-          WHT COR COR COR COR GDN     ___ ___ ___     ___ LAC LAC     AZU ORN ORN ORN BLU ___
-          ___ BLU TEA TEA YLW         ___ RED ___     LAC LAC ORN         YLW ___ ___ ___ ___
+          ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
+          ___ PNK PNK PNK PNK PNK                                     TUR ORN ORN ORN BLU ___
+          ___ MAJ CYN GRN YLW PNK                                     AZU ORN ORN ORN PNK AZU
+          WHT COR COR COR COR PNK     ___ ___ ___     ___ LAC LAC     AZU ORN ORN ORN BLU ___
+          ___ YLW PNK PNK PNK         ___ RED ___     LAC LAC ORN         ___ PNK PNK YLW ___
         >;
         layer-id = <LAYER_Number>;
       };
