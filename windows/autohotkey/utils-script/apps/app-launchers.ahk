@@ -323,6 +323,7 @@ QuickSetup(mode := "simple") {
     ActivateBraveBrowser(activate := false)
     ActivateDiscord(activate := false)
     ActivateWezTerm(activate := false)
+    ActivateNllsMainServer
   }
   else if mode = "full" {
     ActivateTobiiGhost(activate := false)
@@ -342,5 +343,6 @@ QuickSetup(mode := "simple") {
     ActivateBrowser2Window(activate := false)
     ActivateBrowser3Window(activate := false)
     ActivateSpotify(activate := false)
+    ActivateNllsMainServer
   }
 }
