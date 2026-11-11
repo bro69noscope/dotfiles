@@ -151,8 +151,18 @@ ActivatePyCharm() {
   MsgBox "Could not find PyCharm executable."
 }
 
+; Auto-Duck owns a hidden "GDI+ Window (Auto-Duck.exe)" helper even when its real window is absent
+FindAutoDuckWindow() {
+  DetectHiddenWindows(true)
+  for hwnd in WinGetList("ahk_exe Auto-Duck.exe") {
+    if !InStr(WinGetTitle(hwnd), "GDI+ Window")
+      return hwnd
+  }
+  return 0
+}
+
 ActivateAutoDuck(activate := true) {
-  idMethod := () => (DetectHiddenWindows(true), WinExist("ahk_exe Auto-Duck.exe"))
+  idMethod := () => FindAutoDuckWindow()
   return ActivateOrRun(
     idMethod,
     "C:\Users\ville\OneDrive\Streaming\Software settings\AutoDuck\stream_duck.adrt",
@@ -246,7 +256,8 @@ ActivateWezTermTitled(title, activate := true, onStart := "") {
 
   for _, path in WezTermPaths {
     if FileExist(path) {
-      cmd := Format('"{}" start -- pwsh -NoExit -File "{}" -Title "{}"', path, titleScript, title)
+      cmd := Format('"{}" start -- pwsh -NoExit -File "{}" -Title "{}"', path,
+        titleScript, title)
       Run(cmd)
       if ActivateWhenReady(idMethod, 8000, onStart, true, activate)
         return
