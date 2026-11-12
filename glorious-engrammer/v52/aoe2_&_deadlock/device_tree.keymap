@@ -481,7 +481,7 @@
           ___ SPG AZU AZU AZU ___                                     ___ ___ CYN CYN ___ ___
           AZU AZU AZU AZU AZU ___                                     ___ YLW GRN GRN YLW ___
           AZU AZU SPG SPG AZU ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          SPG SPG SPG SPG SPG         ___ ___ ___     ___ ___ ___         RED ___ ___ ___ ___
+          SPG SPG SPG SPG SPG         ___ ___ ___     ___ ___ RED         RED ___ ___ ___ ___
         >;
         layer-id = <LAYER_World>;
       };
