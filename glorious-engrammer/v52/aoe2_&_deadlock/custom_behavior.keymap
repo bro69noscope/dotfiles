@@ -3088,26 +3088,6 @@ behaviors {
   // Thumb cluster hold-tap keys for Miryoku layers
   //
 
-  //
-  // Bro's overhaul: START
-  // new custom thumb tap-hold behavior for space, to use a macro on shift press
-  // needs to be passed 0 as a 2nd binding argument: `&thumb_space LAYER_Cursor 0`
-  //
-  thumb_space: thumb_layer_space {
-    compatible = "zmk,behavior-hold-tap";
-    flavor = THUMB_HOLDING_TYPE;
-    tapping-term-ms = <THUMB_HOLDING_TIME>;
-    quick-tap-ms = <THUMB_REPEAT_DECAY>;
-    #binding-cells = <2>;
-    bindings = <&mo>, <&space_space_minus>;
-    #ifdef THUMB_FORGIVENESS
-    retro-tap;
-    #endif
-  };
-  //
-  // Bro's overhaul: END
-  //
-
   thumb: thumb_layer_access {
     compatible = "zmk,behavior-hold-tap";
     flavor = THUMB_HOLDING_TYPE;
@@ -3218,13 +3198,6 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  quote_triple_quote: quote_triple_quote {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp SQT>, <&triple_quote>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-  };
-
   dquotes_triple_dquotes: dquotes_triple_dquotes {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
@@ -3239,38 +3212,10 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  under_trunder: under_trunder {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp UNDER>, <&trunder>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-  };
-
   under_or_space_under: under_or_space_under {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp UNDER>, <&space_under>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-  };
-
-  minus_triple_minus: minus_triple_minus {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp MINUS>, <&triple_minus>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-  };
-
-  minus_minus_space: minus_minus_space {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp MINUS>, <&minus_space>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-  };
-
-  space_space_minus: space_space_minus {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp SPACE>, <&space_minus>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
@@ -3330,6 +3275,13 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
+  minus_or_space_minus: minus_or_space_minus {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp MINUS>, <&space_minus>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   equal_or_spaced_equal: equal_or_spaced_equal {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
@@ -3369,6 +3321,13 @@ behaviors {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp DOT>, <&dot_dot>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
+  quote_or_minus_space: quote_or_minus_space {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp SQT>, <&minus_space>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 

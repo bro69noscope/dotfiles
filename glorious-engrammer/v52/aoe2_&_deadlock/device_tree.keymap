@@ -340,7 +340,7 @@
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ WHT WHT WHT GDN                                     ___ ___ COR COR DOR ___
           WHT MAJ CYN GRN YLW GDN                                     BLU AZU AZU AZU AZU ___
-          WHT RED PUR PUR GDN GDN     ___ ___ ___     WHT WHT WHT     BLU ORN PUR PUR ORN ___
+          WHT RED PUR PUR LAC GDN     ___ ___ ___     WHT WHT WHT     BLU ORN PUR PUR ORN ___
           WHT PNK PUR PUR PUR         RED ___ ___     WHT WHT WHT         ___ COR COR PNK ___
         >;
         layer-id = <LAYER_Cursor>;
