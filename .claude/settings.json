@@ -1,13 +1,15 @@
 {
   "env": {
-    "EDITOR": "neovide"
+    "EDITOR": "neovide",
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787/w/claude",
+    "_CLAUDE_CODE_ASSUME_FIRST_PARTY_BASE_URL": "1",
+    "ENABLE_TOOL_SEARCH": "true",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION": "caveman-auto[1m]",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "Auto",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION": "Caveman pick model + effort each turn. Hard ask, big brain. Easy ask, save rocks.",
+    "ANTHROPIC_CUSTOM_MODEL_OPTION_SUPPORTED_CAPABILITIES": "effort,max_effort,xhigh_effort,thinking,adaptive_thinking,interleaved_thinking"
   },
-  "model": "sonnet",
-  "autoUpdatesChannel": "latest",
-  "theme": "dark",
-  "editorMode": "vim",
-  "agentPushNotifEnabled": true,
-  "remoteControlAtStartup": true,
+  "model": "caveman-auto[1m]",
   "hooks": {
     "Stop": [
       {
@@ -17,7 +19,150 @@
             "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/stop-sound.ps1\""
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/caveman.CMD' shrink-hook",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'C:\\Users\\ville\\.local\\share\\caveman-blocks\\bin\\caveman-blocks.exe' hook --harness claude",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "& 'C:/Users/ville/.caveman/bin/caveman-proxy.exe' native-hook claude --adapter 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node_modules/@caveman-ai/cli/dist/native-hook-fast.js' --node 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/node.EXE'",
+            "shell": "powershell",
+            "timeout": 30
+          }
+        ]
       }
     ]
-  }
+  },
+  "autoUpdatesChannel": "latest",
+  "theme": "dark",
+  "editorMode": "vim",
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
