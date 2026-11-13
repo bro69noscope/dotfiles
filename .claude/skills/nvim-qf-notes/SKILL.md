@@ -106,11 +106,16 @@ them in sync when the template changes:
   (declared as `claude_qf_notes_step` in `lua/config/reserved.lua`), and provides `open()` and
   `clear()`. `open()` regenerates the notes by running `.claude-qf-notes.lua` when the file changed
   since the last run or the list or virtual lines are gone, and otherwise just makes the existing
-  list current and jumps to the step. `clear()` removes the virtual lines by namespace and closes
-  the quickfix window. It never deletes the list. It is set up from `init.lua`.
+  list current and jumps to the step. `clear()` hides the virtual lines but keeps the extmarks, so
+  their positions are still tracked, and closes the quickfix window. It never deletes the list. It
+  is set up from `init.lua`.
 - `lua/scripts/ui/claude-qf-notes/expand-note.lua`: `peek()` reads the virtual lines on the cursor
   line and shows them as real text in a float, wrapped at 100 columns. The template's wrapping width
   should match its own.
+- `lua/scripts/ui/claude-qf-notes/sync-lines.lua`: on save of an annotated buffer, writes the rows
+  nvim has moved the note extmarks to back into the `line = N,` fields of the notes file. It relies
+  on the template giving each extmark the note's index as its `id`, on `line = N,` sitting on a line
+  of its own, and on the `notes` table closing with `}` at column 0.
 - `navigate.lua` runs the script by its filename, `NOTES_FILE`, so the generated file name must
   equal it. The template states the name in a comment.
 - Both modules declare the extmark namespace as a module-level `NAMESPACE`, and its name must equal
