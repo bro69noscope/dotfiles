@@ -3170,42 +3170,42 @@ behaviors {
   // Bro's overhaul: START
   // Additional symbols made available on the alpha layer ...
   //
-  comma_caret: comma_caret {
+  comma_or_caret: comma_or_caret {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp COMMA>, <&kp CARET>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  dot_dollar: dot_dollar {
+  dot_or_dollar: dot_or_dollar {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp DOT>, <&kp DLLR>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  dquote_escaped_dquote: dquote_escaped_dquote {
+  dquote_or_escaped_dquote: dquote_or_escaped_dquote {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp DQT>, <&escaped_dquote>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  percent_qmark: percent_qmark {
+  percent_or_qmark: percent_or_qmark {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp PRCNT>, <&kp QMARK>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  dquotes_triple_dquotes: dquotes_triple_dquotes {
+  dquotes_or_triple_dquotes: dquotes_or_triple_dquotes {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp DOUBLE_QUOTES>, <&triple_doublequotes>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  btick_triple_btick: btick_triple_btick {
+  btick_or_triple_btick: btick_or_triple_btick {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp GRAVE>, <&triple_backtick>;
@@ -3219,14 +3219,14 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  bslash_escaped_r: bslash_escaped_r {
+  bslash_or_escaped_r: bslash_or_escaped_r {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp BSLH>, <&escaped_r>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
-  fslash_fslash_return: fslash_fslash_return {
+  fslash_or_fslash_return: fslash_or_fslash_return {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
     bindings = <&kp FSLH>, <&fslash_return>;
