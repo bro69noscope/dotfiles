@@ -1,19 +1,11 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local nvim = require("nvim")
+local actions = require("actions")
 local workspace_switcher =
   wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
 
 local M = {}
-
-local function log_custom_info(window)
-  local tab = window:active_tab()
-  for _, pane in ipairs(tab:panes()) do
-    local user_vars = pane:get_user_vars()
-    local pane_id = pane:pane_id()
-    wezterm.log_info("Pane " .. pane_id .. " user vars: " .. wezterm.json_encode(user_vars))
-  end
-end
 
 function M.apply_to_config(config)
   config.key_tables = {
@@ -25,19 +17,7 @@ function M.apply_to_config(config)
   config.keys = {
 
     -- Toggle big margins for claude code usage
-    {
-      key = "|",
-      mods = "CTRL|SHIFT",
-      action = wezterm.action_callback(function(window, pane)
-        local o = window:get_config_overrides() or {}
-        if o.window_padding then
-          o.window_padding = nil -- back to config default
-        else
-          o.window_padding = { left = 230, right = 230, top = 0, bottom = 0 }
-        end
-        window:set_config_overrides(o)
-      end),
-    },
+    { key = "|", mods = "CTRL|SHIFT", action = actions.toggle_wide_margins },
 
     -- spawn tabs preset
     { key = "o", mods = "LEADER", action = act.EmitEvent("spawn-named-tabs") },
@@ -55,25 +35,10 @@ function M.apply_to_config(config)
     },
 
     -- for testing
-    {
-      key = "?",
-      mods = "CTRL|SHIFT",
-      action = wezterm.action_callback(function(window, pane)
-        log_custom_info(window)
-      end),
-    },
+    { key = "?", mods = "CTRL|SHIFT", action = actions.log_user_vars },
 
     -- presentation zoom preset
-    {
-      key = "M",
-      mods = "CTRL|SHIFT",
-      action = wezterm.action_callback(function(win, pane)
-        win:perform_action(wezterm.action.ResetFontSize, pane)
-        for _ = 1, 4 do
-          win:perform_action(wezterm.action.IncreaseFontSize, pane)
-        end
-      end),
-    },
+    { key = "M", mods = "CTRL|SHIFT", action = actions.presentation_zoom },
 
     -- Debug info
     {
@@ -82,34 +47,14 @@ function M.apply_to_config(config)
       action = wezterm.action.ShowDebugOverlay,
     },
 
-    -- HACK: Only enable multiline pasting while in Windows nvim or WSL to prevent accidents. (C-V is
-    -- safe with pwsh right now and doesn't execute right away)
-    -- NOTE: disabled for now, limitis usability in yazi etc.
-    {
-      key = "v",
-      mods = "CTRL|SHIFT",
-      action = wezterm.action_callback(function(window, pane)
-        -- local vars = pane:get_user_vars() or {}
-        -- local in_Windows_nvim = vars.in_Windows_nvim
-        -- local in_wsl = vars.in_wsl
-        -- if in_Windows_nvim == "1" or in_wsl == "1" then
-        window:perform_action(wezterm.action.PasteFrom("Clipboard"), pane)
-        -- end
-      end),
-    },
+    -- paste (see actions.paste for the disabled nvim/WSL-only guard)
+    { key = "v", mods = "CTRL|SHIFT", action = actions.paste },
 
     -- alternative copy to clipboard
     {
       key = "Insert",
       mods = "CTRL",
-      action = wezterm.action_callback(function(window, pane)
-        local vars = pane:get_user_vars() or {}
-        if vars.in_Windows_nvim == "1" then
-          window:perform_action(wezterm.action.SendKey({ key = "Insert", mods = "CTRL" }), pane)
-        else
-          window:perform_action(wezterm.action.CopyTo("Clipboard"), pane)
-        end
-      end),
+      action = nvim.passthrough("Insert", "CTRL", wezterm.action.CopyTo("Clipboard")),
     },
 
     -- Emojis
@@ -265,19 +210,7 @@ function M.apply_to_config(config)
     },
 
     -- Rename tab
-    {
-      key = "r",
-      mods = "LEADER",
-      action = act.PromptInputLine({
-        description = "Enter new name for tab",
-        action = wezterm.action_callback(function(window, pane, line)
-          if line then
-            local tab = window:active_tab()
-            tab:set_title(line)
-          end
-        end),
-      }),
-    },
+    { key = "r", mods = "LEADER", action = actions.rename_tab },
 
     -- Custom bind for nvim
     {
