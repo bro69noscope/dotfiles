@@ -68,10 +68,21 @@ function genico {
     "$repoRoot\external\streamdeck\utils\generate-icons\main.py"
 }
 
+# set python path to nlls root
 function pyenv {
   $repoRoot = $env:BRO_NLLS_REPO_PATH
   . $repoRoot\.venv\Scripts\Activate.ps1
   Set-PythonPath "$repoRoot"
+}
+
+# follow checked out worktrees to their root directories
+function lg {
+  $env:LAZYGIT_NEW_DIR_FILE = "$env:USERPROFILE\.lazygit\newdir"
+  lazygit @args
+  if (Test-Path $env:LAZYGIT_NEW_DIR_FILE) {
+    Set-Location (Get-Content $env:LAZYGIT_NEW_DIR_FILE)
+    Remove-Item -Force $env:LAZYGIT_NEW_DIR_FILE
+  }
 }
 
 # List all dot-sourced scripts in the current session

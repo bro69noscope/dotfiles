@@ -91,7 +91,6 @@ Set-Alias -Name fcp -Value fcopy
 set-Alias -Name fp -Value fpaste
 
 ## Exec aliases
-Set-Alias -Name lg -Value lazygit
 Set-Alias -Name vi -Value nvim
 Set-Alias -Name ex -Value explorer
 Set-Alias -Name d -Value dir
