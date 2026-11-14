@@ -25,6 +25,7 @@ FindUp(startDir, relPath) {
   }
 }
 
+; located in dotfiles/windows
 pathsFile := FindUp(ConfigDirName, "shared\wezterm-paths.txt")
 
 WezTermPaths := []
