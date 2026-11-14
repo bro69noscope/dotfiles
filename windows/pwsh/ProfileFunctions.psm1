@@ -156,7 +156,7 @@ function Edit-Profile {
 }
 
 function Edit-WeztermProfile {
-  nvim "$env:DOTFILES_PATH\.wezterm.lua"
+  nvim "$env:DOTFILES_PATH\wezterm\wezterm.lua"
 }
 
 function Edit-LazygitConfig {

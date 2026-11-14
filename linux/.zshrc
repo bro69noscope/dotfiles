@@ -150,7 +150,7 @@ alias zz="z -"
 # === CUSTOM FUNCTIONS START ===
 # === QUICK EDIT FUNCTIONS START ===
 function edit-wezterm-profile() {
-  nvim "$DOTFILES/.wezterm.lua"
+  nvim "$DOTFILES/wezterm/wezterm.lua"
 }
 function edit-lazygit-config() {
   nvim "$HOME/.config/lazygit/config.yml"

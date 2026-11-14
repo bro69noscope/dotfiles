@@ -31,8 +31,8 @@ $dotfilesConfig = @{
   }
 
   "Wezterm config" = @{
-    "source" = "$env:DOTFILES_PATH\.wezterm.lua"
-    "target" = "$HOME\.wezterm.lua"
+    "source" = "$env:DOTFILES_PATH\wezterm"
+    "target" = "$HOME\.config\wezterm"
   }
 
   "Nvim config" = @{
