@@ -62,17 +62,25 @@ function temp {
 # Invoke python Stream Deck icon generator script
 function genico {
   param([string]$path)
-  pyenv
   $repoRoot = $env:BRO_NLLS_REPO_PATH
+  pyenv $repoRoot
   & python `
     "$repoRoot\external\streamdeck\utils\generate-icons\main.py"
 }
 
-# set python path to nlls root
+# walk up from $Path to the first dir holding .venv, activate it and set PYTHONPATH to that dir
 function pyenv {
-  $repoRoot = $env:BRO_NLLS_REPO_PATH
-  . $repoRoot\.venv\Scripts\Activate.ps1
-  Set-PythonPath "$repoRoot"
+  param([string]$Path = (Get-Location).Path)
+  $dir = (Resolve-Path -LiteralPath $Path -ErrorAction Stop).ProviderPath
+  while ($dir -and -not (Test-Path (Join-Path $dir '.venv\Scripts\Activate.ps1'))) {
+    $dir = Split-Path $dir -Parent
+  }
+  if (-not $dir) {
+    Write-Error "No .venv found above: $Path"
+    return
+  }
+  . (Join-Path $dir '.venv\Scripts\Activate.ps1')
+  Set-PythonPath $dir
 }
 
 # follow checked out worktrees to their root directories
@@ -265,8 +273,7 @@ function Set-PythonPath {
 
 function Enter-MegaScriptEnvironment {
   Set-Location $env:BRO_NLLS_REPO_PATH
-  Set-PythonPath
-  .\.venv\Scripts\activate
+  pyenv
 }
 
 function Copy-PathToClipboard {
