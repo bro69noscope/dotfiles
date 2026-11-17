@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/stop-sound.ps1\""
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/play-win-sound.ps1\" -Name 'Windows Print complete.wav'"
           }
         ]
       },
@@ -73,6 +73,16 @@
             "command": "& 'C:/Users/ville/scoop/persist/nvm/nodejs/v22.17.0/caveman.CMD' shrink-hook",
             "shell": "powershell",
             "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/play-win-sound.ps1\" -Name 'Windows Shutdown.wav'",
+            "async": true
           }
         ]
       },
