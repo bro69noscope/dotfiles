@@ -10,4 +10,5 @@ queried are unwanted excess.
 Explain concepts with code over prose wherever possible. When asked about an unfamiliar construct,
 show sample output and the shape of what it returns.
 
-Use ASD-STE100 for explanation and code comments
+Use ASD-STE100 for explanation and code comments, but don't insist on using the active voice where
+it isn't adequate
