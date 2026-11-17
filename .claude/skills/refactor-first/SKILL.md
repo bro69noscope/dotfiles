@@ -6,7 +6,8 @@ description: Reorder a feat commit and the refactor commit after it so the refac
 # refactor-first
 
 History before: `base ─ F ─ R`. F is the feat commit, R is the refactor commit.
-History after, on a new branch `rf/<R short sha>`: `base ─ R' ─ F'`.
+History after, on a new branch `rf/<R short sha>`: `base ─ R' ─ F'`. A second new branch,
+`rf/before/<R short sha>`, points to R: a 1:1 backup of the history before the reorder.
 
 - R' is R applied to base only: the refactor without the feat.
 - F' has the same tree as R. Only R' needs work. F' never needs conflict resolution.
@@ -80,25 +81,39 @@ Run git in the cwd, unless the user names a directory. Use the Bash tool: PowerS
    - `git range-diff F^..F R'..F'`: the feat patch can change only by R's edits (for example a
      renamed local). A hunk that is new or missing means R' is wrong.
    - `git range-diff F..R F^..R'`: R' can differ from R only where R touched lines that F added.
-5. Make the branch `rf/<R short sha>` (7 characters) and remove the temp worktree:
+5. Make the branch `rf/<R short sha>` (7 characters) and its backup `rf/before/<R short sha>`,
+   then remove the temp worktree:
 
    ```
    git branch rf/<R short sha> F'
+   git branch rf/before/<R short sha> R
    git worktree remove <tmp>/refactor-first
    ```
 
    If `rf/<R short sha>` exists, an earlier run reordered the same R. If its F' has R's tree and
    its R' passes step 4, report it and make no new branch. If not, ask the user before you move
-   it.
+   it. If `rf/before/<R short sha>` exists, it must point to R. If not, ask the user before you
+   move it.
 
 6. Report to the user:
    - For each conflict: which side you took, what you changed, and why.
    - The result of each check in step 4.
-   - The branch name, and the commands below with the real shas and branch name filled in.
+   - The branch names, and the commands below with the real shas and branch names filled in.
 
 ## Commands for the user
 
-Show the feat as unstaged changes on top of R', in the user's checkout. This needs the checkout's
+Take the reordered history as it is, in the user's checkout. F' has the same files as R, so a mixed
+reset keeps all files on disk, and edits made since stay. Then push it:
+
+```
+git reset rf/<R short sha>
+git push --force-with-lease
+```
+
+The backup `rf/before/<R short sha>` keeps the old history. To go back: `git reset
+rf/before/<R short sha>`.
+
+Or show the feat as unstaged changes on top of R', in the user's checkout. This needs the checkout's
 HEAD to still be R (`git rev-parse HEAD`). Files on disk do not change, so edits made since stay.
 Staged changes become unstaged.
 
@@ -107,11 +122,11 @@ git reset -N <branch>~1
 ```
 
 This moves the checkout's own branch to R'. `-N` keeps the files that F adds visible in
-`git diff` (intent-to-add), not untracked. The old history stays reachable as R.
+`git diff` (intent-to-add), not untracked. The old history stays in `rf/before/<R short sha>`.
 
 - To commit the feat on top: `git add -A`, then `git commit -C <F sha>`. This also commits any
   other unstaged edits, so stage only the feat if the user made other edits.
-- To go back: `git reset <R sha>`. Files on disk do not change.
+- To go back: `git reset rf/before/<R short sha>`. Files on disk do not change.
 - If F was on a remote branch (`git branch -r --contains F`), a push of the reordered branch needs
   `--force-with-lease`.
 - To repeat: commit the next refactor on top of F' and run the skill again (mode Again).
