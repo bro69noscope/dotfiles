@@ -19,11 +19,21 @@ zero-padded number one higher than the highest existing one (`001.lua` when ther
 the directory before writing. Never overwrite an existing set, except when the user asks to fix or
 extend the notes of an earlier run: then rewrite that set's file in place and keep its name.
 
-Give every set a `TITLE`: a short summary of what the notes explain, 3 to 8 words and 60 characters
-at most, such as `"merge command main flow"` or `"worktree pull with review flag"`. The user picks
-sets by this title, so make it tell the set apart from the others in the directory. It is a
-double-quoted Lua string
-with no newline.
+Give every set a `TITLE`: the run id (see Notes) in square brackets, a space, then a short summary
+of what the notes explain, 3 to 8 words and 60 characters at most, such as
+`"[a3] merge command main flow"` or `"[4e] worktree pull with review flag"`. The user picks sets by
+this title, so make the summary tell the set apart from the others in the directory. It is a
+double-quoted Lua string with no newline.
+
+### `--fresh`
+
+When the prompt contains `--fresh`, delete the earlier sets before writing the new one. Run ids
+that follow `--fresh` (for example `--fresh a6`, or `--fresh a6 3c`) name sets to keep: delete
+every `.lua` file in `.claude-qf-notes/` except the sets with those run ids. With no id after it,
+delete them all. Find a set's run id in its `TITLE` (`[<id>]`) or, for older sets without it, in
+the `START(<id>):` of its notes. If a listed id matches no set, say so and delete nothing. Then
+number the new set as usual, from the sets that are left. `--fresh` and its ids are an instruction
+to this skill, not part of the question. In the reply, list the sets deleted and the sets kept.
 
 ## Where the notes file goes
 
@@ -86,7 +96,8 @@ multi-line shape the template uses, with a trailing comma after every field and 
   Start notes begin `[n] START(<id>):`. A note that has a single line and no start/end pair still
   begins `[n] START(<id>):`.
 - Run id: pick 2 random lowercase hex characters (`0-9a-f`) once per run, different from the id of
-  the previous run, and use that same id in every note of the file. It is how the user checks that
+  the previous run and of every set in `.claude-qf-notes/`, and use that same id in the `TITLE`
+  and in every note of the file. It is how the user checks that
   the notes in the editor are the ones Claude is talking about.
 - Order the notes in the order they happen in the flow, not alphabetically, with the end note
   directly after its start note.
