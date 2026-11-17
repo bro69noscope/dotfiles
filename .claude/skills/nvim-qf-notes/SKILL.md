@@ -1,6 +1,6 @@
 ---
 name: nvim-qf-notes
-description: Annotate the code locations relevant to the current question as nvim virtual lines and a quickfix list, by writing a new titled note set .claude-qf-notes/<NNN>.lua in the user's nvim cwd (the main checkout, even from a worktree) for the user to open with `<leader>cn`. Source files are never modified. Use when the user invokes /nvim-qf-notes or asks for code locations or notes in nvim.
+description: Annotate the code locations relevant to the current question as nvim virtual lines and a quickfix list, by writing a new titled note set .claude-qf-notes/<NNN>.lua in the user's nvim cwd (the main checkout, even from a worktree) for the user to open with the notes `open()` mapping. Source files are never modified. Use when the user invokes /nvim-qf-notes or asks for code locations or notes in nvim.
 ---
 
 # nvim-qf-notes
@@ -140,9 +140,8 @@ them in sync when the template changes:
   `local TITLE = "..."`.
 - Both modules declare the extmark namespace as a module-level `NAMESPACE`, and its name must equal
   the template's.
-- `lua/config/keymaps.lua`: `<leader>cn` calls `open()`, `<leader>c]` and `<leader>c[` call
-  `cycle()`, `<leader>ch` calls `pick()`, `<leader>cs` calls `peek()`, and `<leader>cq` calls
-  `clear()`.
+- `lua/config/keymaps.lua`: maps keys to `open()`, `cycle()`, `pick()`, `peek()` and `clear()`.
+  The keys change often, so never name them in this skill or in replies. Refer to the functions.
 
 If the namespace name, the list title, the directory, the `TITLE` line, the list context key, the
 `[n] END(<id>):` convention, or the 100-column width changes in the template, update the files
@@ -153,16 +152,16 @@ above in the same change.
 Tell the user:
 
 - The set file written (for example `.claude-qf-notes/004.lua`) and its title.
-- Press `<leader>cn` from nvim started in (or `:cd`'d to) the directory the notes file was written
-  to, since paths are relative. Say which directory that is. Because a new set was written, it
-  shows that set at its first step. Pressed again later, it only returns to the shown set and its
-  last visited step, for example after a detour into other lists.
-- `<leader>c[` and `<leader>c]` go to the previous (older) and next (newer) set, and `<leader>ch`
-  picks a set by title. Each set opens at the step last visited in it.
-- `<leader>cs` shows the note under the cursor as selectable text.
-- `<leader>cq` clears the virtual lines and closes the quickfix window. Nothing in the source files
+- Run `open()` from nvim started in (or `:cd`'d to) the directory the notes file was written to,
+  since paths are relative. Say which directory that is. Because a new set was written, it shows
+  that set at its first step. Run again later, it only returns to the shown set and its last
+  visited step, for example after a detour into other lists.
+- `cycle()` goes to the previous (older) or next (newer) set, and `pick()` picks a set by title.
+  Each set opens at the step last visited in it.
+- `peek()` shows the note under the cursor as selectable text.
+- `clear()` clears the virtual lines and closes the quickfix window. Nothing in the source files
   needs cleaning up, so the git tree stays clean. The list stays in the quickfix stack and the `N`
-  mark is kept, so `<leader>cn` still returns to it, redrawing the virtual lines by re-running the
+  mark is kept, so `open()` still returns to it, redrawing the virtual lines by re-running the
   script.
 - `.claude-qf-notes/` holds generated files; they may want to gitignore it.
 
