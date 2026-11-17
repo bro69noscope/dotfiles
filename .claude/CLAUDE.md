@@ -1,4 +1,4 @@
-At the start of every session, invoke the caveman skill
+At the start of every session, invoke the caveman skill.
 
 When writing or editing a SKILL.md (or any skill markdown file), wrap prose at 100 columns. Keep the
 YAML frontmatter `description` on a single line, and do not wrap code blocks, tables, or URLs.
@@ -11,4 +11,6 @@ Explain concepts with code over prose wherever possible. When asked about an unf
 show sample output and the shape of what it returns.
 
 Use ASD-STE100 for explanation and code comments, but don't insist on using the active voice where
-it isn't adequate
+it isn't adequate.
+
+I tend to use newlines to separate discernible code blocks: try to do the same.
