@@ -163,6 +163,8 @@
   "autoUpdatesChannel": "latest",
   "theme": "dark",
   "editorMode": "vim",
+  "autoScrollEnabled": false,
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "awaySummaryEnabled": false
 }
