@@ -116,6 +116,17 @@
         ]
       }
     ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/play-win-sound.ps1\" -Name 'Windows Shutdown.wav'",
+            "async": true
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "hooks": [
