@@ -653,35 +653,35 @@ combos {
 
   // T1+T4
 
-  combo_caps_word_right {
-    timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_RH_T1 POS_RH_T4>;
-    bindings = <&caps_word>;
+  /* combo_caps_word_right { */
+  /*   timeout-ms = <COMBO_FIRING_DECAY>; */
+  /*   key-positions = <POS_RH_T1 POS_RH_T4>; */
+  /*   bindings = <&caps_word>; */
+  /*   layers = <0 1 2 3 4 5>; */
+  /* }; */
+
+  combo_sticky_shift_left {
+    timeout-ms = <SHIFT_FIRING_DECAY>;
+    key-positions = <POS_LH_T1 POS_LH_T4>;
+    bindings = <&sticky_key_modtap LSFT LSFT>;
     layers = <0 1 2 3 4 5>;
   };
 
-  /*   combo_sticky_shift_left { */
-  /*   timeout-ms = <SHIFT_FIRING_DECAY>; */
-  /*   key-positions = <POS_LH_T1 POS_LH_T4>; */
-  /*   bindings = <&sticky_key_modtap LSFT LSFT>; */
-  /*   layers = <0 1 2 3 4 5>; */
-  /* }; */
-
-  /* combo_sticky_shift_right { */
-  /*   timeout-ms = <SHIFT_FIRING_DECAY>; */
-  /*   key-positions = <POS_RH_T1 POS_RH_T4>; */
-  /*   bindings = <&sticky_key_modtap RSFT RSFT>; */
-  /*   layers = <0 1 2 3 4 5>; */
-  /* }; */
-
-  #if defined(_A_TAB) && defined(LAYER_Cursor)
-  combo_alt_tab_switcher_left {
-    timeout-ms = <COMBO_FIRING_DECAY>;
-    key-positions = <POS_LH_T1 POS_LH_T4>;
-    bindings = <&mod_tab_chord _A_TAB LAYER_Cursor>;
-    layers = <0 1 2 3 4>;
+  combo_sticky_shift_right {
+    timeout-ms = <SHIFT_FIRING_DECAY>;
+    key-positions = <POS_RH_T1 POS_RH_T4>;
+    bindings = <&sticky_key_modtap RSFT RSFT>;
+    layers = <0 1 2 3 4 5>;
   };
-  #endif
+
+  /* #if defined(_A_TAB) && defined(LAYER_Cursor) */
+  /* combo_alt_tab_switcher_left { */
+  /*   timeout-ms = <COMBO_FIRING_DECAY>; */
+  /*   key-positions = <POS_LH_T1 POS_LH_T4>; */
+  /*   bindings = <&mod_tab_chord _A_TAB LAYER_Cursor>; */
+  /*   layers = <0 1 2 3 4>; */
+  /* }; */
+  /* #endif */
 
   /* combo_hyper_GACS_right { */
   /*   timeout-ms = <COMBO_FIRING_DECAY>; */
@@ -774,19 +774,19 @@ combos {
 
   // T4+T5
 
-  combo_sticky_shift_left {
-    timeout-ms = <SHIFT_FIRING_DECAY>;
-    key-positions = <POS_LH_T4 POS_LH_T5>;
-    bindings = <&sticky_key_modtap LSFT LSFT>;
-    layers = <0 1 2 3 4 5>;
-  };
+  /* combo_sticky_shift_left { */
+  /*   timeout-ms = <SHIFT_FIRING_DECAY>; */
+  /*   key-positions = <POS_LH_T4 POS_LH_T5>; */
+  /*   bindings = <&sticky_key_modtap LSFT LSFT>; */
+  /*   layers = <0 1 2 3 4 5>; */
+  /* }; */
 
-  combo_sticky_shift_right {
-    timeout-ms = <SHIFT_FIRING_DECAY>;
-    key-positions = <POS_RH_T4 POS_RH_T5>;
-    bindings = <&sticky_key_modtap RSFT RSFT>;
-    layers = <0 1 2 3 4 5>;
-  };
+  /* combo_sticky_shift_right { */
+  /*   timeout-ms = <SHIFT_FIRING_DECAY>; */
+  /*   key-positions = <POS_RH_T4 POS_RH_T5>; */
+  /*   bindings = <&sticky_key_modtap RSFT RSFT>; */
+  /*   layers = <0 1 2 3 4 5>; */
+  /* }; */
 
   /* combo_caps_word_left { */
   /*   timeout-ms = <COMBO_FIRING_DECAY>; */
@@ -802,12 +802,21 @@ combos {
   /*   layers = <0 1 2 3 4 5>; */
   /* }; */
 
-  /* combo_caps_word_right { */
-  /*   timeout-ms = <COMBO_FIRING_DECAY>; */
-  /*   key-positions = <POS_RH_T4 POS_RH_T5>; */
-  /*   bindings = <&caps_word>; */
-  /*   layers = <0 1 2 3 4 5>; */
-  /* }; */
+  #if defined(_A_TAB) && defined(LAYER_Cursor)
+  combo_alt_tab_switcher_left {
+    timeout-ms = <COMBO_FIRING_DECAY>;
+    key-positions = <POS_LH_T4 POS_LH_T5>;
+    bindings = <&mod_tab_chord _A_TAB LAYER_Cursor>;
+    layers = <0 1 2 3 4>;
+  };
+  #endif
+
+  combo_caps_word_right {
+    timeout-ms = <COMBO_FIRING_DECAY>;
+    key-positions = <POS_RH_T4 POS_RH_T5>;
+    bindings = <&caps_word>;
+    layers = <0 1 2 3 4 5>;
+  };
 
   // T2+T6
 
