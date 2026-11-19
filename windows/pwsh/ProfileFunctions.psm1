@@ -496,3 +496,8 @@ function Set-SymlinkTarget {
 
   Write-Host "$source -> $target"
 }
+
+function rerere {
+  param([string]$Range = 'main..HEAD')
+  sh "$HOME/rerere-train.sh" (git rev-list --merges $Range)
+}
