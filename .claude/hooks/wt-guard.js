@@ -65,13 +65,12 @@ function gitInfo(dir) {
   return { top, main: path.posix.dirname(common), linked: gitDir !== common };
 }
 
-// The root of the one worktree whose path, directory name or branch is arg, or null.
+// The root of the worktree on branch arg, or null.
 function findWorktree(dir, arg) {
   const out = git(dir, ["worktree", "list", "--porcelain"]);
   if (!out) return null;
 
   const want = arg.toLowerCase();
-  const wantPath = norm(path.resolve(dir, arg));
   const hits = out
     .split(/\r?\n\r?\n/)
     .map((block) => {
@@ -85,12 +84,7 @@ function findWorktree(dir, arg) {
       );
     })
     .filter(Boolean)
-    .filter(
-      (w) =>
-        w.root === wantPath ||
-        path.posix.basename(w.root) === want ||
-        w.branch === want,
-    );
+    .filter((w) => w.branch === want);
 
   return hits.length === 1 ? hits[0].root : null;
 }
@@ -176,14 +170,20 @@ function onPrompt(input) {
   if (!here)
     return context(`${input.cwd} is not in a git repository. No lock set.`);
 
-  // wtin: the first argument names a worktree, else lock the current linked worktree.
-  // wtnew, or wtin with no match: pending until the session enters a linked worktree.
+  // wtin -b <x>: lock the worktree on branch x. wtin -l <x>: pending, the skill matches x loosely.
+  // wtin with neither: lock the current linked worktree.
+  // wtnew, or wtin with no match: pending until the session enters a worktree.
   let root = null;
   if (cmd === "wtin") {
-    const first = rest.trim().split(/\s+/)[0];
-    root =
-      (first && findWorktree(input.cwd, first)) ||
-      (here.linked ? here.top : null);
+    const b = rest.match(/(?:^|\s)(?:-b|--branch)\s+(\S+)/);
+    const loose = /(?:^|\s)(?:-l|--loose)\s+\S/.test(rest);
+    root = b
+      ? findWorktree(input.cwd, b[1])
+      : loose
+        ? null
+        : here.linked
+          ? here.top
+          : null;
   }
 
   save(id, { mode: "lock", root, main: here.main, from: here.top });
@@ -191,8 +191,8 @@ function onPrompt(input) {
   if (root)
     return context(`locked to ${root}. Current cwd: ${norm(input.cwd)}.`);
   return context(
-    "lock pending. The session locks to the next linked worktree it enters " +
-      `that is not ${here.top}. Until then, file writes are denied outside the scratchpad.`,
+    "lock pending. The session locks to the worktree that EnterWorktree enters next. " +
+      "Until then, file writes are denied outside the scratchpad.",
   );
 }
 
@@ -200,6 +200,20 @@ function onTool(input) {
   const id = input.session_id;
   const state = load(id);
   if (!state || state.mode !== "lock") return;
+
+  const tool = input.tool_name;
+  const args = input.tool_input || {};
+
+  // A pending lock takes the worktree that EnterWorktree enters by path, even the current one.
+  if (!state.root && tool === "EnterWorktree" && args.path) {
+    const g = gitInfo(path.resolve(input.cwd, args.path));
+    if (g && g.linked) {
+      state.root = g.top;
+      state.main = g.main;
+      save(id, state);
+      return;
+    }
+  }
 
   if (!state.root) {
     const g = gitInfo(input.cwd);
@@ -211,8 +225,6 @@ function onTool(input) {
   }
 
   const { root, main } = state;
-  const tool = input.tool_name;
-  const args = input.tool_input || {};
 
   if (tool === "ExitWorktree") {
     if (root) deny(`the session is locked to ${root}.`);

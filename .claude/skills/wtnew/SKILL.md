@@ -1,6 +1,6 @@
 ---
 name: wtnew
-description: Create a new git worktree on a given branch, enter it, and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtnew <branch> [task].
+description: Create a new git worktree and branch, enter it, and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtnew (-b <branch> | -a) [task].
 disable-model-invocation: true
 ---
 
@@ -15,8 +15,22 @@ then, the hook denies file writes outside the session scratchpad. After the lock
 
 ## Arguments
 
-The first argument is the branch name, for example `feat/llm-wt`. The rest is the task. If there is
-no argument, ask the user for the branch name and stop.
+`/wtnew (-b <branch> | -a) [task]`. `--branch <branch>` is the same as `-b <branch>`, and `--auto`
+is the same as `-a`. The option can come anywhere in the arguments. All other text is the task.
+Never read a branch name from the task text.
+
+- `-b <branch>`: use that branch name as given.
+- `-a`: the branch is `cc/<current branch>`. Get the current branch with
+  `git branch --show-current` in the session cwd. If it is empty (detached HEAD), ask the user.
+- Neither: ask the user for `-b <branch>` or `-a`, and stop.
+
+```
+/wtnew -b feat/llm-wt add the pull command   ->  branch feat/llm-wt, task "add the pull command"
+/wtnew -a fix the parser                     ->  on feat/llm-wt: branch cc/feat/llm-wt
+/wtnew fix the parser                        ->  ask the user
+```
+
+If the branch does not exist, create it at the commit the session is on now (step 2).
 
 The worktree directory is the branch name with each `/` replaced by `-`, so all worktrees stay flat
 in one directory:
