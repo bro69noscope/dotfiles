@@ -80,11 +80,10 @@ VerifyWindowIDs() {
 
 LoadWindowIDs() {
   global Browser1_ID, Browser2_ID, Browser3_ID, SpotifyWindow_ID, ConfigFile
-  ; Default to 0 if not found
-  Browser1_ID := IniRead(ConfigFile, "WindowIDs", "Browser1_ID", 0)
-  Browser2_ID := IniRead(ConfigFile, "WindowIDs", "Browser2_ID", 0)
-  Browser3_ID := IniRead(ConfigFile, "WindowIDs", "Browser3_ID", 0)
-  SpotifyWindow_ID := IniRead(ConfigFile, "WindowIDs", "Spotify", 0)
+  Browser1_ID := Integer(IniRead(ConfigFile, "WindowIDs", "Browser1_ID", 0))
+  Browser2_ID := Integer(IniRead(ConfigFile, "WindowIDs", "Browser2_ID", 0))
+  Browser3_ID := Integer(IniRead(ConfigFile, "WindowIDs", "Browser3_ID", 0))
+  SpotifyWindow_ID := Integer(IniRead(ConfigFile, "WindowIDs", "Spotify", 0))
 }
 
 SaveChromeWindowList() {
@@ -107,9 +106,15 @@ LoadChromeWindowList() {
 
   ids := IniRead(ChromeWindowsFile, "ChromeWindows", "IDs", "")
   if ids {
-    Loop Parse, ids, ","
-      ChromeWindowList.Push(A_LoopField + 0)
+    Loop Parse, ids, "," {
+      try {
+        id := Integer(A_LoopField)
+        if WinGetProcessName("ahk_id " id) = "chrome.exe"
+          ChromeWindowList.Push(id)
+      }
+    }
   }
+  SaveChromeWindowList()
 }
 
 AddToChromeWindowList(winID) {
