@@ -173,7 +173,7 @@
   #define KEY_RH_T5 BACKSPACE
   #define LAY_RH_T5 LAYER_Mouse
   #define KEY_RH_T4 R
-  #define LAY_RH_T4 LAYER_Symbol
+  #define LAY_RH_T4 LAYER_Enthium // Bro's overhaul: used to be _Symbol
   #define KEY_RH_C2R6 RSFT
   #define LAY_RH_C2R6 LAYER_World
   #define KEY_RH_C3R6 LBKT
@@ -265,7 +265,7 @@
   #define KEY_RH_T5 TAB
   #define LAY_RH_T5 LAYER_Mouse
   #define KEY_RH_T4 SPACE
-  #define LAY_RH_T4 LAYER_Symbol
+  #define LAY_RH_T4 LAYER_Enthium // Bro's overhaul: used to be _Symbol
   #define KEY_RH_C2R6 RSFT
   #define LAY_RH_C2R6 LAYER_World
   #define KEY_RH_C3R6 LBKT
@@ -357,7 +357,7 @@
   #define KEY_RH_T5 TAB
   #define LAY_RH_T5 LAYER_Mouse
   #define KEY_RH_T4 SPACE
-  #define LAY_RH_T4 LAYER_Symbol
+  #define LAY_RH_T4 LAYER_Enthium // Bro's overhaul: used to be _Symbol
   #define KEY_RH_C2R6 RSFT
   #define LAY_RH_C2R6 LAYER_World
   #define KEY_RH_C3R6 LBKT
@@ -449,7 +449,7 @@
   #define KEY_RH_T5 TAB
   #define LAY_RH_T5 LAYER_Mouse
   #define KEY_RH_T4 SPACE
-  #define LAY_RH_T4 LAYER_Symbol
+  #define LAY_RH_T4 LAYER_Enthium // Bro's overhaul: used to be _Symbol
   #define KEY_RH_C2R6 RSFT
   #define LAY_RH_C2R6 LAYER_World
   #define KEY_RH_C3R6 LBKT
