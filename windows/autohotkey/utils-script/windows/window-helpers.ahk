@@ -1,8 +1,10 @@
 #Include ..\core\persistence.ahk
 #Include ..\streaming-ahk\window-helpers.ahk
+#Include ..\core\config.ahk
+
 
 ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "",
-  winClass := "", activate := true, mousePercent := 100) {
+  winClass := "", activate := true, mousePercent := DefaultMousePercent) {
   global Browser1_ID, Browser2_ID, Browser3_ID
 
   if (IsSet(windowID) && windowID) {

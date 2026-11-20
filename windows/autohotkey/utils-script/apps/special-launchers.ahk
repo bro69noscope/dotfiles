@@ -8,7 +8,7 @@ ActivateAlacritty() {
   idMethod := () => FindAlacrittyMainWindow()
   Focus(hwnd) {
     WinActivate(hwnd)
-    MoveMouseToWindowBottom(hwnd)
+    MoveMouseToWindowBottom(hwnd, DefaultMousePercent)
   }
 
   hwnd := idMethod()
