@@ -2,11 +2,15 @@
 #Include ..\core\config.ahk
 #Include ..\windows\chrome-windows.ahk
 #Include nvim-scratch\scratch.ahk
+#Include special-launchers.ahk
 
 ; If the next lines fail with "Failed to open file": the streaming repo ahk junction is missing.
 ; Run: pwsh -File "scripts\create-junction.ps1"
 #Include ..\streaming-ahk\window-helpers.ahk
 #Include ..\streaming-ahk\stream-apps.ahk
+
+; Normal launchers: each one only calls ActivateOrRun with a window finder (idMethod) and a
+; run command. Launchers that need their own activate or launch flow go in special-launchers.ahk.
 
 ActivateLosslessCut() {
   idMethod := () => WinExist("ahk_exe LosslessCut.exe")
@@ -45,29 +49,6 @@ ActivateAgeOfEmpires2() {
   idMethod := () => WinExist("ahk_exe AoE2DE_s.exe")
   return ActivateOrRun(idMethod, StartMenuPathRoaming "Steam\Age of Empires II Definitive Edition.url"
   )
-}
-
-ActivateAlacritty() {
-  SetTitleMatchMode 2
-  idMethod := () => FindAlacrittyMainWindow()
-  Focus(hwnd) {
-    WinActivate(hwnd)
-    MoveMouseToWindowBottom(hwnd)
-  }
-
-  hwnd := idMethod()
-  if hwnd
-    return Focus(hwnd)
-
-  Run("C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
-  prevHwnd := WinExist("A")
-  if !ActivateWhenReady(idMethod, 3000, , true)
-    return false
-
-  ; needs to be focused twice at launch to fix the terminal cursor appearance
-  h := idMethod()
-  WinActivate(prevHwnd)
-  return Focus(h)
 }
 
 ActivateBraveBrowser(activate := true) {
@@ -137,24 +118,6 @@ ActivateVlc() {
   return ActivateOrRun(idMethod, StartMenuPathScoopApps "VLC media player.lnk")
 }
 
-ActivatePyCharm() {
-  SetTitleMatchMode 2
-  idMethod := () => WinExist("ahk_exe pycharm64.exe")
-  hwnd := idMethod()
-  if hwnd
-    return WinActivate(hwnd)
-
-  Loop Files, "C:\Program Files\JetBrains\PyCharm Community Edition*", "D"
-  {
-    batPath := A_LoopFileFullPath "\bin\pycharm64.exe"
-    if FileExist(batPath) {
-      Run batPath
-      return ActivateWhenReady(idMethod, 3000, , true)
-    }
-  }
-  MsgBox "Could not find PyCharm executable."
-}
-
 ; Auto-Duck owns a hidden "GDI+ Window (Auto-Duck.exe)" helper even when its real window is absent
 FindAutoDuckWindow() {
   DetectHiddenWindows(true)
@@ -196,92 +159,6 @@ ActivateStreamerBot(portableVersion := "", activate := true) {
   return ActivateOrRun(idMethod, '"' paths[portableVersion] '"', , , activate)
 }
 
-ActivateWezTerm(activate := true) {
-  winCrit := "Wezterm ahk_exe wezterm-gui.exe"
-  idMethod := () => WinExist(winCrit)
-  hwnd := idMethod()
-
-  if hwnd
-    return activate ? WinActivate(hwnd) : hwnd
-
-  for _, path in WezTermPaths {
-    if FileExist(path) {
-      Run path
-      if ActivateWhenReady(idMethod, 2000, , true, activate)
-        return
-      else {
-        MsgBox "Could not activate WezTerm window after launching from: " path
-        return
-      }
-    }
-  }
-
-  pretty := ""
-  for line in WezTermPaths
-    pretty .= "∙ " line "`n"
-
-  MsgBox "Could not find WezTerm executable at any known path:`n`n" . pretty
-}
-
-onWezTermTertiaryStart(hwnd := 0) {
-  script := FindUp(ConfigDirName, "scripts\vctabs.ps1")
-  if !script {
-    MsgBox "Could not find scripts\vctabs.ps1 above " ConfigDirName
-    return
-  }
-  guiHwnd := WinExist("WezTerm - tertiary ahk_exe wezterm-gui.exe")
-  cli := RegExReplace(WinGetProcessPath(guiHwnd), "[^\\]+$", "wezterm.exe")
-  cmd := Format(
-    'pwsh -NoProfile -File "{}" -Wez "{}" -GuiPid {} -Title "WezTerm - tertiary"',
-    script, cli, WinGetPID(guiHwnd)
-  )
-  Run(cmd)
-}
-
-ActivateWezTermTertiary(activate := true) {
-  return ActivateWezTermTitled("WezTerm - tertiary", activate, onWezTermTertiaryStart)
-}
-
-ActivateWezTermTitled(title, activate := true, onStart := "") {
-  winCrit := title . " ahk_exe wezterm-gui.exe"
-  idMethod := () => WinExist(winCrit)
-  hwnd := idMethod()
-
-  if hwnd
-    return activate ? WinActivate(hwnd) : hwnd
-
-  titleScript := FindUp(ConfigDirName, "scripts\set-wezterm-title.ps1")
-  if !titleScript {
-    MsgBox "Could not find scripts\set-wezterm-title.ps1 above " ConfigDirName
-    return
-  }
-
-  Sleep(500)
-
-  for _, path in WezTermPaths {
-    if FileExist(path) {
-      cmd := Format('"{}" start -- pwsh -NoExit -File "{}" -Title "{}"', path,
-        titleScript, title)
-      Run(cmd)
-      if ActivateWhenReady(idMethod, 8000, onStart, true, activate)
-        return
-      else {
-        MsgBox "Could not activate '" title "' window after launching from: " path
-        return
-      }
-    }
-  }
-
-  pretty := ""
-  for line in WezTermPaths
-    pretty .= "∙ " line "`n"
-
-  MsgBox (
-    "Could not find WezTerm executable at any known path:`n`n" . pretty
-    "`n`n check WezTermPaths in " ConfigDirName
-  )
-}
-
 ActivateZoom() {
   idMethod := () => WinExist(DetectHiddenWindows(true), "ahk_exe Zoom.exe")
   return ActivateOrRun(
@@ -302,16 +179,6 @@ ActivateAdminPowerShell() {
 ActivateExplorer() {
   idMethod := () => WinExist("ahk_exe explorer.exe ahk_class CabinetWClass")
   ActivateOrRun(idMethod, "explorer.exe")
-}
-
-ActivateNeo4j() {
-  SetTitleMatchMode 2
-  if WinExist("neo4j@bolt://localhost:7687")
-    WinActivate
-  else if WinExist("Neo4j Desktop")
-    WinActivate
-  else
-    Run "C:\Users\ville\AppData\Local\Programs\Neo4j Desktop\Neo4j Desktop.exe"
 }
 
 ActivateNeovide() {
