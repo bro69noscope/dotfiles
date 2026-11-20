@@ -17,7 +17,7 @@ ActivateAlacritty() {
 
   Run("C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
   prevHwnd := WinExist("A")
-  if !ActivateWhenReady(idMethod, 3000, , true)
+  if !ActivateWhenReady(idMethod, { timeout: 3000, isLaunch: true })
     return false
 
   ; needs to be focused twice at launch to fix the terminal cursor appearance
@@ -38,7 +38,7 @@ ActivatePyCharm() {
     batPath := A_LoopFileFullPath "\bin\pycharm64.exe"
     if FileExist(batPath) {
       Run batPath
-      return ActivateWhenReady(idMethod, 3000, , true)
+      return ActivateWhenReady(idMethod, { timeout: 3000, isLaunch: true })
     }
   }
   MsgBox "Could not find PyCharm executable."
@@ -60,7 +60,8 @@ ActivateWezTerm(activate := true) {
   }
 
   Run path
-  if !ActivateWhenReady(idMethod, 2000, , true, activate)
+  opts := { timeout: 2000, isLaunch: true, activate: activate }
+  if !ActivateWhenReady(idMethod, opts)
     MsgBox "Could not activate WezTerm window after launching from: " path
 }
 
@@ -96,7 +97,8 @@ ActivateWezTermTitled(title, activate := true, onStart := "") {
   cmd := Format('"{}" start -- pwsh -NoExit -File "{}" -Title "{}"', path,
     titleScript, title)
   Run(cmd)
-  if !ActivateWhenReady(idMethod, 8000, onStart, true, activate)
+  opts := { timeout: 8000, onFound: onStart, isLaunch: true, activate: activate }
+  if !ActivateWhenReady(idMethod, opts)
     MsgBox "Could not activate '" title "' window after launching from: " path
 }
 
