@@ -83,3 +83,20 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
     MoveMouseToWindowBottom(windowID, mousePercent)
   return true
 }
+
+; NOTE:
+; winit apps (Alacritty, Neovide, ...) create a WS_EX_NOACTIVATE helper window:
+; ("Winit Thread Event Target", 22x22 at 0,0) that also matches "ahk_exe <exe>". During
+; startup it is the first match. That window can never be activated - it's explicitly
+; excluded from focus. Filter it out and only match the real top-level window: visible,
+; and not marked no-activate.
+FindWinitMainWindow(exeName) {
+  EX_NOACTIVATE := 0x08000000
+
+  for hwnd in WinGetList("ahk_exe " exeName) {
+    exStyle := DllCall("GetWindowLongPtr", "ptr", hwnd, "int", -20, "ptr")
+    if !(exStyle & EX_NOACTIVATE) && DllCall("IsWindowVisible", "ptr", hwnd, "int")
+      return hwnd
+  }
+  return 0
+}

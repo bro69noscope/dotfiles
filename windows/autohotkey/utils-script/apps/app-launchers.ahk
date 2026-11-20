@@ -182,8 +182,8 @@ ActivateExplorer() {
 }
 
 ActivateNeovide() {
-  idMethod := () => WinExist("ahk_exe neovide.exe")
-  return ActivateOrRun(idMethod, "C:\Users\ville\scoop\shims\neovide.exe", 2500)
+  idMethod := () => FindWinitMainWindow("neovide.exe")
+  return ActivateOrRun(idMethod, "C:\Users\ville\scoop\shims\neovide.exe", 3000, , ,)
 }
 
 QuickSetup(mode := "simple") {

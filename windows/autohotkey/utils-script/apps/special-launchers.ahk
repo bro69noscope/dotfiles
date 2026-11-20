@@ -5,7 +5,7 @@
 
 ActivateAlacritty() {
   SetTitleMatchMode 2
-  idMethod := () => FindAlacrittyMainWindow()
+  idMethod := () => FindWinitMainWindow("alacritty.exe")
   Focus(hwnd) {
     WinActivate(hwnd)
     MoveMouseToWindowBottom(hwnd, DefaultMousePercent)
