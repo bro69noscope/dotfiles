@@ -20,8 +20,10 @@ ActivateLosslessCut() {
 
 ActivateStreamDeck(activate := true) {
   idMethod := () => WinExist("ahk_exe StreamDeck.exe")
-  return ActivateOrRun(idMethod, StartMenuPathProgramData "Elgato\Stream Deck\Stream Deck.lnk", ,
-    , activate)
+  opts := { activate: activate }
+  return ActivateOrRun(idMethod,
+    StartMenuPathProgramData "Elgato\Stream Deck\Stream Deck.lnk",
+    opts)
 }
 
 ActivateOsu() {
@@ -31,8 +33,8 @@ ActivateOsu() {
 
 ActivateTobiiGhost(activate := true) {
   idMethod := () => WinExist("ahk_exe TobiiGhost.exe")
-  return ActivateOrRun(idMethod, StartMenuPathRoaming "Tobii\Tobii Ghost.lnk", ,
-    ensureFullscreen, activate)
+  opts := { onFound: EnsureFullscreen, activate: activate }
+  return ActivateOrRun(idMethod, StartMenuPathRoaming "Tobii\Tobii Ghost.lnk", opts)
 }
 
 ActivateMailClient() {
@@ -48,13 +50,15 @@ ActivateSteam() {
 
 ActivateAgeOfEmpires2() {
   idMethod := () => WinExist("ahk_exe AoE2DE_s.exe")
-  return ActivateOrRun(idMethod, StartMenuPathRoaming "Steam\Age of Empires II Definitive Edition.url"
+  return ActivateOrRun(idMethod,
+    StartMenuPathRoaming "Steam\Age of Empires II Definitive Edition.url"
   )
 }
 
 ActivateBraveBrowser(activate := true) {
   idMethod := () => WinExist("ahk_exe brave.exe")
-  return ActivateOrRun(idMethod, StartMenuPathProgramData "Brave.lnk", , , activate)
+  opts := { activate: activate }
+  return ActivateOrRun(idMethod, StartMenuPathProgramData "Brave.lnk", opts)
 }
 
 ActivateBitwarden() {
@@ -64,12 +68,15 @@ ActivateBitwarden() {
 
 ActivateSpotify(activate := true) {
   idMethod := () => WinExist("ahk_exe Spotify.exe")
-  return ActivateOrRun(idMethod, "spotify.exe", , , activate) ; It's some bullshit windows store unfindable path
+  opts := { activate: activate }
+  ; This app is on some bullshit windows store unfindable path
+  return ActivateOrRun(idMethod, "spotify.exe", opts)
 }
 
 ActivateVSCode() {
   idMethod := () => WinExist("ahk_exe Code.exe")
-  return ActivateOrRun(idMethod, "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe"
+  return ActivateOrRun(idMethod,
+    "C:\Users\" A_UserName "\AppData\Local\Programs\Microsoft VS Code\Code.exe"
   )
 }
 
@@ -80,7 +87,8 @@ ActivatePowerShell() {
 
 ActivateNotepad() {
   idMethod := () => WinExist("ahk_exe notepad.exe")
-  return ActivateOrRun(idMethod, "notepad.exe", , , , 94)
+  opts := { mousePercent: 94 }
+  return ActivateOrRun(idMethod, "notepad.exe", opts)
 }
 
 ActivateOneNote() {
@@ -100,8 +108,8 @@ ActivateDeadlock() {
 
 ActivateDiscord(activate := true) {
   idMethod := () => WinExist("ahk_exe Discord.exe")
-  return ActivateOrRun(idMethod, StartMenuPathRoaming "Discord Inc\Discord.lnk", , ,
-    activate)
+  opts := { activate: activate }
+  return ActivateOrRun(idMethod, StartMenuPathRoaming "Discord Inc\Discord.lnk", opts)
 }
 
 ActivateDota2() {
@@ -132,13 +140,10 @@ FindAutoDuckWindow() {
 
 ActivateAutoDuck(activate := true) {
   idMethod := () => FindAutoDuckWindow()
-  return ActivateOrRun(
-    idMethod,
-    "C:\Users\ville\OneDrive\Streaming\Software settings\AutoDuck\stream_duck.adrt",
-    3000,
-    (hwnd) => WinShow(hwnd),
-    activate
-  )
+  runCommand :=
+    "C:\Users\ville\OneDrive\Streaming\Software settings\AutoDuck\stream_duck.adrt"
+  opts := { onFound: (hwnd) => WinShow(hwnd), activate: activate }
+  return ActivateOrRun(idMethod, runCommand, opts)
 }
 
 ActivateStreamerBot(portableVersion := "", activate := true) {
@@ -158,17 +163,15 @@ ActivateStreamerBot(portableVersion := "", activate := true) {
   }
   idMethod := () => FindStreamerBotWindow(portableVersion)
 
-  return ActivateOrRun(idMethod, '"' paths[portableVersion] '"', , , activate)
+  opts := { activate: activate }
+  return ActivateOrRun(idMethod, '"' paths[portableVersion] '"', opts)
 }
 
 ActivateZoom() {
   idMethod := () => WinExist(DetectHiddenWindows(true), "ahk_exe Zoom.exe")
-  return ActivateOrRun(
-    idMethod,
-    StartMenuPathProgramData "Zoom\Zoom Workplace.lnk",
-    3000,
-    (hwnd) => WinShow(hwnd)
-  )
+  opts := { onFound: (hwnd) => WinShow(hwnd) }
+  return ActivateOrRun(idMethod, StartMenuPathProgramData "Zoom\Zoom Workplace.lnk",
+    opts)
 }
 
 ActivateAdminPowerShell() {
@@ -185,7 +188,7 @@ ActivateExplorer() {
 
 ActivateNeovide() {
   idMethod := () => FindWinitMainWindow("neovide.exe")
-  return ActivateOrRun(idMethod, "C:\Users\ville\scoop\shims\neovide.exe", 3000, , ,)
+  return ActivateOrRun(idMethod, "C:\Users\ville\scoop\shims\neovide.exe")
 }
 
 QuickSetup(mode := "simple") {
