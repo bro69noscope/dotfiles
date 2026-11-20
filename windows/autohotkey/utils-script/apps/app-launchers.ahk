@@ -4,13 +4,14 @@
 #Include nvim-scratch\scratch.ahk
 #Include special-launchers.ahk
 
-; If the next lines fail with "Failed to open file": the streaming repo ahk junction is missing.
-; Run: pwsh -File "scripts\create-junction.ps1"
+; If the next lines fail with "Failed to open file": the streaming repo ahk junction is
+; missing, run: pwsh -File "scripts\create-junction.ps1"
 #Include ..\streaming-ahk\window-helpers.ahk
 #Include ..\streaming-ahk\stream-apps.ahk
 
-; Normal launchers: each one only calls ActivateOrRun with a window finder (idMethod) and a
-; run command. Launchers that need their own activate or launch flow go in special-launchers.ahk.
+; Normal launchers: each one only calls ActivateOrRun with a window finder (idMethod)
+; and a run command. Launchers that need their own activate or launch flow go in
+; special-launchers.ahk.
 
 ActivateLosslessCut() {
   idMethod := () => WinExist("ahk_exe LosslessCut.exe")
@@ -118,7 +119,8 @@ ActivateVlc() {
   return ActivateOrRun(idMethod, StartMenuPathScoopApps "VLC media player.lnk")
 }
 
-; Auto-Duck owns a hidden "GDI+ Window (Auto-Duck.exe)" helper even when its real window is absent
+; Auto-Duck owns a hidden "GDI+ Window (Auto-Duck.exe)" helper even when its real window
+; is absent
 FindAutoDuckWindow() {
   DetectHiddenWindows(true)
   for hwnd in WinGetList("ahk_exe Auto-Duck.exe") {
