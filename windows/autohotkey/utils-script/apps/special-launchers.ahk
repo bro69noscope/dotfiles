@@ -6,14 +6,10 @@
 ActivateAlacritty() {
   SetTitleMatchMode 2
   idMethod := () => FindWinitMainWindow("alacritty.exe")
-  Focus(hwnd) {
-    WinActivate(hwnd)
-    MoveMouseToWindowBottom(hwnd, DefaultMousePercent)
-  }
 
   hwnd := idMethod()
   if hwnd
-    return Focus(hwnd)
+    return FocusWindow(hwnd)
 
   Run("C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
   prevHwnd := WinExist("A")
@@ -23,7 +19,7 @@ ActivateAlacritty() {
   ; needs to be focused twice at launch to fix the terminal cursor appearance
   h := idMethod()
   WinActivate(prevHwnd)
-  return Focus(h)
+  return FocusWindow(h)
 }
 
 ActivatePyCharm() {
@@ -31,7 +27,7 @@ ActivatePyCharm() {
   idMethod := () => WinExist("ahk_exe pycharm64.exe")
   hwnd := idMethod()
   if hwnd
-    return WinActivate(hwnd)
+    return FocusWindow(hwnd)
 
   Loop Files, "C:\Program Files\JetBrains\PyCharm Community Edition*", "D"
   {
@@ -49,8 +45,11 @@ ActivateWezTerm(activate := true) {
   idMethod := () => WinExist(winCrit)
   hwnd := idMethod()
 
-  if hwnd
-    return activate ? WinActivate(hwnd) : hwnd
+  if hwnd {
+    if activate
+      FocusWindow(hwnd)
+    return
+  }
 
   path := FindWezTermPath()
   if !path {
@@ -74,8 +73,11 @@ ActivateWezTermTitled(title, activate := true, onStart := "") {
   idMethod := () => WinExist(winCrit)
   hwnd := idMethod()
 
-  if hwnd
-    return activate ? WinActivate(hwnd) : hwnd
+  if hwnd {
+    if activate
+      FocusWindow(hwnd)
+    return
+  }
 
   titleScript := FindUp(ConfigDirName, "scripts\set-wezterm-title.ps1")
   if !titleScript {
@@ -104,10 +106,10 @@ ActivateWezTermTitled(title, activate := true, onStart := "") {
 
 ActivateNeo4j() {
   SetTitleMatchMode 2
-  if WinExist("neo4j@bolt://localhost:7687")
-    WinActivate
-  else if WinExist("Neo4j Desktop")
-    WinActivate
+  if hwnd := WinExist("neo4j@bolt://localhost:7687")
+    FocusWindow(hwnd)
+  else if hwnd := WinExist("Neo4j Desktop")
+    FocusWindow(hwnd)
   else
     Run "C:\Users\ville\AppData\Local\Programs\Neo4j Desktop\Neo4j Desktop.exe"
 }

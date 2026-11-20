@@ -10,10 +10,8 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
   if (IsSet(windowID) && windowID) {
     VerifyWindowIDs()
     if WinExist("ahk_id " windowID) {
-      if activate {
-        WinActivate("ahk_id " windowID)
-        MoveMouseToWindowBottom(windowID, mousePercent)
-      }
+      if activate
+        FocusWindow(windowID, mousePercent)
       return true
     }
   }

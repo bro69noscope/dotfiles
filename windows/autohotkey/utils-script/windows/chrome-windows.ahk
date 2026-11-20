@@ -96,7 +96,7 @@ ActivateUngroupedChromeWindow() {
       }
     }
     if !tracked {
-      WinActivate("ahk_id " hwnd)
+      FocusWindow(hwnd)
       return true
     }
   }
