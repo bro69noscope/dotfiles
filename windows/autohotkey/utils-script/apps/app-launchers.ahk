@@ -50,20 +50,24 @@ ActivateAgeOfEmpires2() {
 ActivateAlacritty() {
   SetTitleMatchMode 2
   idMethod := () => FindAlacrittyMainWindow()
+  Focus(hwnd) {
+    WinActivate(hwnd)
+    MoveMouseToWindowBottom(hwnd)
+  }
 
   hwnd := idMethod()
   if hwnd
-    return WinActivate(hwnd)
+    return Focus(hwnd)
 
   Run("C:\Users\ville\scoop\apps\alacritty\current\alacritty.exe")
-  lastHwnd := WinExist("A")
+  prevHwnd := WinExist("A")
   if !ActivateWhenReady(idMethod, 3000, , true)
     return false
 
   ; needs to be focused twice at launch to fix the terminal cursor appearance
-  newHwnd := idMethod()
-  WinActivate(lastHwnd)
-  return WinActivate(newHwnd)
+  h := idMethod()
+  WinActivate(prevHwnd)
+  return Focus(h)
 }
 
 ActivateBraveBrowser(activate := true) {
@@ -94,7 +98,7 @@ ActivatePowerShell() {
 
 ActivateNotepad() {
   idMethod := () => WinExist("ahk_exe notepad.exe")
-  return ActivateOrRun(idMethod, "notepad.exe")
+  return ActivateOrRun(idMethod, "notepad.exe", , , , 94)
 }
 
 ActivateOneNote() {

@@ -1,14 +1,17 @@
 #Include ..\core\persistence.ahk
+#Include ..\streaming-ahk\window-helpers.ahk
 
 ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := "",
-  winClass := "", activate := true) {
+  winClass := "", activate := true, mousePercent := 100) {
   global Browser1_ID, Browser2_ID, Browser3_ID
 
   if (IsSet(windowID) && windowID) {
     VerifyWindowIDs()
     if WinExist("ahk_id " windowID) {
-      if activate
+      if activate {
         WinActivate("ahk_id " windowID)
+        MoveMouseToWindowBottom(windowID, mousePercent)
+      }
       return true
     }
   }
@@ -74,6 +77,8 @@ ActivateOrCreateWindow(&windowID, runCommand, exeName, urls := "", profile := ""
   if (exeName = "chrome.exe")
     AddToChromeWindowList(windowID)
   VerifyWindowIDs()
+  if activate
+    MoveMouseToWindowBottom(windowID, mousePercent)
   return true
 }
 

@@ -27,11 +27,14 @@ ReplaceClipboardSlashes(direction := "/") {
 }
 
 SmallPageScrollMove(direction, notches := 4) {
-  MouseGetPos(&mx, &my)
-  WinGetPos(&x, &y, &w, &h, "A")
-
-  if (mx < x || mx >= x + w || my < y || my >= y + h)
-    MouseMove(x + w * 4 // 5, y + h * 4 // 5, 0)
+  ; commented out while we are testing just putting the mouse at the bottom of every
+  ; activated window generally
+  ;
+  ; MouseGetPos(&mx, &my)
+  ; WinGetPos(&x, &y, &w, &h, "A")
+  ;
+  ; if (mx < x || mx >= x + w || my < y || my >= y + h)
+  ;   MouseMove(x + w * 4 // 5, y + h * 4 // 5, 0)
 
   Send(direction > 0 ? "{WheelUp " notches "}" : "{WheelDown " notches "}")
 }

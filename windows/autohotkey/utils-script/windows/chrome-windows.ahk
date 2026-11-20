@@ -1,5 +1,9 @@
 #Include ..\core\persistence.ahk
 #Include window-helpers.ahk
+
+ChromeExe := "chrome.exe"
+ChromeWC := "Chrome_WidgetWin_1"
+
 ResetChromeWindowList() {
   global ChromeWindowList
   for idx, id in ChromeWindowList {
@@ -59,21 +63,21 @@ CaptureCurrentChromeWindow(slot) {
 
 ActivateBrowser1Window(activate := true) {
   global Browser1_ID
-  return ActivateOrCreateWindow(&Browser1_ID, "chrome.exe", "chrome.exe", , "Default",
-    "Chrome_WidgetWin_1", activate)
+  return ActivateOrCreateWindow(&Browser1_ID, ChromeExe, ChromeExe, , "Default",
+    ChromeWC, activate)
 }
 
 ActivateBrowser2Window(activate := true) {
   global Browser2_ID
-  return ActivateOrCreateWindow(&Browser2_ID, "chrome.exe", "chrome.exe", , "Profile 4",
-    "Chrome_WidgetWin_1", activate
+  return ActivateOrCreateWindow(&Browser2_ID, ChromeExe, ChromeExe, , "Profile 4",
+    ChromeWC, activate
   )
 }
 
 ActivateBrowser3Window(activate := true) {
   global Browser3_ID
-  return ActivateOrCreateWindow(&Browser3_ID, "chrome.exe", "chrome.exe", , "Profile 5",
-    "Chrome_WidgetWin_1", activate
+  return ActivateOrCreateWindow(&Browser3_ID, ChromeExe, ChromeExe, , "Profile 5",
+    ChromeWC, activate
   )
 }
 
