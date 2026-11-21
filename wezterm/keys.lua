@@ -82,15 +82,23 @@ function M.apply_to_config(config)
       mods = "CTRL|SHIFT",
       action = wezterm.action.ScrollByPage(1 / 2),
     },
+
     {
       key = "k",
       mods = "CTRL|SHIFT",
-      action = nvim.passthrough("k", "CTRL|SHIFT", wezterm.action.ScrollByLine(-1)),
+      action = nvim.ctrl_shift("k", wezterm.action.ScrollByLine(-1)),
     },
     {
       key = "j",
       mods = "CTRL|SHIFT",
-      action = nvim.passthrough("j", "CTRL|SHIFT", wezterm.action.ScrollByLine(1)),
+      action = nvim.ctrl_shift("j", wezterm.action.ScrollByLine(1)),
+    },
+
+    -- Explict passthroughs required for nvim to receive these key events as <C-S-key>
+    {
+      key = "s",
+      mods = "CTRL|SHIFT",
+      action = nvim.ctrl_shift("s"),
     },
 
     -- Full screen
