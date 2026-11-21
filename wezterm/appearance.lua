@@ -35,12 +35,17 @@ function M.apply_to_config(config)
     }
   end
 
+  -- Keep the custom title on the window, so that it stays after its pane closes or loses focus.
+  wezterm.on("user-var-changed", function(window, pane, name, value)
+    if name == "USER_SET_WEZTERM_TITLE" then
+      wezterm.GLOBAL["window_title_" .. window:window_id()] = value
+    end
+  end)
+
   wezterm.on("format-window-title", function(tab, pane, tabs, panes, config)
-    for _, t in ipairs(tabs) do
-      local custom = t.active_pane.user_vars.USER_SET_WEZTERM_TITLE
-      if custom and #custom > 0 then
-        return custom
-      end
+    local custom = wezterm.GLOBAL["window_title_" .. tab.window_id]
+    if custom and #custom > 0 then
+      return custom
     end
     return "Wezterm"
   end)
