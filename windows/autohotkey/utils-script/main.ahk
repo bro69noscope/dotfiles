@@ -10,6 +10,10 @@ SetWorkingDir A_ScriptDir ; Consistent starting directory
 TraySetIcon "..\icons\utils.png"
 #WinActivateForce ; seems to focus "weak" cusor focus after activation sometimes
 
+; uncomment for testing
+; InstallKeybdHook
+; KeyHistory
+
 #Include streaming-ahk\config\hotkeys_map.ahk
 #Include input\keyboard-detect.ahk
 #Include input\leader-key.ahk
