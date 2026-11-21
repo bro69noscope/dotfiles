@@ -46,7 +46,7 @@ LeaderCommands := Map(
   "u", ActivateOsu,
   "v", ActivateVLC,
   "V", ActivateVSCode,
-  "W", (*) => ActivateWezTermTitled("WezTerm - secondary"),
+  "W", ActivateWezTermSecondary,
   ".w", (*) => ActivateWezTermTertiary(),
   "w", ActivateWezTermPrimary,
   "x", ActivateExplorer,

@@ -44,6 +44,10 @@ ActivateWezTermPrimary(activate := true) {
   return ActivateWezTermTitled("WezTerm - primary", activate)
 }
 
+ActivateWezTermSecondary(activate := true) {
+  return ActivateWezTermTitled("WezTerm - secondary", activate)
+}
+
 ActivateWezTermTertiary(activate := true) {
   return ActivateWezTermTitled("WezTerm - tertiary", activate, onWezTermTertiaryStart)
 }
