@@ -85,3 +85,5 @@ line-numbers-right-format = "{np:>4} "
   required = true
 [push]
 	useForceIfIncludes = true
+[rerere]
+	enabled = true
