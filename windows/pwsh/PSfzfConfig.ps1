@@ -1,5 +1,4 @@
-# FZF Smart Completion with Auto-Repositioning
-# This module provides intelligent (lol) cursor repositioning when FZF displaces terminal content
+# Provides a clean starship multiline prompt redraw after a PSfzf picker is opened and closed.
 
 function Invoke-CursorRepositioning {
   param(
@@ -11,37 +10,37 @@ function Invoke-CursorRepositioning {
     [int]$TerminalWidth,
     [Parameter(Mandatory)]
     [System.Management.Automation.Host.PSHostRawUserInterface]$RawUI,
-    [string]$LogPath = "$env:TEMP\fzf-debug.log",
+    [Parameter(Mandatory)]
+    [int]$PromptLine,
+    [string]$LogPath = "$env:TEMP\PSfzf-picker-debug.log",
     [bool]$EnableLogging = $true,
     [string]$OperationName = "FZF Operation"
   )
 
-  $currentPosAfter = $RawUI.CursorPosition
-  $threshold = $TerminalHeight - $FzfHeight
+  # fzf opens on the line below the input line. If the space below is too small, fzf scrolls the
+  # screen up. PSReadLine does not know about this scroll, so its prompt row (_initialY) is too low.
+  $scrollAmount = $PromptLine + 1 + $FzfHeight - $TerminalHeight
 
-  if ($currentPosAfter.Y -gt $threshold) {
-    $newPos = $currentPosAfter
-    $moveAmount = $TerminalHeight - $currentPosAfter.Y - $FzfHeight
-    $newPos.Y = [Math]::Max(0, $currentPosAfter.Y + $moveAmount - 2)
-
-    $RawUI.CursorPosition = $newPos
+  if ($scrollAmount -gt 0) {
+    $extraLines = (Get-PSReadLineOption).ExtraPromptLineCount
+    $promptTop = [Math]::Max(0, $PromptLine - $scrollAmount - $extraLines)
 
     if ($EnableLogging) {
       $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
-      "[$timestamp] Repositioned cursor after $OperationName to Y=$($newPos.Y)" |
+      "[$timestamp] Redraw prompt after $OperationName at Y=$promptTop (scroll=$scrollAmount, extra=$extraLines)" |
         Out-File -FilePath $LogPath -Append
     }
 
-    # Clear remnants below new position
-    for ($clearLine = $newPos.Y + 1; $clearLine -lt $TerminalHeight; $clearLine++) {
+    # Clear the scrolled prompt and the stale render below it
+    for ($clearLine = $promptTop; $clearLine -lt $TerminalHeight; $clearLine++) {
       $RawUI.CursorPosition = @{ X = 0; Y = $clearLine }
       Write-Host (" " * $TerminalWidth) -NoNewline
     }
 
-    # Redraw prompt at new position
-    $RawUI.CursorPosition = $newPos
-    [Microsoft.PowerShell.PSConsoleReadLine]::ClearLine()
-    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+    # InvokePrompt() without an argument ignores the cursor and draws at _initialY - ExtraPromptLineCount.
+    # An int argument sets the row of the prompt top, and PSReadLine resets _initialY from it, so the
+    # transient prompt on Enter also draws at the correct row.
+    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt($null, $promptTop)
 
     return $true  # Indicate that repositioning occurred
   }
@@ -136,6 +135,7 @@ function Invoke-PatchedFzfWrapper {
     TerminalHeight = $terminalHeight
     TerminalWidth = $terminalWidth
     RawUI = $rawUI
+    PromptLine = $promptLine
     LogPath = $LogPath
     EnableLogging = $EnableLogging
     OperationName = $OperationName
@@ -203,7 +203,7 @@ function Invoke-PatchedFzfWrapper {
 
       if (-not $repositioned) {
         if ($EnableLogging) {
-          "[$timestamp] No repositioning needed for $OperationName" | 
+          "[$timestamp] No repositioning needed for $OperationName" |
             Out-File -FilePath $LogPath -Append
         }
       }
