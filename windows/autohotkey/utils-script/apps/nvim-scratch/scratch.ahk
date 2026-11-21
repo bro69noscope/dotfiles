@@ -148,10 +148,26 @@ WriteLoopScript() {
 KillStaleScratchShell() {
   if !FileExist(PidFile)
     return
+
   pid := Integer(RegExReplace(FileRead(PidFile, "UTF-8"), "[^\d]"))
   FileDelete(PidFile)
-  if ProcessExist(pid)
-    ProcessClose(pid)
+
+  if !ProcessExist(pid)
+    return
+
+  cmd := Format('taskkill /T /F /PID {}', pid)
+  RunWait(cmd, , "Hide")
+}
+
+StopNvimScratch() {
+  global NvimRunning, ScratchHwnd
+  SetTimer(CheckDoneFlag, 0)
+  KillStaleScratchShell()
+  NvimRunning := false
+  ScratchHwnd := 0
+
+  ToolTip("nvim scratch stopped")
+  SetTimer(() => ToolTip(), -1500)
 }
 
 CheckDoneFlag() {

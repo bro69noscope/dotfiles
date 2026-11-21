@@ -62,6 +62,8 @@ LeaderCommands := Map(
   ; `/` leader commands for utility functions
   "//", (*) => ReplaceClipboardSlashes("/"),
   "/\", (*) => ReplaceClipboardSlashes("\"),
+  ; `\` leader commands for script management
+  "\qs", (*) => StopNvimScratch(),
   ; ``` leader commands for handling more than one app at once
   ; show grouped apps status
   "````", (*) => ShowOpenStreamApps(),
