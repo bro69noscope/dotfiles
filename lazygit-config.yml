@@ -30,6 +30,7 @@ gui:
   scrollHeight: 4
   nerdFontsVersion: "3"
   border: "rounded"
+
 git:
   diffRenderers:
     - colorArg: always
@@ -58,13 +59,6 @@ customCommands:
     loadingText: "Asking Claude for a commit message..."
     output: terminal
 
-  - key: "I"
-    command: 'git -c delta.features=side-by-side diff -- "{{.SelectedPath}}"'
-    context: "files"
-    description: "Delta diff of selected item"
-    loadingText: "Opening diff in Delta..."
-    output: terminal
-
   - key: "O"
     command: 'git -c delta.features=side-by-side diff --cached -- "{{.SelectedPath}}"'
     context: "files"
@@ -86,19 +80,26 @@ customCommands:
       - type: "input"
         title: "Commit message"
 
-  - key: "I"
-    command: 'git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- "{{.SelectedCommitFilePath}}"'
-    context: "commitFiles"
-    description: "Show file in commit/stash with Delta side-by-side"
-    loadingText: "Opening file diff in Delta..."
-    output: terminal
-
   - key: "<c-y>"
     command: "git show {{.SelectedCommit.Sha}} | clip"
     context: "commits"
     description: "Copy commit diff to clipboard"
     loadingText: "Copying diff to clipboard..."
     output: log
+
+  - key: "I"
+    command: 'git -c delta.features=side-by-side diff -- "{{.SelectedPath}}"'
+    context: "files"
+    description: "Delta diff of selected item"
+    loadingText: "Opening diff in Delta..."
+    output: terminal
+
+  - key: "I"
+    command: 'git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- "{{.SelectedCommitFilePath}}"'
+    context: "commitFiles"
+    description: "Show file in commit/stash with Delta side-by-side"
+    loadingText: "Opening file diff in Delta..."
+    output: terminal
 
   - key: "I"
     command: "git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- {{.SelectedCommitFilePath}}"
