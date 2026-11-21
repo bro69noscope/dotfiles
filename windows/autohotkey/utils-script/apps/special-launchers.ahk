@@ -40,28 +40,8 @@ ActivatePyCharm() {
   MsgBox "Could not find PyCharm executable."
 }
 
-ActivateWezTerm(activate := true) {
-  winCrit := "Wezterm ahk_exe wezterm-gui.exe"
-  idMethod := () => WinExist(winCrit)
-  hwnd := idMethod()
-
-  if hwnd {
-    if activate
-      FocusWindow(hwnd)
-    return
-  }
-
-  path := FindWezTermPath()
-  if !path {
-    MsgBox "Could not find WezTerm executable at any known path:`n`n" .
-      WezTermPathsList()
-    return
-  }
-
-  Run path
-  opts := { timeout: 2000, isLaunch: true, activate: activate }
-  if !ActivateWhenReady(idMethod, opts)
-    MsgBox "Could not activate WezTerm window after launching from: " path
+ActivateWezTermPrimary(activate := true) {
+  return ActivateWezTermTitled("WezTerm - primary", activate)
 }
 
 ActivateWezTermTertiary(activate := true) {

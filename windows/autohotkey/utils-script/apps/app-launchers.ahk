@@ -198,7 +198,7 @@ QuickSetup(mode := "simple") {
     ActivateAutoDuck(activate := false)
     ActivateBraveBrowser(activate := false)
     ActivateDiscord(activate := false)
-    ActivateWezTerm(activate := false)
+    ActivateWezTermPrimary(activate := false)
     ActivateNllsMainServer
   }
   else if mode = "full" {
@@ -206,7 +206,7 @@ QuickSetup(mode := "simple") {
     ActivateAutoDuck(activate := false)
     ActivateBraveBrowser(activate := false)
     ActivateDiscord(activate := false)
-    ActivateWezTerm(activate := false)
+    ActivateWezTermPrimary(activate := false)
     ActivateWezTermTitled("WezTerm - secondary", activate := false)
     ActivateWezTermTertiary(activate := false)
     ActivateStreamerBot(portableVersion := "production", activate := false)
