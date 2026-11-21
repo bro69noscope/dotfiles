@@ -3,10 +3,10 @@
   "keyboard": "glove80",
   "firmware_api_version": "1",
   "locale": "en-US",
-  "uuid": "5a00ac1a-ed2c-495d-86a9-c9fad4a31909",
-  "parent_uuid": "5a00ac1a-ed2c-495d-86a9-c9fad4a31909",
+  "uuid": "c5fc13cf-fbea-4eb3-8075-e4cbd23cf417",
+  "parent_uuid": "c5fc13cf-fbea-4eb3-8075-e4cbd23cf417",
   "unlisted": false,
-  "date": 1795022375,
+  "date": 1795186866,
   "creator": "avario",
   "title": "Glorious Enthium v15a overhaul: aoe2/deadlock/dota2 gaming - no symbol test",
   "notes": "Overhaul of Sunaku's Keymap v52 for the \"Glorious Engrammer\" 🧑‍🚀🚀✨\n- Intro & setup: https://github.com/sunaku/glove80-keymaps/tree/v52/#readme\n- Release notes: https://github.com/sunaku/glove80-keymaps/releases/tag/v52\n- Printable map: https://github.com/sunaku/glove80-keymaps/raw/v52/README/all-layer-diagrams.pdf\n- Documentation: https://sunaku.github.io/moergo-glove80-keyboard.html#layers\n- Discord forum: #glorious-engrammer channel in https://www.moergo.com/discord",
@@ -13932,7 +13932,15 @@
         "value": "&none"
       },
       {
-        "value": "&none"
+        "value": "Custom",
+        "params": [
+          {
+            "value": "&space_under"
+          }
+        ],
+        "decoration": {
+          "label": "< _>"
+        }
       },
       {
         "value": "&none"
@@ -13998,13 +14006,29 @@
         "value": "&none"
       },
       {
-        "value": "&none"
+        "value": "Custom",
+        "params": [
+          {
+            "value": "&space_minus"
+          }
+        ],
+        "decoration": {
+          "label": "< ->"
+        }
       },
       {
         "value": "&none"
       },
       {
-        "value": "&none"
+        "value": "Custom",
+        "params": [
+          {
+            "value": "&minus_space"
+          }
+        ],
+        "decoration": {
+          "label": "<- >"
+        }
       },
       {
         "value": "&none"
