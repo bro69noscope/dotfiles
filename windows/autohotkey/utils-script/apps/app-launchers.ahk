@@ -92,7 +92,8 @@ ActivateNotepad() {
 }
 
 ActivateOneNote() {
-  idMethod := () => WinExist("ahk_exe ONENOTE.EXE")
+  ; class skips transient window
+  idMethod := () => WinExist("ahk_exe ONENOTE.EXE ahk_class Framework::CFrame")
   return ActivateOrRun(idMethod, StartMenuPathProgramData "OneNote.lnk")
 }
 
