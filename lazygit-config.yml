@@ -1,6 +1,6 @@
 gui:
   mainPanelSplitMode: horizontal
-  useHunkModeInStagingView: true
+  useHunkModeInDiffView: true
   skipRewordInEditorWarning: true
   theme:
     activeBorderColor:
@@ -31,9 +31,9 @@ gui:
   nerdFontsVersion: "3"
   border: "rounded"
 git:
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: delta --paging=never --true-color=always
+      command: delta --paging=never --true-color=always
 # useConfig: true
 
 # os: # will figure it out eventually but rn it's commented out
@@ -45,8 +45,6 @@ keybinding:
     moveUpCommit: "<a-k>"
 
 customCommands:
-  # For files panel
-
   - key: "<c-a>"
     context: "files"
     description: "AI commit message"
@@ -66,26 +64,27 @@ customCommands:
     description: "Delta diff of selected item"
     loadingText: "Opening diff in Delta..."
     output: terminal
+
   - key: "O"
     command: 'git -c delta.features=side-by-side diff --cached -- "{{.SelectedPath}}"'
     context: "files"
     description: "Delta diff of staged changes"
     loadingText: "Opening staged diff..."
     output: terminal
+
   - key: "S"
     command: "git -c delta.features=side-by-side diff --cached"
     context: "files"
     description: "Delta diff of all staged changes"
     loadingText: "Opening staged diff..."
     output: terminal
+
   - key: "E"
     command: 'git commit --allow-empty -m "{{index .PromptResponses 0}}"'
     context: "files"
     prompts:
       - type: "input"
         title: "Commit message"
-
-  # For commits panel
 
   - key: "I"
     command: 'git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- "{{.SelectedCommitFilePath}}"'
@@ -101,42 +100,41 @@ customCommands:
     loadingText: "Copying diff to clipboard..."
     output: log
 
-  # For files within a commit or stash
   - key: "I"
     command: "git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -- {{.SelectedCommitFilePath}}"
     context: "commitFiles"
     description: "Show file in commit/stash with Delta side-by-side"
     loadingText: "Opening file diff in Delta..."
     output: terminal
-  # For stash entries
+
   - key: "I"
     command: "git -c delta.features=side-by-side stash show -p {{.SelectedStashEntry.Index}}"
     context: "stash"
     description: "Show stash with Delta side-by-side"
     loadingText: "Opening stash in Delta..."
     output: terminal
-  # For local branches
+
   - key: "I"
     command: "git -c delta.features=side-by-side diff {{.CheckedOutBranch.Name}}..{{.SelectedLocalBranch.Name}}"
     context: "localBranches"
     description: "Compare current branch with selected branch"
     loadingText: "Comparing branches with Delta..."
     output: terminal
-  # For remote branches
+
   - key: "I"
     command: "git -c delta.features=side-by-side diff {{.CheckedOutBranch.Name}}..{{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}}"
     context: "remoteBranches"
     description: "Compare current branch with selected remote branch"
     loadingText: "Comparing with remote branch..."
     output: terminal
-  # For commits when viewing branch history (after pressing Enter on a branch)
+
   - key: "I"
     command: "git -c delta.features=side-by-side show {{.SelectedCommit.Sha}} -p"
     context: "subCommits"
     description: "Show commit with Delta side-by-side"
     loadingText: "Opening commit diff in Delta..."
     output: terminal
-  # For tags
+
   - key: "I"
     command: "git -c delta.features=side-by-side show {{.SelectedTag.Name}} -p"
     context: "tags"
