@@ -203,9 +203,9 @@ function Invoke-Starship-TransientFunction {
   if ($global:lastDirectory -ne $currentDirectory) {
     $dir = &starship module directory
     $global:lastDirectory = $currentDirectory
-    return "`n$dir`n$time$char"
+    return "`e[J`n$dir`n$time$char"
   } else {
-    return "$time$char"
+    return "`e[J$time$char"
   }
 }
 
