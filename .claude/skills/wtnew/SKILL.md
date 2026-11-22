@@ -73,5 +73,15 @@ Thus every worktree directory starts with `llm_`, and all worktrees stay flat in
 - Stay in the worktree. Do not call `ExitWorktree`.
 - Do not work around a denial (relative paths, `cd ..`, other tools). If the task needs the main
   checkout or another directory, ask the user to send `/wtout` or `/wtoff`.
+- Map paths to the locked worktree. If the user names a path in another worktree of the same
+  repository (the main checkout or any entry of `git worktree list`), read and edit the same
+  relative path in the locked worktree. Do not map the path if the user explicitly asks for the
+  other worktree, if the prompt starts with `/wtout`, or after the user sent `/wtoff`.
+
+  ```
+  locked worktree:  C:/Users/ville/myfiles/dotfiles/nvim-config3.0/.claude/worktrees/llm_testing_main
+  user names:       C:\Users\ville\myfiles\dotfiles\nvim-config3.0.worktrees\testing_main\lua\modules\snacks\picker\explorer\explorer-config.lua
+  edit:             C:/Users/ville/myfiles/dotfiles/nvim-config3.0/.claude/worktrees/llm_testing_main/lua/modules/snacks/picker/explorer/explorer-config.lua
+  ```
 
 Arguments: $ARGUMENTS
