@@ -1,6 +1,6 @@
 ---
 name: wtnew
-description: Create a new git worktree and branch, enter it, and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtnew (-b <branch> | -a) [task].
+description: Create a new git worktree and llm/-prefixed branch, enter it, and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtnew (-b <branch> | -a) [task].
 disable-model-invocation: true
 ---
 
@@ -19,15 +19,18 @@ then, the hook denies file writes outside the session scratchpad. After the lock
 is the same as `-a`. The option can come anywhere in the arguments. All other text is the task.
 Never read a branch name from the task text.
 
-- `-b <branch>`: use that branch name as given.
-- `-a`: the branch is `cc/<current branch>`. Get the current branch with
+Every branch gets the `llm/` prefix.
+
+- `-b <branch>`: the branch is `llm/<branch>`.
+- `-a`: the branch is `llm/<current branch>`. Get the current branch with
   `git branch --show-current` in the session cwd. If it is empty (detached HEAD), ask the user.
 - Neither: ask the user for `-b <branch>` or `-a`, and stop.
 
 ```
-/wtnew -b feat/llm-wt add the pull command   ->  branch feat/llm-wt, task "add the pull command"
-/wtnew -a fix the parser                     ->  on feat/llm-wt: branch cc/feat/llm-wt
-/wtnew fix the parser                        ->  ask the user
+/wtnew -b feat/wt add the pull command   ->  branch llm/feat/wt, task "add the pull command"
+/wtnew -b llm/feat/wt                    ->  branch llm/feat/wt
+/wtnew -a fix the parser                 ->  on feat/wt: branch llm/feat/wt
+/wtnew fix the parser                    ->  ask the user
 ```
 
 If the branch does not exist, create it at the commit the session is on now (step 2).
@@ -37,9 +40,8 @@ in one directory:
 
 | Branch          | Worktree directory                  |
 | --------------- | ----------------------------------- |
-| `feat/llm-wt`   | `.claude/worktrees/feat-llm-wt`     |
-| `cc/feat/x`     | `.claude/worktrees/cc-feat-x`       |
-| `fix-typo`      | `.claude/worktrees/fix-typo`        |
+| `llm/feat/wt`   | `.claude/worktrees/llm-feat-wt`     |
+| `llm/fix-typo`  | `.claude/worktrees/llm-fix-typo`    |
 
 ## Steps
 
