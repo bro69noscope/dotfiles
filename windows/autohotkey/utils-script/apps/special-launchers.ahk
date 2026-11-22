@@ -83,6 +83,7 @@ ActivateWezTermTitled(title, activate := true, onStart := "") {
   cmd := Format('"{}" start -- pwsh -NoExit -File "{}" -Title "{}"', path,
     titleScript, title)
   Run(cmd)
+
   opts := { timeout: 8000, onFound: onStart, isLaunch: true, activate: activate }
   if !ActivateWhenReady(idMethod, opts)
     MsgBox "Could not activate '" title "' window after launching from: " path

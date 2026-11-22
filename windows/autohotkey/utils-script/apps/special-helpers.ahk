@@ -24,8 +24,10 @@ onWezTermTertiaryStart(hwnd := 0) {
     MsgBox "Could not find scripts\vctabs.ps1 above " ConfigDirName
     return
   }
+
   guiHwnd := WinExist("WezTerm - tertiary ahk_exe wezterm-gui.exe")
   cli := RegExReplace(WinGetProcessPath(guiHwnd), "[^\\]+$", "wezterm.exe")
+
   cmd := Format(
     'pwsh -NoProfile -File "{}" -Wez "{}" -GuiPid {} -Title "WezTerm - tertiary"',
     script, cli, WinGetPID(guiHwnd)
