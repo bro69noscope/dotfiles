@@ -1,6 +1,6 @@
 ---
 name: wtin
-description: Lock this session to an existing git worktree and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtin [-b <branch> | -l <loose branch>] [task].
+description: Lock this session to an existing llm_ git worktree and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtin [-b <branch> | -l <loose branch>] [task].
 disable-model-invocation: true
 ---
 
@@ -18,29 +18,37 @@ command and added a `wt-guard:` line to the prompt. While the lock is on, the ho
 `/wtin [-b <branch> | -l <loose branch>] [task]`. `--branch` is the same as `-b`, and `--loose` is
 the same as `-l`. All other text is the task. Never read a worktree name from the task text.
 
-- `-b <branch>`: the worktree with exactly that branch checked out. The hook locks it itself.
-- `-l <loose branch>`: the worktree whose branch name matches loosely (step 1). Compare only with
-  branch names, not with directory names or paths.
-- Neither: the current worktree, if the cwd is in a linked worktree.
+`/wtin` always leads to an `llm_` worktree: a directory `.claude/worktrees/llm_<name>` on a branch
+`llm/<...>` (see `/wtnew`). The directory name is the branch name with each `/` replaced by `_`.
+Each `-` stays as it is. Ignore all other worktrees as candidates.
+
+- `-b <branch>`: the worktree with exactly the branch `llm/<branch>` checked out. If `<branch>`
+  already starts with `llm/`, do not add the prefix again.
+- `-l <loose branch>`: the `llm_` worktree whose branch name matches loosely (step 1). Compare only
+  with branch names, not with directory names or paths.
+- Neither: the current worktree, if the cwd is in an `llm_` worktree.
 
 ```
-/wtin -b feat/llm-wt   ->  hook locks the worktree on feat/llm-wt
-/wtin -b llm/feat      ->  no worktree on branch llm/feat: tell the user, suggest -l
-/wtin -l llm/feat      ->  feat/llm-wt is the only close branch: use it
-/wtin -l llm           ->  feat/llm-wt and cc/feat/llm-wt both match: ask the user
+/wtin -b feat/wt         ->  worktree .claude/worktrees/llm_feat_wt on llm/feat/wt
+/wtin -b llm/feat/wt     ->  the same worktree
+/wtin -b llm/feat        ->  no worktree on branch llm/feat: tell the user, suggest -l
+/wtin -l testing         ->  llm/testing/main matches, testing/main is not llm_: use llm/testing/main
+/wtin -l wt              ->  llm/feat/wt and llm/fix/llm-wt-reset both match: ask the user
 ```
 
 ## Steps
 
 1. Read the `wt-guard:` line.
    - `locked to <root>`: if the cwd is not in `<root>`, call `EnterWorktree` with `path: "<root>"`.
-   - `lock pending`, with `-b`: no worktree has that branch. Show `git worktree list`, tell the user,
+   - `lock pending`, with `-b`: run `git worktree list`. If an `llm_` worktree has the branch
+     `llm/<branch>`, call `EnterWorktree` with its `path`. Otherwise show the list, tell the user,
      and stop.
-   - `lock pending`, with `-l`: run `git worktree list` and compare `<loose branch>` with each
-     worktree's branch name. Word order, separators and abbreviations can differ. If exactly one
+   - `lock pending`, with `-l`: run `git worktree list` and compare `<loose branch>` with the
+     branch name of each `llm_` worktree. Word order, separators and abbreviations can differ. If exactly one
      branch is a clear match, call `EnterWorktree` with its worktree `path`. If none or more than
      one match, show the candidates and ask the user.
-   - `lock pending`, with neither: run `git worktree list` and ask the user which worktree to use.
+   - `lock pending`, with neither: run `git worktree list` and ask the user which `llm_` worktree to
+     use.
      Then call `EnterWorktree` with its `path`.
 
    The hook locks the session to the worktree that `EnterWorktree` enters.

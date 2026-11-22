@@ -35,13 +35,14 @@ Every branch gets the `llm/` prefix.
 
 If the branch does not exist, create it at the commit the session is on now (step 2).
 
-The worktree directory is the branch name with each `/` replaced by `-`, so all worktrees stay flat
-in one directory:
+The worktree directory is the branch name with each `/` replaced by `_`. Each `-` stays as it is.
+Thus every worktree directory starts with `llm_`, and all worktrees stay flat in one directory:
 
-| Branch          | Worktree directory                  |
-| --------------- | ----------------------------------- |
-| `llm/feat/wt`   | `.claude/worktrees/llm-feat-wt`     |
-| `llm/fix-typo`  | `.claude/worktrees/llm-fix-typo`    |
+| Branch                    | Worktree directory                            |
+| ------------------------- | --------------------------------------------- |
+| `llm/feat/wt`             | `.claude/worktrees/llm_feat_wt`               |
+| `llm/fix-typo`            | `.claude/worktrees/llm_fix-typo`              |
+| `llm/fix/llm-wt-reset`    | `.claude/worktrees/llm_fix_llm-wt-reset`      |
 
 ## Steps
 
