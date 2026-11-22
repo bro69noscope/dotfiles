@@ -3340,6 +3340,13 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
+  close_or_reopen_tab: close_or_reopen_tab {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp LC(W)>, <&kp LS(LC(T))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   //
   // Bro's overhaul: END
   //
