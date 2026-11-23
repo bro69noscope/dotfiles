@@ -135,7 +135,7 @@ FindGitBashWindow(gitAppDir) {
 }
 
 ActivateGitBash() {
-  gitAppDir := ScoopPath "apps\git\"
+  gitAppDir := ScoopApps "git\"
   return ActivateOrRun(() => FindGitBashWindow(gitAppDir), gitAppDir "current\git-bash.exe"
   )
 }
@@ -206,7 +206,7 @@ ActivateExplorer() {
 
 ActivateNeovide() {
   idMethod := () => FindWinitMainWindow("neovide.exe")
-  return ActivateOrRun(idMethod, ScoopPath "shims\neovide.exe")
+  return ActivateOrRun(idMethod, ScoopShims "neovide.exe")
 }
 
 QuickSetup(mode := "simple") {

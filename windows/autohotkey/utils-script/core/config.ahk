@@ -13,7 +13,8 @@ StartMenuPathRoaming :=
 StartMenuPathScoopApps :=
   "C:\Users\ville\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\"
 
-ScoopPath := "C:\Users\ville\scoop\"
+ScoopShims := "C:\Users\ville\scoop\shims\"
+ScoopApps := "C:\Users\ville\scoop\apps\"
 
 FindUp(startDir, relPath) {
   dir := startDir
