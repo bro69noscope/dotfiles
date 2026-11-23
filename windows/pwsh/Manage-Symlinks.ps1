@@ -10,6 +10,21 @@ $dotfilesConfig = @{
     "target" = "$HOME\.gitconfig"
   }
 
+  "Git Bash bashrc" = @{
+    "source" = "$env:DOTFILES_PATH\git-bash\.bashrc"
+    "target" = "$HOME\.bashrc"
+  }
+
+  "Git Bash inputrc" = @{
+    "source" = "$env:DOTFILES_PATH\git-bash\.inputrc"
+    "target" = "$HOME\.inputrc"
+  }
+
+  "Git Bash minttyrc" = @{
+    "source" = "$env:DOTFILES_PATH\git-bash\.minttyrc"
+    "target" = "$HOME\.minttyrc"
+  }
+
   "Lazygit config" = @{
     "source" = "$env:DOTFILES_PATH\lazygit-config.yml"
     "target" = "$HOME\AppData\Local\lazygit\config.yml"

@@ -1,0 +1,15 @@
+set editing-mode vi
+set show-mode-in-prompt on
+# bar cursor in insert, block in normal
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
+# fast Esc (zsh had ZVM_ESCAPE_KEYTIMEOUT=0.001). Raise to 50 if arrow keys misbehave
+set keyseq-timeout 10
+
+set completion-ignore-case on
+set show-all-if-ambiguous on
+set bell-style none
+
+$if mode=vi
+  set keymap vi-insert
+$endif
