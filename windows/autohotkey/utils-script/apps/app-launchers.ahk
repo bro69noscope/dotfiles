@@ -80,6 +80,11 @@ ActivateVSCode() {
   )
 }
 
+ActivateObsidian() {
+  idMethod := () => WinExist("ahk_exe Obsidian.exe")
+  return ActivateOrRun(idMethod, ScoopApps "obsidian\current\Obsidian.exe")
+}
+
 ActivatePowerShell() {
   idMethod := () => WinExist("ahk_exe WindowsTerminal.exe", , StreamingRepoServerName)
   return ActivateOrRun(idMethod, "pwsh")

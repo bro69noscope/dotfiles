@@ -30,6 +30,7 @@ LeaderCommands := Map(
   "g", ActivateSteam,
   "G", ActivateTobiiGhost,
   "h", ActivateGitBash,
+  "i", ActivateObsidian,
   "k", ActivateKovaaks,
   "l", ActivateDeadlock,
   "m", ActivateMailClient,
