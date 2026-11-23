@@ -1,6 +1,6 @@
 ---
 name: wtnew
-description: Create a new git worktree and llm/-prefixed branch, enter it, and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtnew (-b <branch> | -a) [task].
+description: Create a new git worktree and __llm/-prefixed branch, enter it, and stay in it until the user sends /wtout (one turn) or /wtoff. Usage: /wtnew (-b <branch> | -a) [task].
 disable-model-invocation: true
 ---
 
@@ -19,30 +19,31 @@ then, the hook denies file writes outside the session scratchpad. After the lock
 is the same as `-a`. The option can come anywhere in the arguments. All other text is the task.
 Never read a branch name from the task text.
 
-Every branch gets the `llm/` prefix.
+Every branch gets the `__llm/` prefix. If the name already starts with `__llm/`, do not add it
+again.
 
-- `-b <branch>`: the branch is `llm/<branch>`.
-- `-a`: the branch is `llm/<current branch>`. Get the current branch with
+- `-b <branch>`: the branch is `__llm/<branch>`.
+- `-a`: the branch is `__llm/<current branch>`. Get the current branch with
   `git branch --show-current` in the session cwd. If it is empty (detached HEAD), ask the user.
 - Neither: ask the user for `-b <branch>` or `-a`, and stop.
 
 ```
-/wtnew -b feat/wt add the pull command   ->  branch llm/feat/wt, task "add the pull command"
-/wtnew -b llm/feat/wt                    ->  branch llm/feat/wt
-/wtnew -a fix the parser                 ->  on feat/wt: branch llm/feat/wt
+/wtnew -b feat/wt add the pull command   ->  branch __llm/feat/wt, task "add the pull command"
+/wtnew -b __llm/feat/wt                  ->  branch __llm/feat/wt
+/wtnew -a fix the parser                 ->  on feat/wt: branch __llm/feat/wt
 /wtnew fix the parser                    ->  ask the user
 ```
 
 If the branch does not exist, create it at the commit the session is on now (step 2).
 
 The worktree directory is the branch name with each `/` replaced by `_`. Each `-` stays as it is.
-Thus every worktree directory starts with `llm_`, and all worktrees stay flat in one directory:
+Thus every worktree directory starts with `__llm_`, and all worktrees stay flat in one directory:
 
 | Branch                    | Worktree directory                            |
 | ------------------------- | --------------------------------------------- |
-| `llm/feat/wt`             | `.claude/worktrees/llm_feat_wt`               |
-| `llm/fix-typo`            | `.claude/worktrees/llm_fix-typo`              |
-| `llm/fix/llm-wt-reset`    | `.claude/worktrees/llm_fix_llm-wt-reset`      |
+| `__llm/feat/wt`           | `.claude/worktrees/__llm_feat_wt`             |
+| `__llm/fix-typo`          | `.claude/worktrees/__llm_fix-typo`            |
+| `__llm/fix/llm-wt-reset`  | `.claude/worktrees/__llm_fix_llm-wt-reset`    |
 
 ## Steps
 
@@ -79,9 +80,9 @@ Thus every worktree directory starts with `llm_`, and all worktrees stay flat in
   other worktree, if the prompt starts with `/wtout`, or after the user sent `/wtoff`.
 
   ```
-  locked worktree:  C:/Users/ville/myfiles/dotfiles/nvim-config3.0/.claude/worktrees/llm_testing_main
+  locked worktree:  C:/Users/ville/myfiles/dotfiles/nvim-config3.0/.claude/worktrees/__llm_testing_main
   user names:       C:\Users\ville\myfiles\dotfiles\nvim-config3.0.worktrees\testing_main\lua\modules\snacks\picker\explorer\explorer-config.lua
-  edit:             C:/Users/ville/myfiles/dotfiles/nvim-config3.0/.claude/worktrees/llm_testing_main/lua/modules/snacks/picker/explorer/explorer-config.lua
+  edit:             C:/Users/ville/myfiles/dotfiles/nvim-config3.0/.claude/worktrees/__llm_testing_main/lua/modules/snacks/picker/explorer/explorer-config.lua
   ```
 
 Arguments: $ARGUMENTS
