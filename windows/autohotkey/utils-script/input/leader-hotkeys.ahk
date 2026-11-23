@@ -27,6 +27,7 @@ LeaderCommands := Map(
   "f", ActivateStreamFeedApp,
   "F", ActivateStreamFeedAppDebug,
   ".f", (*) => ActivateStreamFeedApp("center"),
+  "h", ActivateGitBash,
   "g", ActivateSteam,
   "G", ActivateTobiiGhost,
   "k", ActivateKovaaks,

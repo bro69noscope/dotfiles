@@ -123,6 +123,23 @@ ActivateCalculator() {
   return ActivateOrRun(idMethod, "calculator:")
 }
 
+; Windows gives the path through the version folder (apps\git\2.56.0.4\...), not through the
+; "current" junction, so an exact ahk_exe path never matches.
+FindGitBashWindow(gitAppDir) {
+  for hwnd in WinGetList("ahk_exe mintty.exe") {
+    try
+      if InStr(WinGetProcessPath(hwnd), gitAppDir) = 1
+        return hwnd
+  }
+  return 0
+}
+
+ActivateGitBash() {
+  gitAppDir := ScoopPath "apps\git\"
+  return ActivateOrRun(() => FindGitBashWindow(gitAppDir), gitAppDir "current\git-bash.exe"
+  )
+}
+
 ActivateVlc() {
   idMethod := () => WinExist("ahk_exe vlc.exe")
   return ActivateOrRun(idMethod, StartMenuPathScoopApps "VLC media player.lnk")
@@ -189,7 +206,7 @@ ActivateExplorer() {
 
 ActivateNeovide() {
   idMethod := () => FindWinitMainWindow("neovide.exe")
-  return ActivateOrRun(idMethod, "C:\Users\ville\scoop\shims\neovide.exe")
+  return ActivateOrRun(idMethod, ScoopPath "shims\neovide.exe")
 }
 
 QuickSetup(mode := "simple") {
