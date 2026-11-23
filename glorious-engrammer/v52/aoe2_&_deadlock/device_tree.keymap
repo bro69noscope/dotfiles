@@ -340,8 +340,8 @@
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ WHT WHT WHT GDN                                     ___ DOR COR COR ___ ___
           WHT MAJ CYN GRN YLW GDN                                     BLU AZU AZU AZU AZU ___
-          WHT YLW PUR PUR ___ GDN     ___ ___ ___     ___ LAC LAC     BLU ORN PUR PUR ORN ___
-          WHT ___ PUR PUR PUR         RED ___ ___     WHT LAC RED         WHT COR COR WHT ___
+          WHT YLW PUR PUR GDN GDN     ___ ___ ___     ___ LAC LAC     BLU ORN PUR PUR ORN ___
+          WHT GDN PUR PUR PUR         RED ___ ___     WHT LAC RED         WHT COR COR WHT ___
         >;
         layer-id = <LAYER_Cursor>;
       };
@@ -462,11 +462,11 @@
       #ifdef LAYER_System
       System {
         bindings = <
-          ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
+          PNK AZU SPG GDN COR                                             ___ ___ ___ ___ ___
+          PNK AZU SPG GDN COR DOR                                     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ PNK AZU SPG GDN COR                                     ___ ___ ___ ___ ___ ___
-          ___ PNK AZU SPG GDN COR                                     ___ YLW GRN CYN MAJ ___
-          ___ ___ BLU BLU BLU COR     PUR PUR PUR     ___ ___ RED     ___ ___ ___ ___ ___ ___
+          ___ ___ ___ GDN ___ ___                                     ___ YLW GRN CYN MAJ ___
+          ___ ___ ___ ___ ___ ___     DOR DOR DOR     ___ ___ RED     ___ ___ ___ ___ ___ ___
           ___ ___ ___ ___ ORN         SCL SNL SSL     ___ ___ ___         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_System>;
