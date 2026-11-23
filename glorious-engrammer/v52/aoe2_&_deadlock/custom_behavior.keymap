@@ -3270,6 +3270,13 @@ behaviors {
     mods = <(MOD_LSFT|MOD_RSFT)>;
   };
 
+  bslh_or_spaced_bslh: bslh_or_spaced_bslh {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp BSLH>, <&sp_bslh>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+  };
+
   star_or_spaced_star: star_or_spaced_star {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
@@ -3495,6 +3502,12 @@ macros {
     wait-ms = <0>;
     tap-ms = <0>;
     bindings = <&macro_tap &kp SPACE &kp FSLH &kp SPACE>;
+  )
+
+  ZMK_MACRO(sp_bslh,
+    wait-ms = <0>;
+    tap-ms = <0>;
+    bindings = <&macro_tap &kp SPACE &kp BSLH &kp SPACE>;
   )
 
   ZMK_MACRO(sp_star,

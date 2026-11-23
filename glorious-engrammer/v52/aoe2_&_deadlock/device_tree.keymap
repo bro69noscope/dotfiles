@@ -340,8 +340,8 @@
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
           ___ ___ WHT WHT WHT GDN                                     ___ DOR COR COR ___ ___
           WHT MAJ CYN GRN YLW GDN                                     BLU AZU AZU AZU AZU ___
-          WHT RED PUR PUR LAC GDN     ___ ___ ___     WHT WHT WHT     BLU ORN PUR PUR ORN ___
-          WHT PNK PUR PUR PUR         RED ___ ___     WHT WHT WHT         ___ COR COR PNK ___
+          WHT YLW PUR PUR ___ GDN     ___ ___ ___     ___ LAC LAC     BLU ORN PUR PUR ORN ___
+          WHT ___ PUR PUR PUR         RED ___ ___     WHT LAC RED         WHT COR COR WHT ___
         >;
         layer-id = <LAYER_Cursor>;
       };
@@ -352,10 +352,10 @@
         bindings = <
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ PNK PNK PNK PNK PNK                                     TUR ORN ORN ORN BLU ___
-          ___ MAJ CYN GRN YLW PNK                                     AZU ORN ORN ORN PNK AZU
-          WHT COR COR COR COR PNK     ___ ___ ___     ___ LAC LAC     AZU ORN ORN ORN BLU ___
-          ___ YLW PNK PNK PNK         ___ RED ___     LAC LAC ORN         ___ PNK PNK YLW ___
+          ___ PNK PNK PNK PNK PNK                                     TUR ORN ORN ORN COR ___
+          PNK MAJ CYN GRN YLW PNK                                     AZU ORN ORN ORN YLW AZU
+          COR COR COR COR COR PNK     ___ ___ ___     ___ LAC LAC     AZU ORN ORN ORN COR ___
+          ___ WHT TEA TEA PNK         ___ RED ___     LAC LAC ORN         ___ TEA TEA ___ ___
         >;
         layer-id = <LAYER_Number>;
       };
@@ -478,10 +478,10 @@
         bindings = <
           ___ ___ ___ ___ ___                                             ___ ___ ___ ___ ___
           ___ ___ ___ ___ ___ ___                                     ___ ___ ___ ___ ___ ___
-          ___ SPG AZU AZU AZU ___                                     ___ ___ CYN CYN ___ ___
-          AZU AZU AZU AZU AZU ___                                     ___ YLW GRN GRN YLW ___
-          AZU AZU SPG SPG AZU ___     ___ ___ ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
-          SPG SPG SPG SPG SPG         ___ ___ ___     ___ ___ RED         RED ___ ___ ___ ___
+          ___ ___ AZU AZU AZU SPG                                     ___ ___ CYN CYN ___ ___
+          ___ AZU AZU AZU AZU SPG                                     ___ YLW GRN GRN YLW ___
+          SPG SPG SPG SPG SPG SPG     ___ WHT ___     ___ ___ ___     ___ ___ ___ ___ ___ ___
+          SPG SPG ___ ___ ___         WHT ___ WHT     ___ ___ RED         ___ ___ ___ ___ ___
         >;
         layer-id = <LAYER_World>;
       };
