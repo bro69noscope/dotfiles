@@ -11,7 +11,7 @@ ActivateAlacritty() {
   if hwnd
     return FocusWindow(hwnd)
 
-  Run(ScoopPath "apps\alacritty\current\alacritty.exe")
+  Run(ScoopApps "alacritty\current\alacritty.exe")
   prevHwnd := WinExist("A")
   if !ActivateWhenReady(idMethod, { timeout: 3000, isLaunch: true })
     return false
