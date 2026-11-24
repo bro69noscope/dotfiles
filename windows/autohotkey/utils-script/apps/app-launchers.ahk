@@ -13,6 +13,11 @@
 ; and a run command. Launchers that need their own activate or launch flow go in
 ; special-launchers.ahk.
 
+ActivateImageGlass() {
+  idMethod := () => WinExist("ahk_exe ImageGlass.exe")
+  return ActivateOrRun(idMethod, ScoopApps "imageglass\current\ImageGlass.exe")
+}
+
 ActivateLosslessCut() {
   idMethod := () => WinExist("ahk_exe LosslessCut.exe")
   return ActivateOrRun(idMethod, StartMenuPathRoaming "LosslessCut.lnk")
@@ -88,6 +93,11 @@ ActivateObsidian() {
 ActivatePowerShell() {
   idMethod := () => WinExist("ahk_exe WindowsTerminal.exe", , StreamingRepoServerName)
   return ActivateOrRun(idMethod, "pwsh")
+}
+
+ActivatePaint() {
+  idMethod := () => WinExist("ahk_exe mspaint.exe")
+  return ActivateOrRun(idMethod, "mspaint.exe")
 }
 
 ActivateNotepad() {
