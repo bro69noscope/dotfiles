@@ -79,3 +79,9 @@ desc = "Merge current tab to other projects"
 on = ["P", "M"]
 run = "plugin projects 'merge all'"
 desc = "Merge current project to other projects"
+
+# yank img content
+[[mgr.prepend_keymap]]
+on = "<C-y>"
+run = 'shell --block -- powershell -NoProfile -STA -File "%AppData%\yazi\config\scripts\copy-img-contents.ps1" %h'
+desc = "Copy image data to clipboard"
