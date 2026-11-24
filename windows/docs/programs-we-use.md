@@ -31,3 +31,9 @@ Tool: [Ditto](https://sabrogden.github.io/Ditto/)
 Tool: [RBTray](https://github.com/benbuck/rbtray)
 
 Use it to move apps that pollute the Alt-Tab view to the system tray.
+
+## Image viewer
+
+Tool: [ImageGlass](https://imageglass.org/)
+
+It opens images faster than the Windows **Photos** app.
