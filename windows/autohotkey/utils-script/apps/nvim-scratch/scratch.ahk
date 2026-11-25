@@ -1,10 +1,12 @@
 #Include ..\..\core\config.ahk
 
+NvimCfgEnvVar := "NVIM_CONFIG_PATH"
+
 GetNvimConfigPath() {
-  path := EnvGet("NVIM_CONFIG_PATH")
+  path := EnvGet(NvimCfgEnvVar)
   if path = "" {
     path := "C:/Users/ville/myfiles/dotfiles/nvim-config3.0"
-    MsgBox("NVIM_CONFIG_PATH env var is not set, falling back to:`n" path,
+    MsgBox(NvimCfgEnvVar " env var is not set, falling back to:`n" path,
       "nvim-scratch", "Icon!")
   }
   return StrReplace(path, "\", "/")
