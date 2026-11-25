@@ -119,7 +119,7 @@ function M.apply_to_config(config)
     local process_icon = process_icons[process_name] or ""
     local tab_number = tab.tab_index + 1
     local is_zoomed = tab.active_pane.is_zoomed
-    local zoom_icon = is_zoomed and "\u{e00e} " or ""
+    local zoom_icon = is_zoomed and "\u{f531} " or ""
     local os_icon = ""
     if process_name == "wslhost" then
       os_icon = "🐧"
