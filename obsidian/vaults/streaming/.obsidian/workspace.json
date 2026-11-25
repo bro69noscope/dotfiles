@@ -1,0 +1,248 @@
+{
+  "main": {
+    "id": "2fcf6f79c3a85b96",
+    "type": "split",
+    "children": [
+      {
+        "id": "f129559c6760f99f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c7f26609614bf863",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Streaming/Plugins and settings records/Ftp plugins.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Ftp plugins"
+            }
+          },
+          {
+            "id": "e3bb16f7e7ac98a7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Streaming/Code/todo/Nvim config.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Nvim config"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "737deb310c840dc7",
+    "type": "split",
+    "children": [
+      {
+        "id": "bf7c59cbde65c318",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "63341ba6d8999ade",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "53a04a2aada079f8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "47d350741fc2a4c1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "7e32b3d0c95d00d2",
+    "type": "split",
+    "children": [
+      {
+        "id": "b023af180be0daca",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0a1288b84d59a413",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Streaming/Code/todo/Nvim config.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "469099c98e2e71f3",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "9dc574ba64d94c71",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "7006509b8b2a0ef2",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "7c46f7210c11aedc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "obsidian-shellcommands:Shell commands: Custom variables": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-importer:Import notes": false,
+      "obsidian42-brat:BRAT": false
+    }
+  },
+  "active": "e3bb16f7e7ac98a7",
+  "lastOpenFiles": [
+    "README.md~",
+    "README.md",
+    "Streaming/Code/Code todos/Nvim config.md",
+    "Streaming/Code/Code todos/Llm-wt.md",
+    "Streaming/Code/Code todos/General.md",
+    "Streaming/Code/Code todos",
+    "Streaming/Code/todo/General.md",
+    "Streaming/Code/Code review process/External-.md",
+    "Streaming/Code/todo/Llm-wt.md",
+    "test.md",
+    "Streaming/Creative ideas/Interesting music/Videogames/Videogames.md",
+    "Streaming/Creative ideas/Interesting music/Videogames/Civ 6.md",
+    "Streaming/Creative ideas/Interesting music/Videogames/Smash Bros.md",
+    "Streaming/Plugins and settings records/Ftp plugins.md",
+    "Streaming/Plugins and settings records/OBS all plugins links.md",
+    "Streaming/Creative ideas/Interesting music/Anime/Naruto.md",
+    "attachments/smile.png",
+    "test2.md",
+    "Streaming/Code/todo/Nvim config.md",
+    "Streaming/Creative ideas/Interesting music/Anime/Ghost in the shell.md",
+    "Streaming/Creative ideas/Interesting music/Anime/One Piece.md",
+    "Streaming/Creative ideas/Interesting music/Anime/MY Hero Academia.md",
+    "Streaming/Creative ideas/Various Inspirations/Ideas/Top tier ideas (stream).md",
+    "test.md~",
+    "Streaming/Creative ideas/Interesting music/Anime/Code Geass.md",
+    "Streaming/Creative ideas/Interesting music/Anime/Anime.md",
+    "test2.md~",
+    "Top tier ideas (stream) image c6de6448962a46e9.png",
+    "attachments/test.png",
+    "attachments",
+    "Streaming/Workflow notes/Audition Voice Over processing steps.md",
+    "Streaming/Workflow notes",
+    "Streaming/Plugins and settings records/Production plugins.md",
+    "Streaming/Plugins and settings records",
+    "Streaming/Creative ideas/Various Inspirations/Music inspirations.md",
+    "Streaming/Creative ideas/Various Inspirations/Ideas",
+    "Streaming/Creative ideas/Various Inspirations/Inspirations",
+    "Streaming/Creative ideas/Various Inspirations",
+    "Streaming/Creative ideas/Interesting music/Specifics"
+  ]
+}

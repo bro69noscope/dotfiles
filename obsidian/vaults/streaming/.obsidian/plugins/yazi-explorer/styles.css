@@ -1,0 +1,1449 @@
+/* Yazi Explorer — miller 三欄浮動檔案瀏覽器 */
+
+.modal.yazi-modal {
+  width: 88vw;
+  max-width: 1400px;
+  height: 78vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Obsidian 預設會在 modal 裡塞 padding 與關閉鈕，這裡自己控版面 */
+.modal.yazi-modal .modal-close-button {
+  z-index: 2;
+}
+
+.yazi-root {
+  /* which-key 卡用 absolute 浮在三欄上面，定位基準在這裡 */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  font-family: var(--font-interface);
+  font-size: var(--font-ui-small);
+}
+
+.yazi-cols {
+  display: grid;
+  /* 父層窄、當前層寬、預覽最寬 —— 眼睛主要停在中間欄 */
+  grid-template-columns: 1fr 1.4fr 1.6fr;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.yazi-col {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 0;
+  border-right: 1px solid var(--background-modifier-border);
+}
+
+.yazi-col-preview {
+  border-right: none;
+  padding: 8px 12px;
+}
+
+.yazi-col-parent {
+  opacity: 0.62;
+}
+
+/* ── 列 ── */
+
+.yazi-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+/* 寬度從 0.9em 放寬到 1.3em：這一格現在也可能放 frontmatter 的分類 emoji，
+   而 emoji 比 `·` `▸` 寬。固定寬度（不是 auto）是為了讓有 emoji 的列與沒有的列
+   檔名還是對齊 —— 同一個資料夾裡混著 dashboard、task、一般筆記是常態。 */
+.yazi-row .yazi-icon {
+  flex: 0 0 auto;
+  width: 1.3em;
+  color: var(--text-faint);
+}
+
+.yazi-row.is-folder .yazi-icon {
+  color: var(--text-accent);
+}
+
+.yazi-row .yazi-name {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.yazi-row.is-folder .yazi-name {
+  color: var(--text-accent);
+  font-weight: 600;
+}
+
+.yazi-row .yazi-ext {
+  flex: 0 0 auto;
+  font-size: 0.78em;
+  color: var(--text-faint);
+  text-transform: uppercase;
+}
+
+.yazi-row.is-preview {
+  opacity: 0.72;
+}
+
+/* 兩行的列（儲存的檢視）：第二行是說明文字，換行到自己一行並對齊到圖示欄之後。
+   單行時 .yazi-sub 會被 .yazi-name 擠到只剩幾個字，而那一行正是要讀的內容。 */
+.yazi-row.is-twoline {
+  flex-wrap: wrap;
+  align-items: baseline;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.yazi-row.is-twoline .yazi-name {
+  flex: 1 1 auto;
+}
+
+.yazi-row.is-twoline .yazi-sub {
+  flex: 1 1 100%;
+  margin-left: calc(1.3em + 6px);   /* 圖示欄寬 + flex gap，讓第二行與名稱切齊 */
+  /* 單行版是 overflow:hidden + ellipsis（一行放不下就截斷）；兩行版要的是相反的
+     行為 —— 條件長就讓它折行，那正是要讀完的東西 */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  opacity: 0.8;
+}
+
+/* 關聯（gr）右欄最上面的摘要條：游標所指那則筆記有哪幾組關聯、各幾筆。
+   一般連結那兩組淡一點，因為它們不是人親手標的關係。 */
+.yazi-rel-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 8px;
+  padding: 0 0 6px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-size: 0.8em;
+}
+
+.yazi-rel-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: var(--background-modifier-hover);
+}
+
+.yazi-rel-chip.is-untyped {
+  opacity: 0.6;
+}
+
+.yazi-rel-chip-n {
+  font-weight: 600;
+  color: var(--text-accent);
+}
+
+.yazi-rel-none {
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+/* 關聯（gr）的分組標題。不是清單項目 —— 游標不會停在上面 */
+.yazi-group {
+  padding: 8px 10px 2px;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.yazi-group:first-child {
+  padding-top: 2px;
+}
+
+/* 大綱（go）：依標題層級縮排。層級是相對這篇最淺的那層算的（core/outline.js），
+   所以從 H2 開始的筆記不會整份先空一格。 */
+.yazi-row.is-outline.yazi-outline-d1 .yazi-name { padding-left: 1.2em; }
+.yazi-row.is-outline.yazi-outline-d2 .yazi-name { padding-left: 2.4em; }
+.yazi-row.is-outline.yazi-outline-d3 .yazi-name { padding-left: 3.6em; }
+.yazi-row.is-outline.yazi-outline-d4 .yazi-name { padding-left: 4.8em; }
+.yazi-row.is-outline.yazi-outline-d5 .yazi-name { padding-left: 6em; }
+
+/* 游標列：主欄用實心強調，父層欄用淡的，一眼分得出焦點在哪一欄 */
+.yazi-row.is-cursor {
+  background: var(--text-accent);
+  color: var(--text-on-accent);
+}
+
+.yazi-row.is-cursor .yazi-icon,
+.yazi-row.is-cursor .yazi-name,
+.yazi-row.is-cursor .yazi-ext {
+  color: var(--text-on-accent);
+}
+
+.yazi-row.is-active {
+  background: var(--background-modifier-hover);
+}
+
+/* 渲染失敗時的那一行。刻意留在內容上方而不是用 Notice：
+   Notice 幾秒就消失，而這個狀態會一直持續到換一個檔案。 */
+.yazi-preview-warn {
+  margin: 0 0 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--background-modifier-error);
+  color: var(--text-on-accent);
+  font-size: 0.82em;
+}
+
+.yazi-empty {
+  padding: 4px 12px;
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+/* ── 預覽 ── */
+
+.yazi-preview-text {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.yazi-preview-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.yazi-fileinfo,
+.yazi-help {
+  padding: 4px 0;
+}
+
+.yazi-help-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--text-normal);
+}
+
+.yazi-help-row {
+  display: flex;
+  gap: 12px;
+  padding: 2px 0;
+}
+
+.yazi-help-key {
+  flex: 0 0 9em;
+  font-family: var(--font-monospace);
+  color: var(--text-accent);
+}
+
+.yazi-help-desc {
+  color: var(--text-muted);
+}
+
+/* ── 底部狀態列 ── */
+
+/* 底部狀態列現在是兩列：上面是搜尋條件 chip，下面是原本的 路徑｜輸入列｜提示。
+   條件不能跟路徑擠同一行——路徑一長就會把 chip 推出畫面，而條件是絕對不能看不見的。 */
+.yazi-bar {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  padding: 6px 12px;
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+}
+
+.yazi-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.yazi-path {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-input-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.yazi-input-label {
+  color: var(--text-accent);
+  font-size: var(--font-ui-smaller);
+}
+
+input.yazi-input {
+  width: 22em;
+  height: 1.8em;
+  padding: 0 6px;
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-hint {
+  flex: 0 0 auto;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+  white-space: nowrap;
+}
+
+.yazi-hint.is-warn {
+  color: var(--text-error);
+  font-weight: 600;
+}
+
+/* ── 清單檢視（分頁 / 書籤 / 最近開啟）── */
+
+.yazi-row .yazi-sub {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8em;
+  color: var(--text-faint);
+}
+
+.yazi-row.is-cursor .yazi-sub {
+  color: var(--text-on-accent);
+  opacity: 0.8;
+}
+
+/* 書籤指向的路徑已不存在 */
+.yazi-name.is-missing {
+  text-decoration: line-through;
+  color: var(--text-error);
+}
+
+/* 說明表裡的分段標題（只有左欄有字） */
+.yazi-help-row.is-section {
+  margin-top: 6px;
+}
+
+.yazi-help-row.is-section .yazi-help-key {
+  flex: 1 1 auto;
+  color: var(--text-muted);
+  font-family: var(--font-interface);
+  font-weight: 600;
+}
+
+/* ══ 全文搜尋（gt）專用排版 ══════════════════════════════════════════ */
+
+/* 中欄要放「檔名＋三行上下文」，比單行列表寬得多；左欄只是圖例，可以縮 */
+.yazi-root.is-text-search .yazi-cols {
+  grid-template-columns: 0.7fr 1.7fr 1.8fr;
+}
+
+/* ── 中欄：一個結果一張卡 ── */
+
+.yazi-card {
+  padding: 6px 10px 7px;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--background-modifier-border);
+  cursor: default;
+}
+
+/* 游標卡刻意不用實心強調色 —— 那會把 highlight 的對比吃掉。改用左邊條＋淡底 */
+.yazi-card.is-cursor {
+  border-left-color: var(--text-accent);
+  background: var(--background-modifier-hover);
+}
+
+.yazi-card-name {
+  font-weight: 600;
+  color: var(--text-normal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.yazi-card-path {
+  font-size: 0.78em;
+  color: var(--text-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 3px;
+}
+
+/* ── 上下文行 ── */
+
+.yazi-ctx-line {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.45;
+}
+
+.yazi-ctx-num {
+  flex: 0 0 auto;
+  min-width: 3em;
+  text-align: right;
+  color: var(--text-faint);
+  user-select: none;
+}
+
+.yazi-ctx-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+/* ── 命中字 ── */
+
+.yazi-hit {
+  background: var(--text-highlight-bg, rgba(255, 208, 0, 0.35));
+  color: var(--text-normal);
+  border-radius: 2px;
+  font-weight: 700;
+}
+
+.yazi-card.is-cursor .yazi-ctx-text {
+  color: var(--text-normal);
+}
+
+/* ══ 說明頁（?）：三欄平均分配 ══════════════════════════════════════ */
+
+.yazi-root.is-help .yazi-cols {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.yazi-root.is-help .yazi-col {
+  padding: 8px 12px;
+}
+
+/* 說明頁的第一欄剛好住在 .yazi-col-parent 裡，會吃到它那個 opacity: 0.62。
+   那個淡化是為了讓「父資料夾」退到背景，但說明頁的三欄地位相同，
+   不該有一欄看起來比較淡。 */
+.yazi-root.is-help .yazi-col-parent {
+  opacity: 1;
+}
+
+/* 三欄各只有三分之一寬，按鍵欄要收窄，否則說明文字沒空間 */
+.yazi-root.is-help .yazi-help-key {
+  flex: 0 0 auto;
+  min-width: 7.5em;
+  max-width: 11em;
+}
+
+.yazi-root.is-help .yazi-help-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.yazi-root.is-help .yazi-help-row {
+  align-items: baseline;
+}
+
+/* 說明頁 / 搜尋的命中片段。用 <mark> 但不吃瀏覽器預設的黃底黑字 —— 那在深色主題
+   裡刺眼到會蓋過周圍的文字，而這裡要的是「看得出來」不是「跳出來」。 */
+.yazi-hit {
+  padding: 0 1px;
+  border-radius: 2px;
+  background: var(--text-highlight-bg, rgba(255, 208, 0, 0.35));
+  color: inherit;
+}
+
+.yazi-help-section {
+  margin: 10px 0 3px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-weight: 700;
+  color: var(--text-accent);
+}
+
+.yazi-help-section:first-child {
+  margin-top: 0;
+}
+
+/* ── 多選 / 剪貼簿（2026-09-16）────────────────────────────────────── */
+
+/* 選取：左緣一條粗線 + 淡底。刻意不用背景強調色 —— 那是游標列在用的，
+   兩者會同時出現在同一列（選取的那一列也可能正好是游標），必須分得開。 */
+.yazi-row.is-selected {
+  background: var(--background-modifier-hover);
+  box-shadow: inset 2px 0 0 var(--text-accent);
+}
+
+.yazi-row.is-selected .yazi-icon {
+  color: var(--text-accent);
+}
+
+/* 游標剛好停在已選取的列時，游標樣式仍要贏（底色由 is-cursor 覆蓋），
+   只留左緣那條線表示「這一列也在選取裡」 */
+.yazi-row.is-selected.is-cursor {
+  background: var(--text-accent);
+}
+
+/* 在剪貼簿裡：剪下的淡掉（它等一下就不在這裡了），複製的只加標記 */
+.yazi-row.is-cut {
+  opacity: 0.55;
+}
+
+.yazi-row .yazi-mark {
+  flex: 0 0 auto;
+  font-size: 0.85em;
+  color: var(--text-accent);
+}
+
+.yazi-row.is-cursor .yazi-mark {
+  color: var(--text-on-accent);
+}
+
+/* ─────────── 工作專案 frontmatter 的行內標記（main.js 的 renderFmTail）─────────
+   右緣那一小段：📌 / ⏰ / 狀態 / P0-P1。順序固定，眼睛掃右緣時位置才穩定。 */
+.yazi-row .yazi-fm {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.78em;
+}
+
+.yazi-row .yazi-fm-status {
+  color: var(--text-muted);
+}
+
+/* P0 用 error、P1 用 warning：直接吃主題變數，換主題不用回來改 */
+.yazi-row .yazi-fm-prio {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.yazi-row .yazi-fm-prio.is-p0 {
+  color: var(--text-error);
+}
+
+.yazi-row .yazi-fm-prio.is-p1 {
+  color: var(--text-warning);
+}
+
+/* 已完成 / 已取消 / 已封存 / 已消化：整列退到背景去。
+   刻意不隱藏 —— 制度上這些東西「看得到但退場」（手冊 §3），藏起來會讓人以為檔案不見了 */
+.yazi-row.is-fm-dim {
+  opacity: 0.45;
+}
+
+/* 游標列一律吃 on-accent，否則 P0 的紅字壓在強調色底上會看不清楚 */
+.yazi-row.is-cursor .yazi-fm,
+.yazi-row.is-cursor .yazi-fm-status,
+.yazi-row.is-cursor .yazi-fm-prio {
+  color: var(--text-on-accent);
+}
+
+.yazi-row.is-cursor.is-fm-dim {
+  opacity: 0.8;
+}
+
+/* 預覽欄上方的 frontmatter 表：跟底下的檔案資訊用一條線分開 */
+.yazi-fm-panel {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+/* ══ 搜尋條件（facet）══════════════════════════════════════════════
+   設計理由見 main.js 的 FACETS 常數：條件必須看得見、可單獨拿掉，
+   而不是藏在一串查詢文字裡。 */
+
+.yazi-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  white-space: nowrap;
+}
+
+.yazi-chip-x {
+  cursor: pointer;
+  color: var(--text-faint);
+  font-size: 0.85em;
+}
+
+.yazi-chip-x:hover {
+  color: var(--text-error);
+}
+
+.yazi-chip-hint {
+  color: var(--text-faint);
+}
+
+/* 筆數貼右：「全部 → 現在」。加條件前就看得到會剩幾筆 */
+.yazi-count {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  white-space: nowrap;
+}
+
+/* ── 建議列（左欄，取代圖例）── */
+
+.yazi-sug-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.yazi-sug-row.is-cursor {
+  background: var(--text-accent);
+  color: var(--text-on-accent);
+}
+
+/* 直接鍵印在每一列上：快的那條路不必另外去背 */
+.yazi-sug-key {
+  flex: 0 0 auto;
+  min-width: 2.2em;
+  font-family: var(--font-monospace);
+  color: var(--text-accent);
+}
+
+.yazi-sug-row.is-cursor .yazi-sug-key,
+.yazi-sug-row.is-cursor .yazi-sug-count,
+.yazi-sug-row.is-cursor .yazi-sug-note {
+  color: var(--text-on-accent);
+}
+
+.yazi-sug-text {
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 份數：錯字會以「某個值只有 1 筆」的形狀現形（同 dashboard 的標籤軸） */
+.yazi-sug-count {
+  flex: 0 0 auto;
+  color: var(--text-faint);
+  font-family: var(--font-monospace);
+}
+
+.yazi-sug-note {
+  flex: 0 0 auto;
+  color: var(--text-faint);
+}
+
+/* 正則寫壞時當場說 —— 原生搜尋在這裡是靜默的，那正是它最勸退的地方 */
+.yazi-sug-text.is-bad,
+.yazi-sug-note.is-bad {
+  color: var(--text-error);
+}
+
+/* ══ 搜尋組合卡（gt / gf）══════════════════════════════════════════
+   第一版把輸入列放右下、說明放左欄、條件放左下，組一個查詢要同時盯三個角落。
+   這裡把四件事收進同一張置中的卡：標題 → 查詢盒 → 筆數 → 建議 → 提示。
+   gd（找資料夾）不進這張卡 —— 資料夾沒有 frontmatter 也沒有標籤。 */
+
+.yazi-composer {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 16px 16px;
+  overflow-y: auto;
+}
+
+.yazi-cs-card {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yazi-cs-title {
+  font-weight: 700;
+  color: var(--text-normal);
+}
+
+/* 條件與輸入列在同一個框裡：它們是同一件事的兩半，分開放就是上一版的病 */
+.yazi-cs-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-primary);
+}
+
+.yazi-cs-box:focus-within {
+  border-color: var(--text-accent);
+}
+
+.yazi-cs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: var(--font-ui-smaller);
+}
+
+/* 卡片裡的輸入列吃滿寬度（在底部狀態列時是固定 22em） */
+.yazi-cs-box .yazi-input-wrap {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.yazi-cs-box input.yazi-input {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 2.1em;
+  font-size: var(--font-ui-small);
+  background: transparent;
+  border: none;
+}
+
+.yazi-cs-box input.yazi-input:focus {
+  box-shadow: none;
+}
+
+.yazi-cs-meta {
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+}
+
+/* 建議緊接在查詢盒底下，視線不用移開 */
+.yazi-cs-sug:not(:empty) {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 4px 6px;
+  background: var(--background-primary);
+  max-height: 42vh;
+  overflow-y: auto;
+}
+
+.yazi-cs-hint {
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* 結果階段的摘要列上，關鍵字那顆不畫成 chip 的樣子——它不是可以 ✕ 掉的條件 */
+.yazi-chip.is-query {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-normal);
+  font-weight: 600;
+  padding-left: 0;
+}
+
+/* 範圍 chip：永遠在、樣式與可刪的條件 chip 區分開 —— 它不是「一條可以拿掉的條件」，
+   而是「這次搜尋的地盤」，只會變寬變窄 */
+.yazi-chip.is-scope {
+  background: var(--background-modifier-border);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* ══ 左欄圖例（清單／搜尋結果檢視）══════════════════════════════════
+   兩個問題：① .yazi-col 只有垂直 padding，整塊圖例貼著左邊框；
+   ② 這一欄只有 1fr 寬，「鍵｜說明」並排會把說明擠成一行兩三個字，讀起來很累。
+   改成上下排：鍵在上、說明在下縮排，並用細線分列。
+   ⚠️ 只作用在**非說明頁**的父層欄 —— `?` 說明頁三欄等寬、本來就排得開，
+   而它的第一塊也住在 .yazi-col-parent 裡，不排除的話三欄會長得不一樣。 */
+
+.yazi-root:not(.is-help) .yazi-col-parent .yazi-help {
+  padding: 6px 12px;
+  /* 父層欄整體 opacity 0.62 是為了讓檔案列表退到背景，但圖例是要讀的 */
+  opacity: 0.95;
+}
+
+.yazi-root:not(.is-help) .yazi-col-parent .yazi-help-title {
+  padding-bottom: 5px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.yazi-root:not(.is-help) .yazi-col-parent .yazi-help-row {
+  display: block;
+  padding: 4px 0 6px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.yazi-root:not(.is-help) .yazi-col-parent .yazi-help-row:last-child {
+  border-bottom: none;
+}
+
+.yazi-root:not(.is-help) .yazi-col-parent .yazi-help-key {
+  display: block;
+  flex: none;
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+.yazi-root:not(.is-help) .yazi-col-parent .yazi-help-desc {
+  display: block;
+  padding-left: 12px;
+  line-height: 1.5;
+}
+
+/* ── 組合卡的結果預覽（前幾筆）────────────────────────────────────
+   只給「2378 → 4」這個數字答不出「是不是我要的那幾筆」，所以列出前幾筆讓人用眼睛確認。
+   刻意不可捲：列多了就變成結果清單，那是送出之後才該佔版面的東西。 */
+.yazi-cs-preview:not(:empty) {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 4px 4px;
+  background: var(--background-primary);
+}
+
+.yazi-cs-preview .yazi-row {
+  cursor: default;
+}
+
+.yazi-cs-more {
+  padding: 2px 10px 1px;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* 重算還在節流佇列裡：畫面上這些是上一個字的結果，說實話比裝作沒事好 */
+.yazi-cs-meta.is-stale,
+.yazi-cs-preview.is-stale {
+  opacity: 0.45;
+}
+
+/* ══ which-key 提示卡 ═══════════════════════════════════════════════
+   按下多鍵序列的第一顆（g / c / r / , / S / O / ' / 書籤的 m）之後浮出來，
+   列出「下一顆可以按什麼」。位置刻意在正中央而不是底部狀態列：這一刻畫面上
+   唯一要做的決定就是選下一顆鍵，它得落在眼睛正在看的地方（Surfingkeys 與
+   nvim which-key 都是這個位置）。底部那一列只留一行「O … 等下一顆鍵」。 */
+.yazi-keymenu {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 蓋住底下三欄但不吃滑鼠事件 —— 這是個鍵盤介面，點它沒有任何意義，
+     而攔下點擊會讓「按 Esc 之前不小心點到」變成什麼都沒發生 */
+  pointer-events: none;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.yazi-km-card {
+  min-width: 320px;
+  max-width: min(720px, 86%);
+  max-height: 72%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 10px;
+  background: var(--background-primary);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+
+.yazi-km-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  /* 路徑可能很長，讓它換行而不是把卡片撐爆 */
+  flex-wrap: wrap;
+}
+
+.yazi-km-prefix {
+  font-family: var(--font-monospace);
+  font-weight: 700;
+  font-size: 1.15em;
+  color: var(--text-accent);
+}
+
+.yazi-km-desc {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  overflow-wrap: anywhere;
+}
+
+/* 直向排、排滿一欄才換下一欄：掃一欄比掃一列快，鍵的順序在視覺上也是連續的。
+   --km-rows 由 renderKeyMenu() 依項目數算好塞進來。 */
+.yazi-km-items {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(var(--km-rows, 6), auto);
+  gap: 2px 22px;
+  justify-content: start;
+}
+
+.yazi-km-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.yazi-km-key {
+  flex: 0 0 auto;
+  min-width: 1.6em;
+  text-align: center;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  font-family: var(--font-monospace);
+  font-weight: 600;
+  color: var(--text-accent);
+}
+
+.yazi-km-label {
+  color: var(--text-normal);
+  white-space: nowrap;
+}
+
+.yazi-km-hint {
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* ══ 預覽欄的渲染 markdown（,p）═════════════════════════════════════
+   吃 Obsidian 自己的 .markdown-rendered 樣式（標題、清單、程式碼區塊都跟閱讀檢視
+   一致），這裡只調「塞進一個窄欄」需要的部分。 */
+.yazi-preview-md {
+  font-size: var(--font-ui-small);
+  line-height: 1.55;
+  /* 預覽欄只有畫面的 1.6/4 寬，標題用閱讀檢視的尺寸會佔掉整格 */
+  --h1-size: 1.4em;
+  --h2-size: 1.25em;
+  --h3-size: 1.1em;
+  --h4-size: 1em;
+}
+
+.yazi-preview-md > :first-child {
+  margin-top: 0;
+}
+
+/* 表格是做這個功能的主因（純文字版會跑版）。窄欄放不下就讓它自己橫捲，
+   不要把整個預覽欄撐寬——欄寬是 grid 給的，撐寬會把中間欄擠掉。 */
+.yazi-preview-md table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 0.92em;
+}
+
+.yazi-preview-md th,
+.yazi-preview-md td {
+  /* 儲存格內容不硬換行，寧可整張表橫捲——中文表格逐字斷行會完全讀不出欄位 */
+  white-space: nowrap;
+}
+
+/* 程式碼區塊同理：橫捲而不是撐寬 */
+.yazi-preview-md pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.yazi-preview-md img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 內嵌與行內查詢被換掉之後留下的佔位字：看得出來「這裡原本有東西」但不搶戲 */
+.yazi-preview-md code {
+  word-break: break-word;
+}
+
+/* 日記列右邊的日期小字。不縮：標題再長也不能把日期擠掉——那是唯一的排序線索，
+   而標題本來就有 ellipsis 可以截。等寬數字讓上下列的日期對齊成一欄。 */
+.yazi-row .yazi-sub.is-date {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ══ 設定頁 ═══════════════════════════════════════════════════════
+   左側分頁 ＋ 右側內容。規則清單用可收合的卡片：收合時一眼看完十條規則，
+   展開才編輯細節 —— 全部攤開的表單會變成捲十屏、找不到東西的頁面。 */
+
+.yazi-settings .yazi-set-layout {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  /* 手機／窄視窗：分頁改成橫向一排 chip */
+  .yazi-settings .yazi-set-layout { grid-template-columns: 1fr; }
+  .yazi-settings .yazi-set-nav { flex-direction: row; flex-wrap: wrap; }
+  .yazi-settings .yazi-set-nav-item { flex: 0 0 auto; }
+}
+
+.yazi-set-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: 0;
+}
+
+.yazi-set-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.yazi-set-nav-item:hover { background: var(--background-modifier-hover); }
+
+.yazi-set-nav-item.is-active {
+  background: var(--background-modifier-active-hover, var(--background-modifier-hover));
+  color: var(--text-normal);
+  font-weight: 600;
+}
+
+.yazi-set-nav-icon { width: 1.3em; text-align: center; }
+
+.yazi-set-pane { min-width: 0; }
+
+/* ── 每一段的標題列 ── */
+
+.yazi-set-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.yazi-set-head h3 { margin: 0 0 4px; }
+
+.yazi-set-desc {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.5;
+}
+
+.yazi-set-tools { display: flex; gap: 6px; flex: 0 0 auto; }
+
+/* ── 規則卡 ── */
+
+.yazi-set-list { display: flex; flex-direction: column; gap: 6px; }
+
+.yazi-set-card {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-primary);
+  overflow: hidden;
+}
+
+.yazi-set-card.is-off { opacity: 0.55; }
+
+.yazi-set-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.yazi-set-card-head:hover { background: var(--background-modifier-hover); }
+
+.yazi-set-caret {
+  color: var(--text-faint);
+  width: 1em;
+  flex: 0 0 auto;
+}
+
+/* 鍵位徽章：等寬、固定寬度，上下列才會對齊成一欄 */
+.yazi-set-key {
+  flex: 0 0 auto;
+  min-width: 1.8em;
+  text-align: center;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  font-family: var(--font-monospace);
+  font-weight: 600;
+  color: var(--text-accent);
+}
+
+.yazi-set-card-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.yazi-set-card-name { font-weight: 600; }
+
+.yazi-set-card-sub {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-set-card-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.yazi-set-card-actions button {
+  padding: 2px 8px;
+  font-size: var(--font-ui-smaller);
+}
+
+/* 收合狀態：高度 0 但保留在 DOM 裡，展開不必重建（輸入中的值不會掉） */
+.yazi-set-card-body {
+  display: none;
+  padding: 4px 12px 10px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.yazi-set-card-body.is-open { display: block; }
+
+/* 卡片裡的 Setting 改成**上下堆疊**：說明在上、控制項在下。
+   Obsidian 預設是左右兩欄（說明｜控制項），那在這裡會壞掉 —— 有幾列放了兩三個控制項
+   （命中條件的「欄位 ＋ 值」、圖示的「來源 ＋ 欄位 ＋ 對照表」），控制欄一撐開，左邊的
+   說明欄就被擠到接近 0 寬，長說明變成一個字一行往下堆，畫面上看起來是一大塊空白。
+   卡片本來就窄，堆疊反而讀得更順。 */
+.yazi-set-card-body .setting-item {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  padding: 10px 0;
+  border: none;
+}
+
+.yazi-set-card-body .setting-item + .setting-item {
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.yazi-set-card-body .setting-item-info {
+  margin-right: 0;
+  width: 100%;
+}
+
+.yazi-set-card-body .setting-item-description {
+  padding-top: 2px;
+  line-height: 1.45;
+}
+
+.yazi-set-card-body .setting-item-control {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+
+/* 並排的輸入框不要互相擠壓，textarea 吃滿一行 */
+.yazi-set-card-body .setting-item-control input[type="text"] {
+  flex: 1 1 12em;
+  min-width: 8em;
+}
+
+.yazi-set-card-body .setting-item-control textarea {
+  flex: 1 1 100%;
+  width: 100%;
+}
+
+.yazi-set-add {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* 檢視卡裡的條件 chip。只能刪不能加（加條件要回瀏覽器，見 viewCard 的說明） */
+.yazi-set-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 0 4px;
+}
+
+.yazi-set-chips-label {
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin-right: 2px;
+}
+
+.yazi-set-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px 2px 8px;
+  border-radius: 10px;
+  background: var(--background-modifier-hover);
+  font-size: 0.85em;
+}
+
+.yazi-set-chip.is-empty {
+  padding-right: 8px;
+  color: var(--text-faint);
+  font-style: italic;
+}
+
+.yazi-set-chip button {
+  padding: 0 4px;
+  border: none;
+  background: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+.yazi-set-chip button:hover {
+  color: var(--text-error);
+}
+
+.yazi-set-chips + .yazi-set-desc,
+.yazi-set-chips .yazi-set-desc {
+  flex-basis: 100%;
+  margin-top: 4px;
+}
+
+.yazi-set-empty {
+  padding: 18px;
+  text-align: center;
+  color: var(--text-faint);
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: 8px;
+}
+
+.yazi-set-warn {
+  margin: 6px 0;
+  padding: 6px 10px;
+  border-left: 3px solid var(--text-warning, orange);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+/* 佔位字表：點一下複製 */
+.yazi-set-ph {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-set-ph-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.yazi-set-ph-row {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 1px 0;
+  color: var(--text-muted);
+}
+
+.yazi-set-ph-row code {
+  flex: 0 0 8.5em;
+  cursor: pointer;
+  color: var(--text-accent);
+}
+
+.yazi-set-args,
+.yazi-set-import {
+  width: 100%;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-set-stats {
+  margin-top: 12px;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* 規則卡裡的「進階（JSON）」區：巢狀資料用表單編會變成一頁三十個輸入框，
+   這裡誠實給 JSON，順便讓整條規則可以直接複製給別人。 */
+.yazi-set-adv {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+}
+
+.yazi-set-adv .yazi-set-desc { margin: 2px 0 6px; }
+.yazi-set-adv textarea { margin-bottom: 6px; }
+
+/* 規則卡裡的「畫出來像這樣」：用真的 .yazi-row 樣式畫一列示範 —— 規則的 schema
+   是抽象的，看表單想像不出結果，畫出來就不必想像。 */
+.yazi-set-demo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+}
+
+.yazi-set-demo-label {
+  flex: 0 0 auto;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+.yazi-set-demo .yazi-row {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: var(--background-primary);
+  border-radius: 4px;
+}
+
+.yazi-set-add-label {
+  align-self: center;
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+
+/* 鍵位頁的命令清單 */
+.yazi-set-cmds {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 8px 0;
+}
+
+.yazi-set-cmd-row {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: var(--background-secondary);
+}
+
+.yazi-set-cmd-name { font-family: var(--font-monospace); font-size: var(--font-ui-smaller); }
+
+/* 鍵位覆寫：寫壞的那幾行當場標出來（哪一行、原文、為什麼），
+   而不是靜靜不生效 —— 後者會讓人以為是 plugin 壞了。 */
+.yazi-set-km-errors:not(:empty) {
+  margin: 8px 0;
+}
+
+.yazi-set-km-error {
+  padding: 3px 10px;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  color: var(--text-error);
+}
+
+/* 鍵位覆寫的狀態列：打字的當下就回答「我設對了嗎」。
+   只顯示錯誤是不夠的 —— 沒有錯誤訊息時，人分不出「設定成功」與「根本沒被讀到」。 */
+.yazi-set-km-status {
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: var(--font-ui-smaller);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+}
+
+.yazi-set-km-status.is-ok {
+  color: var(--text-success, var(--text-accent));
+}
+
+.yazi-set-km-status.is-warn {
+  color: var(--text-warning, var(--text-error));
+}
+
+.yazi-set-km-status.is-idle {
+  color: var(--text-faint);
+}
+
+/* 列裝飾的範例牆：每一格先畫出**成果**，再給一顆「加入」。
+   一排只有名字的按鈕看不出會發生什麼事，而這個功能的重點正是視覺結果。 */
+.yazi-set-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.yazi-set-gallery-item {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--background-primary);
+}
+
+.yazi-set-gallery-item .yazi-row {
+  background: var(--background-secondary);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.yazi-set-gallery-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yazi-set-gallery-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+}
+
+.yazi-set-gallery-foot button { flex: 0 0 auto; }
