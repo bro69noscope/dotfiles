@@ -28,9 +28,9 @@ FindUp(startDir, relPath) {
   }
 }
 
-ReadSharedLines(name) {
+ReadSharedLines(dir, fname) {
   lines := []
-  file := FindUp(ConfigDirName, "shared\" name)
+  file := FindUp(ConfigDirName, "shared\" dir "\" fname)
   if (file = "")
     return lines
 
@@ -42,10 +42,10 @@ ReadSharedLines(name) {
   return lines
 }
 
-WezTermPaths := ReadSharedLines("wezterm-paths.txt")
+WezTermPaths := ReadSharedLines("wezterm", "wezterm-paths.txt")
 
 WezTermTitles := Map()
-for line in ReadSharedLines("wezterm-titles.txt") {
+for line in ReadSharedLines("wezterm", "wezterm-titles.txt") {
   kv := StrSplit(line, "=", " `t", 2)
   WezTermTitles[kv[1]] := kv[2]
 }
