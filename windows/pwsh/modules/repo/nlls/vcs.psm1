@@ -66,3 +66,31 @@ function cfat {
   )
   Invoke-VcsTemplating -Direction From @PSBoundParameters
 }
+
+function Import-StreamingTemplatesModules {
+  if (-not $env:BRO_NLLS_REPO_PATH) {
+    throw "BRO_NLLS_REPO_PATH environment variable is not set"
+  }
+
+  $repo = $env:BRO_NLLS_REPO_PATH
+  $modules = @{
+    OBS = Join-Path $repo `
+      "external\obs\version-control\obs-templater.psm1"
+
+    StreamDeck = Join-Path $repo `
+      "external\streamdeck\version-control\streamdeck-templater.psm1"
+
+    StreamerBot = Join-Path $repo `
+      "external\streamerbot\version-control\streamerbot-templater.psm1"
+  }
+
+  foreach ($module in $modules.GetEnumerator()) {
+    if (-not (Test-Path $module.Value)) {
+      throw "$($module.Key) module not found at: $($module.Value)"
+    }
+
+    Import-Module $module.Value -Force -Global
+  }
+
+  Write-Host "Streaming tools loaded!" -ForegroundColor Green
+}

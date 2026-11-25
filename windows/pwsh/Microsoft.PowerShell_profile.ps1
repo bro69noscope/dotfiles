@@ -10,23 +10,27 @@ Write-Host ("`n" * $consoleHeight)
 # Registry-set vars are documented in windows\env\registry-env-vars.ps1
 # $PSScriptRoot is the symlink location here, so the dotfiles path is spelled out.
 # Files load in name order: streaming.ps1 needs paths.ps1.
-Get-ChildItem "$HOME\myfiles\dotfiles\windows\pwsh\env\*.ps1" | Sort-Object Name | ForEach-Object { . $_.FullName }
+Get-ChildItem "$HOME\myfiles\dotfiles\windows\pwsh\env\vars\*.ps1" |
+  Sort-Object Name | ForEach-Object { . $_.FullName }
 
 ## Modules
 Import-Module Terminal-Icons
 Import-Module posh-git
 
 ## Custom modules
-Import-Module "$env:DOTFILES_PATH\windows\pwsh\ProfileFunctions.psm1" -Force
-Import-Module "$env:DOTFILES_PATH\windows\pwsh\LocationHistory.psm1" -Force
-Import-Module "$env:DOTFILES_PATH\windows\pwsh\vcs-functions.psm1" -Force
+foreach (
+  $module in Get-ChildItem "$env:DOTFILES_PATH\windows\pwsh\modules" -Filter *.psm1 -Recurse) {
+  Import-Module $module.FullName -Force
+}
+
+# -> Modules external to dotfiles repo:
 Import-Module (
   Join-Path `
     $env:BRO_NLLS_REPO_PATH `
     "external\common\streaming-software\version-control\load-stream-modules.psm1"
 ) -Force
 
-# Imported functions aliases
+## Imported functions aliases
 # general
 Set-Alias -Name spp -Value Set-PythonPath
 Set-Alias -Name eme -Value Enter-MegaScriptEnvironment
@@ -146,7 +150,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+n -ScriptBlock {
 Set-PSReadLineOption -AddToHistoryHandler {
   param($line)
   if ($line -match "cmdkey.*pass:") {
-    return $false 
+    return $false
   }
   return $true
 }
@@ -161,7 +165,6 @@ $env:_PSFZF_FZF_DEFAULT_OPTS = '--layout=reverse --height=40% --preview-window=h
 #   -PSReadlineChordSetLocation 'Alt+c' `
 # Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
 
-. "$env:DOTFILES_PATH\windows\pwsh\PSfzfConfig.ps1"
 Register-SmartPsFzfHandlers -EnableLogging $true
 
 ## Starship
@@ -214,7 +217,7 @@ function Invoke-Starship-PreCommand {
   }
 }
 
-## Zoxide
+## Zoxide (must be last to load)
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Invoke-Expression (& {
     (zoxide init --cmd cd --hook pwd powershell) -join "`n"
