@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local nvim = require("nvim")
-local actions = require("actions")
+local actions = require("actions.misc")
+local equalize_pane_widths = require("actions.equalize_pane_widths")
 local workspace_switcher =
   wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
 
@@ -204,6 +205,7 @@ function M.apply_to_config(config)
       mods = "CTRL|SHIFT",
       action = wezterm.action.AdjustPaneSize({ "Down", 3 }),
     },
+    { key = "=", mods = "LEADER", action = equalize_pane_widths },
 
     -- Close panes
     {
