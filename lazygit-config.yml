@@ -46,6 +46,12 @@ keybinding:
     moveUpCommit: "<a-k>"
 
 customCommands:
+  - key: "<a-p>"
+    context: "files"
+    command: "git pull --rebase"
+    description: "Pull with rebase"
+    output: terminal
+
   - key: "<c-a>"
     context: "files"
     description: "AI commit message"
@@ -120,6 +126,12 @@ customCommands:
     context: "localBranches"
     description: "Compare current branch with selected branch"
     loadingText: "Comparing branches with Delta..."
+    output: terminal
+
+  - key: "<a-p>"
+    context: "localBranches"
+    command: "git pull --rebase"
+    description: "Pull with rebase"
     output: terminal
 
   - key: "I"
