@@ -1,0 +1,9 @@
+{
+  "files": [
+    "hotkeys.json"
+  ],
+  "vaultOnly": [
+    "plugins/yazi-explorer/local.json",
+    "plugins/yazi-explorer/text-index.json"
+  ]
+}
