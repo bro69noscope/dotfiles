@@ -156,16 +156,7 @@ Set-PSReadLineOption -AddToHistoryHandler {
 }
 
 ## Fzf options
-Import-Module PSFzf
-$env:_PSFZF_FZF_DEFAULT_OPTS = '--layout=reverse --height=40% --preview-window=hidden'
-
-# Set-PsFzfOption `
-#   -PSReadlineChordProvider 'Ctrl+t' `
-#   -PSReadlineChordReverseHistory 'Ctrl+r' `
-#   -PSReadlineChordSetLocation 'Alt+c' `
-# Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
-
-Register-SmartPsFzfHandlers -EnableLogging $true
+Initialize-PsFzf
 
 ## Starship
 $global:lastDirectory = (Get-Location).Path

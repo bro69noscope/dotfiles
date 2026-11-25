@@ -311,3 +311,15 @@ function Register-SmartPsFzfHandlers {
   }.GetNewClosure()
 }
 
+function Initialize-PsFzf {
+  Import-Module PSFzf -Global
+
+  # Set-PsFzfOption `
+  #   -PSReadlineChordProvider 'Ctrl+t' `
+  #   -PSReadlineChordReverseHistory 'Ctrl+r' `
+  #   -PSReadlineChordSetLocation 'Alt+c' `
+  # Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+
+  Register-SmartPsFzfHandlers -EnableLogging $true
+}
+
