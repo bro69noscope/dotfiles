@@ -1,4 +1,3 @@
-## Starship prompt
 # The starship prompt finds the Invoke-Starship-* hooks by name. They are global, not exported:
 # an exported name with two hyphens causes an import warning.
 $global:lastDirectory = (Get-Location).Path

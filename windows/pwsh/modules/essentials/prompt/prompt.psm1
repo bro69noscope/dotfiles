@@ -4,3 +4,4 @@ function Clear-AndPutPromptAtBottom {
   $consoleHeight = $host.UI.RawUI.WindowSize.Height
   Write-Host "$([char]27)[${consoleHeight}B" -NoNewline
 }
+
