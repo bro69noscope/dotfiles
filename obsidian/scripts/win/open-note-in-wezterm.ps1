@@ -1,6 +1,6 @@
 param([string]$Path)
 
-$titlesFile = "$PSScriptRoot\..\..\..\windows\shared\wezterm\wezterm-titles.txt"
+$titlesFile = "$PSScriptRoot\..\..\..\wezterm\wezterm-instance-titles.txt"
 $titles = Get-Content -Raw $titlesFile | ConvertFrom-StringData
 
 $proc = Get-Process wezterm-gui |

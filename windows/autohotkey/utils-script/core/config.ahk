@@ -28,9 +28,10 @@ FindUp(startDir, relPath) {
   }
 }
 
-ReadSharedLines(dir, fname) {
+; Returns the non-empty, non-comment (#) lines of the first <relPath> found above this dir
+ReadConfigLines(relPath) {
   lines := []
-  file := FindUp(ConfigDirName, "shared\" dir "\" fname)
+  file := FindUp(ConfigDirName, relPath)
   if (file = "")
     return lines
 
@@ -42,10 +43,10 @@ ReadSharedLines(dir, fname) {
   return lines
 }
 
-WezTermPaths := ReadSharedLines("wezterm", "wezterm-paths.txt")
+WezTermPaths := ReadConfigLines("shared\wezterm\wezterm-paths.txt")
 
 WezTermTitles := Map()
-for line in ReadSharedLines("wezterm", "wezterm-titles.txt") {
+for line in ReadConfigLines("wezterm\wezterm-instance-titles.txt") {
   kv := StrSplit(line, "=", " `t", 2)
   WezTermTitles[kv[1]] := kv[2]
 }
