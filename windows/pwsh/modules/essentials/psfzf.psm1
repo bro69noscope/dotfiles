@@ -290,22 +290,18 @@ function Register-SmartPsFzfHandlers {
     [bool]$EnableLogging = $true
   )
 
-  # Provider search (Ctrl+t)
   Set-PSReadLineKeyHandler -Key $PSReadlineChordProvider -ScriptBlock {
     Invoke-PatchedFzfProviderSearch -EnableLogging $EnableLogging
   }.GetNewClosure()
 
-  # Reverse history search (Ctrl+r)
   Set-PSReadLineKeyHandler -Key $PSReadlineChordReverseHistory -ScriptBlock {
     Invoke-PatchedFzfReverseHistorySearch -EnableLogging $EnableLogging
   }.GetNewClosure()
 
-  # Set location (Alt+c)
   Set-PSReadLineKeyHandler -Key $PSReadlineChordSetLocation -ScriptBlock {
     Invoke-PatchedFzfSetLocation -EnableLogging $EnableLogging
   }.GetNewClosure()
 
-  # Tab completion
   Set-PSReadLineKeyHandler -Key $TabCompletionKey -ScriptBlock {
     Invoke-PatchedFzfCompletion -EnableLogging $EnableLogging
   }.GetNewClosure()
@@ -313,6 +309,8 @@ function Register-SmartPsFzfHandlers {
 
 function Initialize-PsFzf {
   Import-Module PSFzf -Global
+
+  # Uncomment the following to change the default key bindings:
 
   # Set-PsFzfOption `
   #   -PSReadlineChordProvider 'Ctrl+t' `
