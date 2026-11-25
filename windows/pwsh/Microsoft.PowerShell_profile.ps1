@@ -158,58 +158,6 @@ Set-PSReadLineOption -AddToHistoryHandler {
 ## Fzf options
 Initialize-PsFzf
 
-## Starship
-$global:lastDirectory = (Get-Location).Path
-
-function Invoke-Starship-TransientFunction {
-  $currentDirectory = (Get-Location).Path
-
-  $time = &starship module time
-  $char = &starship module character
-
-  if ($global:lastDirectory -ne $currentDirectory) {
-    $dir = &starship module directory
-    $global:lastDirectory = $currentDirectory
-    return "`e[J`n$dir`n$time$char"
-  } else {
-    return "`e[J$time$char"
-  }
-}
-
-# Update directory tracking after each command
-function Invoke-Starship-PostCommand {
-  $global:lastDirectory = (Get-Location).Path
-}
-
-Invoke-Expression (&starship init powershell)
-Enable-TransientPrompt
-
-# OSC compatible prompt
-$prompt = ""
-function Invoke-Starship-PreCommand {
-  # Cursor shape
-  if ($global:_LastViMode -eq 'Command') {
-    Write-Host -NoNewLine "`e[0 q"
-  } else {
-    Write-Host -NoNewLine "`e[6 q"
-  }
-  # OSC
-  $current_location = $executionContext.SessionState.Path.CurrentLocation
-  if ($current_location.Provider.Name -eq "FileSystem") {
-    $ansi_escape = [char]27
-    $provider_path = $current_location.ProviderPath -replace "\\", "/"
-    $prompt = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}$ansi_escape\"
-  }
-  $host.ui.Write($prompt)
-  # Prompt positioning
-  if ($Host.UI.RawUI.WindowSize.Height -gt 40) {
-    Write-Host "`n`n`n`n" -NoNewline
-    Write-Host "$([char]27)[4A" -NoNewline
-  }
-}
-
-## Zoxide (must be last to load)
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
-Invoke-Expression (& {
-    (zoxide init --cmd cd --hook pwd powershell) -join "`n"
-  })
+## Prompt and zoxide (must load last, in this order: zoxide wraps the starship prompt)
+Initialize-Starship
+Initialize-Zoxide
