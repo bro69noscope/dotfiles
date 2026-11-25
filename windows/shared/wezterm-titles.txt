@@ -1,0 +1,4 @@
+# key = window title. Read by autohotkey core\config.ahk and obsidian\scripts\win
+primary = WezTerm - primary
+secondary = WezTerm - secondary
+tertiary = WezTerm - tertiary

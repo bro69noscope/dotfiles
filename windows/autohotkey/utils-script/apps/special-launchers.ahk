@@ -41,15 +41,16 @@ ActivatePyCharm() {
 }
 
 ActivateWezTermPrimary(activate := true) {
-  return ActivateWezTermTitled("WezTerm - primary", activate)
+  return ActivateWezTermTitled(WezTermTitles["primary"], activate)
 }
 
 ActivateWezTermSecondary(activate := true) {
-  return ActivateWezTermTitled("WezTerm - secondary", activate)
+  return ActivateWezTermTitled(WezTermTitles["secondary"], activate)
 }
 
 ActivateWezTermTertiary(activate := true) {
-  return ActivateWezTermTitled("WezTerm - tertiary", activate, onWezTermTertiaryStart)
+  return ActivateWezTermTitled(WezTermTitles["tertiary"], activate,
+    onWezTermTertiaryStart)
 }
 
 ActivateWezTermTitled(title, activate := true, onStart := "") {

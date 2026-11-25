@@ -1,7 +1,10 @@
 param([string]$Path)
 
+$titlesFile = "$PSScriptRoot\..\..\..\windows\shared\wezterm-titles.txt"
+$titles = Get-Content -Raw $titlesFile | ConvertFrom-StringData
+
 $proc = Get-Process wezterm-gui |
-  Where-Object { $_.MainWindowTitle -like '*WezTerm - primary*' } |
+  Where-Object { $_.MainWindowTitle -like "*$($titles.primary)*" } |
   Select-Object -First 1
 
 if (-not $proc) {

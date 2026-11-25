@@ -25,12 +25,13 @@ onWezTermTertiaryStart(hwnd := 0) {
     return
   }
 
-  guiHwnd := WinExist("WezTerm - tertiary ahk_exe wezterm-gui.exe")
+  title := WezTermTitles["tertiary"]
+  guiHwnd := WinExist(title " ahk_exe wezterm-gui.exe")
   cli := RegExReplace(WinGetProcessPath(guiHwnd), "[^\\]+$", "wezterm.exe")
 
   cmd := Format(
-    'pwsh -NoProfile -File "{}" -Wez "{}" -GuiPid {} -Title "WezTerm - tertiary"',
-    script, cli, WinGetPID(guiHwnd)
+    'pwsh -NoProfile -File "{}" -Wez "{}" -GuiPid {} -Title "{}"',
+    script, cli, WinGetPID(guiHwnd), title
   )
   Run(cmd)
 }

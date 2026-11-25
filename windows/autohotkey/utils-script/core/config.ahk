@@ -28,14 +28,24 @@ FindUp(startDir, relPath) {
   }
 }
 
-; located in dotfiles/windows
-pathsFile := FindUp(ConfigDirName, "shared\wezterm-paths.txt")
+ReadSharedLines(name) {
+  lines := []
+  file := FindUp(ConfigDirName, "shared\" name)
+  if (file = "")
+    return lines
 
-WezTermPaths := []
-if (pathsFile != "") {
-  Loop Read pathsFile {
+  Loop Read file {
     line := Trim(A_LoopReadLine)
     if (line != "" && SubStr(line, 1, 1) != "#")
-      WezTermPaths.Push(line)
+      lines.Push(line)
   }
+  return lines
+}
+
+WezTermPaths := ReadSharedLines("wezterm-paths.txt")
+
+WezTermTitles := Map()
+for line in ReadSharedLines("wezterm-titles.txt") {
+  kv := StrSplit(line, "=", " `t", 2)
+  WezTermTitles[kv[1]] := kv[2]
 }
