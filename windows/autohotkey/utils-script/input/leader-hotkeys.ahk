@@ -8,7 +8,6 @@ LeaderCommands := Map(
   ; `.,;` commands are just for more apps starting with the same letter
   ".d", ActivateAutoDuck,
   ",n", ActivateNotepad,
-  ".m", WriteMessageDontResendAllCode,
   ".n", ActivateOneNote,
   ".o", (*) => ActivateObsPortable(profile := "vcam"),
   ; regular single-letter commands

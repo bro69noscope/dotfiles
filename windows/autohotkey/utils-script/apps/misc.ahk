@@ -7,10 +7,6 @@ LaunchDeadLockMovementScript() {
   Run scriptPath
 }
 
-WriteMessageDontResendAllCode() {
-  SendText "only resend me the relevant code for this message"
-}
-
 ReplaceClipboardSlashes(direction := "/") {
   originalClip := ClipboardAll()
   ClipWait(1)
