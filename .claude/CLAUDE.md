@@ -18,3 +18,5 @@ I tend to use newlines to separate discernible code blocks: try to do the same.
 On a Windows machine, write the shell commands that I run myself (git included) in PowerShell 7
 (pwsh) syntax, not bash: `$X = ...` assignments, quoted revisions such as `"$P^1"` and
 `'HEAD^{tree}'`, and pwsh cmdlets instead of sed, awk or grep.
+
+When writing code, respect the current eol the file uses.
