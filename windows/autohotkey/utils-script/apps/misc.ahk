@@ -2,8 +2,8 @@
 A_MenuMaskKey := "vkFF"
 
 LaunchDeadLockMovementScript() {
-  scriptPath :=
-    "C:\Users\ville\myfiles\git-repos\deadlock-movement-tracker\deadlock-movement-tracker.ahk"
+  base := "C:\Users\ville\myfiles\git-repos\gaming\deadlock\"
+  scriptPath := base "deadlock-movement-tracker\DMT.ahk"
   Run scriptPath
 }
 
