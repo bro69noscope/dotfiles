@@ -6,38 +6,11 @@ Write-Host ("`n" * $consoleHeight)
 # $claudeApiKey = Get-Content -Path `
 #   "$HOME\myfiles\documents\api-keys\anthropic\loïc-onboarding-api-key.txt" -Raw
 
-$env:CLAUDE_CODE_HIDE_ACCOUNT_INFO=1
-
 ## Environment variables
-$env:PYTHONIOENCODING="utf-8"
-# $env:AVANTE_ANTHROPIC_API_KEY = $claudeApiKey.Trim() # scoped for avante nivm usage
-$env:YAZI_FILE_ONE = "$env:GIT_INSTALL_ROOT\usr\bin\file.exe"
-$env:MYFILES_PATH = "$HOME\myfiles"
-$env:DOTFILES_PATH = "$env:MYFILES_PATH\dotfiles"
-$env:STREAMING_DATA_PATH = "$env:MYFILES_PATH\streaming-data"
-$env:BRO_NLLS_REPO_PATH = "$env:MYFILES_PATH\git-repos\next-level-live-streaming"
-
-# These are set in registry (Get-ItemProperty -Path "HKCU:\Environment")
-# $env:NVIM_CONFIG_PATH = "$env:DOTFILES_PATH\nvim-config3.0"
-
-$env:STREAMER_BOT_PRODUCTION_PATH= Join-Path $env:MYFILES_PATH `
-  "streaming-programs\streamerbot-portable-production\Streamer.bot"
-
-$env:STREAMER_BOT_FTP_PATH= Join-Path $env:MYFILES_PATH `
-  "streaming-programs\streamerbot-portable-ftp\Streamer.bot"
-
-$env:OBS_STUDIO_PRODUCTION_CFG_PATH= "$env:APPDATA\obs-studio"
-
-$env:OBS_STUDIO_FTP_CFG_PATH= Join-Path $env:MYFILES_PATH `
-  "streaming-programs\obs-studio-portable-ftp\obs-studio\config\obs-studio"
-
-$env:OBS_STUDIO_VCAM_CFG_PATH= Join-Path $env:MYFILES_PATH `
-  "streaming-programs\obs-studio-portable-vcam\obs-studio\config\obs-studio"
-
-$env:STREAMDECK_CFG_PATH= "$env:APPDATA\Elgato\StreamDeck\ProfilesV3"
-
-## These are forwarded to WSL when using "wsl" from pwsh
-$env:WSLENV = "AVANTE_ANTHROPIC_API_KEY"
+# Registry-set vars are documented in windows\env\registry-env-vars.ps1
+# $PSScriptRoot is the symlink location here, so the dotfiles path is spelled out.
+# Files load in name order: streaming.ps1 needs paths.ps1.
+Get-ChildItem "$HOME\myfiles\dotfiles\windows\pwsh\env\*.ps1" | Sort-Object Name | ForEach-Object { . $_.FullName }
 
 ## Modules
 Import-Module Terminal-Icons

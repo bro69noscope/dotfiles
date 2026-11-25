@@ -155,6 +155,16 @@ function Edit-Profile {
   nvim $PROFILE
 }
 
+function Set-RegistryEnvVars {
+  $vars = & "$env:DOTFILES_PATH\windows\env\registry-env-vars.ps1"
+
+  foreach ($var in $vars.GetEnumerator()) {
+    [Environment]::SetEnvironmentVariable($var.Key, $var.Value, 'User')
+    Set-Item -Path "env:$($var.Key)" -Value $var.Value # current session too
+    Write-Host "$($var.Key) = $($var.Value)"
+  }
+}
+
 function Edit-WeztermProfile {
   nvim "$env:DOTFILES_PATH\wezterm\wezterm.lua"
 }
