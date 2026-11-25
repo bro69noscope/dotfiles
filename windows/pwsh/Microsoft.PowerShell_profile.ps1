@@ -36,7 +36,6 @@ Set-Alias -Name spp -Value Set-PythonPath
 Set-Alias -Name eme -Value Enter-MegaScriptEnvironment
 Set-Alias -Name cpath -Value Copy-PathToClipboard
 Set-Alias -Name dsize -Value Get-DirectorySize
-Set-Alias -Name lf -Value Invoke-Yazi
 Set-Alias -Name y -Value Invoke-Yazi
 Set-Alias -Name cpcode -Value Copy-FileContextRecursively
 Set-Alias -Name flw -Value followlink
@@ -50,19 +49,17 @@ Set-Alias -Name cfdt -Value ConvertFrom-StreamDeckTemplate
 Set-Alias -Name ctbt -Value ConvertTo-StreamerBotTemplate
 Set-Alias -Name cfbt -Value ConvertFrom-StreamerBotTemplate
 
-# configs
+# configs quick edit
 Set-Alias -Name rel -Value Update-Profile
 Set-Alias -Name cfg -Value Edit-Profile
 Set-Alias -Name wzcfg -Value Edit-WeztermProfile
 Set-Alias -Name lgcfg -Value Edit-LazygitConfig
 Set-Alias -Name gitcfg -Value Edit-GitConfig
-Set-Alias -Name kacfg -Value Edit-KanataConfig
 
 # navigation and file management
 Set-Alias -Name zz -Value Set-LastDirectory
-Set-Alias -Name linkstart -Value Set-SymlinkSource
-Set-Alias -Name linkend -Value Set-SymlinkTarget
-Set-Alias -Name clear -Value Clear-AndPutPromptAtBottom
+Set-Alias -Name lks -Value Set-SymlinkSource
+Set-Alias -Name lkt -Value Set-SymlinkTarget
 Set-Alias -Name fx -Value fcut
 Set-Alias -Name fcp -Value fcopy
 set-Alias -Name fp -Value fpaste
@@ -72,8 +69,6 @@ Set-Alias -Name vi -Value nvim
 Set-Alias -Name ex -Value explorer
 Set-Alias -Name d -Value dir
 Set-Alias -Name wh -Value where.exe
-Set-Alias -Name kan -Value kanata
-Set-Alias -Name zf -Value zi
 Set-Alias wezdev "C:\Users\ville\myfiles\git-repos\wezterm\target\release\wezterm.exe"
 Set-Alias -Name cc -Value claude
 
@@ -122,18 +117,21 @@ Remove-PSReadLineKeyHandler Ctrl+u
 Remove-PSReadLineKeyHandler Ctrl+y
 Remove-PSReadLineKeyHandler Ctrl+l
 
-Set-PSReadLineKeyHandler -Chord Ctrl+x -ScriptBlock {
-  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-  [Microsoft.PowerShell.PSConsoleReadLine]::Insert('clear')
-  [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
-}
-
 Set-PSReadLineKeyHandler -Key Ctrl+d -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
   [Microsoft.PowerShell.PSConsoleReadLine]::Insert('exit')
   [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
+# used with windows/pwsh/modules/essentials/prompt.psm1
+Set-Alias -Name clear -Value Clear-AndPutPromptAtBottom
+Set-PSReadLineKeyHandler -Chord Ctrl+x -ScriptBlock {
+  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+  [Microsoft.PowerShell.PSConsoleReadLine]::Insert('clear')
+  [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+}
+
+# used with windows/pwsh/modules/navigate/LocationHistory.psm1
 Set-PSReadLineKeyHandler -Key Ctrl+p -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
   [Microsoft.PowerShell.PSConsoleReadLine]::Insert('cdprev')

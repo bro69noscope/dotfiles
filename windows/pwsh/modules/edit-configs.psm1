@@ -32,10 +32,6 @@ function Edit-GitConfig {
   git config --global -e
 }
 
-function Edit-KanataConfig {
-  nvim "$env:DOTFILES_PATH\kanata.kbd"
-}
-
 # List all dot-sourced scripts in the current session
 function listdotsourced{
   (Get-History | Where-Object { $_.CommandLine -match '^\.\s+' }).CommandLine

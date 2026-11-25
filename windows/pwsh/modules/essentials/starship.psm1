@@ -47,6 +47,7 @@ function global:Invoke-Starship-PreCommand {
   }
 }
 
+# Load once from profile
 function Initialize-Starship {
   Invoke-Expression (&starship init powershell)
   Enable-TransientPrompt

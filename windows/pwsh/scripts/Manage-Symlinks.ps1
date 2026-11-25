@@ -60,11 +60,6 @@ $dotfilesConfig = @{
     "target" = "$HOME\.config\starship.toml"
   }
 
-  "Kanata config" = @{
-    "source"  = "$env:DOTFILES_PATH\kanata.kbd"
-    "target" = "$HOME\AppData\Roaming\kanata\kanata.kbd"
-  }
-
   "Claude keybinds" = @{
     "source"  = "$env:DOTFILES_PATH\.claude\keybindings.json"
     "target" = "$HOME\.claude\keybindings.json"
