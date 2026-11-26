@@ -19,6 +19,6 @@ config.max_fps = 144
 require("appearance").apply_to_config(config)
 require("tab_title").apply_to_config(config)
 require("tabs").apply_to_config(config)
-require("nvim.passthrough-keys").apply_to_config(config)
+require("keys").apply_to_config(config)
 
 return config

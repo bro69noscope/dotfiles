@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local nvim_keys = require("nvim.passthrough-keys")
-local wezmove = require("nvim.wezterm-move.wezmove")
+---@type WeztermMovePlugin
+local wezmove = wezterm.plugin.require("https://github.com/bro69noscope/wezterm-move.nvim")
 local actions = require("actions.misc")
 local equalize_pane_widths = require("actions.equalize_pane_widths")
 local workspace_switcher =
@@ -109,28 +110,6 @@ function M.apply_to_config(config)
     -- Pick tab
     { key = "T", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
 
-    -- Navigate between panes
-    {
-      key = "h",
-      mods = "CTRL",
-      action = wezmove.pane_nav("h", "Left"),
-    },
-    {
-      key = "j",
-      mods = "CTRL",
-      action = wezmove.pane_nav("j", "Down"),
-    },
-    {
-      key = "k",
-      mods = "CTRL",
-      action = wezmove.pane_nav("k", "Up"),
-    },
-    {
-      key = "l",
-      mods = "CTRL",
-      action = wezmove.pane_nav("l", "Right"),
-    },
-
     -- Split panes
     {
       key = "H",
@@ -216,6 +195,13 @@ function M.apply_to_config(config)
       action = "DisableDefaultAssignment",
     },
   }
+
+  wezmove.apply_to_config(config, {
+    keys = { Left = "h", Down = "j", Up = "k", Right = "l" },
+    mods = "CTRL",
+    change_maximized = false,
+    passthrough_vars = { "in_wsl" },
+  })
 
   -- Add tab movement keybindings
   for i = 1, 8 do
