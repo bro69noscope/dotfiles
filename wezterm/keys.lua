@@ -49,7 +49,7 @@ function M.apply_to_config(config)
       action = wezterm.action.ShowDebugOverlay,
     },
 
-    -- paste (see actions.paste for the disabled nvim/WSL-only guard)
+    -- paste from clipboard
     { key = "v", mods = "CTRL|SHIFT", action = actions.paste },
 
     -- alternative copy to clipboard
@@ -110,41 +110,21 @@ function M.apply_to_config(config)
     { key = "T", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
 
     -- Navigate between panes
-    -- {
-    --   key = "h",
-    --   mods = "CTRL|SHIFT",
-    --   action = wezterm.action.ActivatePaneDirection("Left"),
-    -- },
     {
       key = "h",
       mods = "CTRL",
       action = wezmove.pane_nav("h", "Left"),
     },
-    -- {
-    --   key = "j",
-    --   mods = "CTRL|SHIFT",
-    --   action = wezterm.action.ActivatePaneDirection("Down"),
-    -- },
     {
       key = "j",
       mods = "CTRL",
       action = wezmove.pane_nav("j", "Down"),
     },
-    -- {
-    --   key = "k",
-    --   mods = "CTRL|SHIFT",
-    --   action = wezterm.action.ActivatePaneDirection("Up"),
-    -- },
     {
       key = "k",
       mods = "CTRL",
       action = wezmove.pane_nav("k", "Up"),
     },
-    -- {
-    --   key = "l",
-    --   mods = "CTRL|SHIFT",
-    --   action = wezterm.action.ActivatePaneDirection("Right"),
-    -- },
     {
       key = "l",
       mods = "CTRL",

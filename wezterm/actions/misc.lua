@@ -33,16 +33,8 @@ M.presentation_zoom = wezterm.action_callback(function(win, pane)
   end
 end)
 
--- HACK: Only enable multiline pasting while in Windows nvim or WSL to prevent accidents. (C-V is
--- safe with pwsh right now and doesn't execute right away)
--- NOTE: disabled for now, limitis usability in yazi etc.
 M.paste = wezterm.action_callback(function(window, pane)
-  -- local vars = pane:get_user_vars() or {}
-  -- local in_Windows_nvim = vars.in_Windows_nvim
-  -- local in_wsl = vars.in_wsl
-  -- if in_Windows_nvim == "1" or in_wsl == "1" then
   window:perform_action(act.PasteFrom("Clipboard"), pane)
-  -- end
 end)
 
 M.rename_tab = act.PromptInputLine({
