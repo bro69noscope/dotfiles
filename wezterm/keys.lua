@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local nvim = require("nvim")
+local nvim_keys = require("nvim.passthrough-keys")
+local wezmove = require("nvim.wezterm-move.wezmove")
 local actions = require("actions.misc")
 local equalize_pane_widths = require("actions.equalize_pane_widths")
 local workspace_switcher =
@@ -55,7 +56,7 @@ function M.apply_to_config(config)
     {
       key = "Insert",
       mods = "CTRL",
-      action = nvim.passthrough("Insert", "CTRL", wezterm.action.CopyTo("Clipboard")),
+      action = nvim_keys.passthrough("Insert", "CTRL", wezterm.action.CopyTo("Clipboard")),
     },
 
     -- Emojis
@@ -87,19 +88,19 @@ function M.apply_to_config(config)
     {
       key = "k",
       mods = "CTRL|SHIFT",
-      action = nvim.ctrl_shift("k", wezterm.action.ScrollByLine(-1)),
+      action = nvim_keys.ctrl_shift("k", wezterm.action.ScrollByLine(-1)),
     },
     {
       key = "j",
       mods = "CTRL|SHIFT",
-      action = nvim.ctrl_shift("j", wezterm.action.ScrollByLine(1)),
+      action = nvim_keys.ctrl_shift("j", wezterm.action.ScrollByLine(1)),
     },
 
     -- Explict passthroughs required for nvim to receive these key events as <C-S-key>
     {
       key = "s",
       mods = "CTRL|SHIFT",
-      action = nvim.ctrl_shift("s"),
+      action = nvim_keys.ctrl_shift("s"),
     },
 
     -- Full screen
@@ -117,7 +118,7 @@ function M.apply_to_config(config)
     {
       key = "h",
       mods = "CTRL",
-      action = nvim.pane_nav("h", "Left"),
+      action = wezmove.pane_nav("h", "Left"),
     },
     -- {
     --   key = "j",
@@ -127,7 +128,7 @@ function M.apply_to_config(config)
     {
       key = "j",
       mods = "CTRL",
-      action = nvim.pane_nav("j", "Down"),
+      action = wezmove.pane_nav("j", "Down"),
     },
     -- {
     --   key = "k",
@@ -137,7 +138,7 @@ function M.apply_to_config(config)
     {
       key = "k",
       mods = "CTRL",
-      action = nvim.pane_nav("k", "Up"),
+      action = wezmove.pane_nav("k", "Up"),
     },
     -- {
     --   key = "l",
@@ -147,7 +148,7 @@ function M.apply_to_config(config)
     {
       key = "l",
       mods = "CTRL",
-      action = nvim.pane_nav("l", "Right"),
+      action = wezmove.pane_nav("l", "Right"),
     },
 
     -- Split panes
