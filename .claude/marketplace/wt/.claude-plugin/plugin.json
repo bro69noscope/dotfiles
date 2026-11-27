@@ -1,0 +1,4 @@
+{
+  "name": "wt",
+  "description": "Lock a session to a list of __llm_ git worktrees: /wt:in, /wt:new, /wt:add, /wt:list, /wt:suggest, /wt:out, /wt:off"
+}

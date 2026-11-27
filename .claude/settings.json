@@ -10,6 +10,17 @@
     "ANTHROPIC_CUSTOM_MODEL_OPTION_SUPPORTED_CAPABILITIES": "effort,max_effort,xhigh_effort,thinking,adaptive_thinking,interleaved_thinking"
   },
   "model": "caveman-auto[1m]",
+  "extraKnownMarketplaces": {
+    "dotfiles": {
+      "source": {
+        "source": "directory",
+        "path": "C:/Users/ville/myfiles/dotfiles/.claude/marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "wt@dotfiles": true
+  },
   "hooks": {
     "Stop": [
       {
@@ -53,28 +64,9 @@
             "timeout": 30
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/wt-guard.js\"",
-            "timeout": 10
-          }
-        ]
       }
     ],
     "PreToolUse": [
-      {
-        "matcher": "Edit|Write|NotebookEdit|Bash|PowerShell|EnterWorktree|ExitWorktree",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"C:/Users/ville/myfiles/dotfiles/.claude/hooks/wt-guard.js\"",
-            "timeout": 10
-          }
-        ]
-      },
       {
         "hooks": [
           {
