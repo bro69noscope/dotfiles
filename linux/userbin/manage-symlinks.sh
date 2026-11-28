@@ -97,10 +97,10 @@ declare -A SYMLINKS=(
   ["$DOTFILES_DIR/.gitconfig"]="$HOME/.gitconfig"
 
   # Application configs
-  ["$DOTFILES_DIR/lazygit-config.yml"]="$HOME/.config/lazygit/config.yml"
+  ["$DOTFILES_DIR/lazygit/lazygit-config.yml"]="$HOME/.config/lazygit/config.yml"
   ["$DOTFILES_DIR/linux/sship_custom_mnt_path_module.toml"]="$HOME/.config/sship_custom_mnt_path_module.toml"
   ["$DOTFILES_DIR/nvim-config3.0"]="$HOME/.config/nvim"
-  ["$DOTFILES_DIR/starship.toml"]="$HOME/.config/starship.toml"
+  ["$DOTFILES_DIR/starship/starship.toml"]="$HOME/.config/starship.toml"
 
   # User binaries
   ["$DOTFILES_DIR/linux/userbin/wsl-ssh-agent-relay.sh"]="$HOME/bin/wsl-ssh-agent-relay.sh"

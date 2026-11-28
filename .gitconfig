@@ -65,10 +65,10 @@ line-numbers-right-format = "{np:>4} "
   difftool = delta
 # Windows paths
 [includeIf "gitdir/i:C:/Users/"]
-    path = ~/myfiles/dotfiles/gitaliases.txt
+    path = ~/myfiles/dotfiles/git/gitaliases.txt
 # WSL/Linux paths
 [includeIf "gitdir:/home/"]
-    path = ~/dotfiles/gitaliases.txt
+    path = ~/dotfiles/git/gitaliases.txt
 [include]
 ; [difftool "bc"] ; Unused, but kept for reference
 ;   cmd = "C:/Users/ville/AppData/Local/Programs/Beyond Compare 5/BCompare.exe" "$LOCAL" "$REMOTE"

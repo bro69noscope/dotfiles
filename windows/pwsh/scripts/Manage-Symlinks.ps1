@@ -26,12 +26,12 @@ $dotfilesConfig = @{
   }
 
   "Lazygit config" = @{
-    "source" = "$env:DOTFILES_PATH\lazygit-config.yml"
+    "source" = "$env:DOTFILES_PATH\lazygit\lazygit-config.yml"
     "target" = "$HOME\AppData\Local\lazygit\config.yml"
   }
 
   "Alacritty config" = @{
-    "source" = "$env:DOTFILES_PATH\alacritty.toml"
+    "source" = "$env:DOTFILES_PATH\alacritty\alacritty.toml"
     "target" = "$HOME\AppData\Roaming\alacritty\alacritty.toml"
   }
 
@@ -56,7 +56,7 @@ $dotfilesConfig = @{
   }
 
   "Starship config" = @{
-    "source"  = "$env:DOTFILES_PATH\starship.toml"
+    "source"  = "$env:DOTFILES_PATH\starship\starship.toml"
     "target" = "$HOME\.config\starship.toml"
   }
 
